@@ -15,7 +15,7 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	private TimeBee tbee;
 //	private Bottle bottle;
 //	private Bar bar;
-//	private Honey honey;
+	private Honey honey;
 //	private ButterFly bf;
 	private Flower fw;
 	
@@ -31,7 +31,7 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		
 //		bottle = new Bottle();
 //		bar = new Bar();
-//		honey = new Honey();
+		honey = new Honey();
 //		bf = new ButterFly();
 		fw = new Flower();
 		
@@ -57,7 +57,10 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		Graphics g2 = bufImage.getGraphics();
 //		bg.draw(g2, this);
 		
+		
+		
 		fw.draw(g2, this);
+		honey.draw(g2, this);
 		g.drawImage(bufImage, 0, 0, this);
 	}
 	
