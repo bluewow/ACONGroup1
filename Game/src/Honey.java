@@ -19,7 +19,7 @@ public class Honey {
 		this.y = y;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/꿀 인덱스.png");
+		img = tk.getImage("res/꿀 인덱스(30X30).png");
 		
 	}
 	
