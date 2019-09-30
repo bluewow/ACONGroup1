@@ -1,6 +1,9 @@
 
+
+import java.awt.Frame;
+
 public class Program {
 	public static void main(String[] args) {
-		//수정수정12
+		Frame frame = new GameFrame();
 	}
 }
