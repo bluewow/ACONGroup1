@@ -10,15 +10,17 @@ public class Bottle {
 	private int y;
 	private int w;
 	private int h;
+	private int sh;
 	//인트수에 따라 인덱스 번호가 바뀌어.10점에 인덱스 +1
 	
 //	int h = sendHoney();
 	
 	public Bottle() {
-		x=480;
-		y=240;
+		x=540;
+		y=340;
 		w=165;
-		h=422;
+		h=380;
+		sh=422;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit(); //이미지 그리는 api
 		img = tk.getImage("res/꿑통 템플릿(165X422).png"); // 
@@ -26,10 +28,37 @@ public class Bottle {
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
-		int sx = imgIndex;
-		g2.drawImage(img, x, y, x+w, y+h, 0, 0, w*4, h*4, honeyBeeCanvas);
+		int sx = imgIndex*w;
+		g2.drawImage(img, x, y, x+w, y+h, 0+sx, 0, w*4+sx, sh*4, honeyBeeCanvas);
 	}
 	
-//	public void 
-	
+	public int getHoney() {
+		int honey =+ this.getHoney();
+		if(honey>10) {
+			imgIndex = 1;
+		} else if(honey>20) {
+			imgIndex = 2;
+		}  else if(honey>20) {
+			imgIndex = 2;
+		}  else if(honey>30) {
+			imgIndex = 3;
+		}  else if(honey>40) {
+			imgIndex = 4;
+		}  else if(honey>50) {
+			imgIndex = 5;
+		}  else if(honey>60) {
+			imgIndex = 6;
+		}  else if(honey>70) {
+			imgIndex = 7;
+		}  else if(honey>80) {
+			imgIndex = 8;
+		}  else if(honey>90) {
+			imgIndex = 9;
+		}  else if(honey>100) {
+			imgIndex = 10;
+			honey=100;
+		} 
+		return honey;
+	}
+
 }

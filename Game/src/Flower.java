@@ -15,8 +15,10 @@ public class Flower {
 	
 
 	public Flower() {
-		x =260;
-		y =380;
+		x =150;
+		y =330;
+		w =260;
+		h =380;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/꽃 전체(260X380).png");
@@ -24,7 +26,7 @@ public class Flower {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
 		// TODO Auto-generated method stub
-		g2.drawImage(img, 0, 0, x, y,
-				0, 0, x*4, y*4,honeybeecanvas);
+		g2.drawImage(img, x, y, x+w, y+h,
+				0, 0, w*4, h*4,honeybeecanvas);
 	}
 }

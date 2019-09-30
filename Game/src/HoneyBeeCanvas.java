@@ -8,31 +8,31 @@ import java.util.Timer;
 
 public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	
-//	private BackGround bg;
+	private BackGround bg;
 	private GameTimer t;
 	private Score s;
 	private Bee bee;
 	private TimeBee tbee;
-//	private Bottle bottle;
+	private Bottle bottle;
 //	private Bar bar;
 	private Honey honey;
-//	private ButterFly bf;
+	private Butterfly bf;
 	private Flower fw;
 	
 	
 	
 	
 	public HoneyBeeCanvas() {
-//		bg = new BackGround();
+		bg = new BackGround();
 		t = new GameTimer();
 		s = new Score();
 		bee = new Bee();
 		tbee = new TimeBee();
 		
-//		bottle = new Bottle();
+		bottle = new Bottle();
 //		bar = new Bar();
 		honey = new Honey();
-//		bf = new ButterFly();
+		bf = new Butterfly();
 		fw = new Flower();
 		
 		addKeyListener(this);
@@ -56,12 +56,13 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	public void paint(Graphics g) {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
-//		bg.draw(g2, this);
+		bg.draw(g2, this);
 		fw.draw(g2, this);
-		
+		bf.draw(g2, this);
 		t.draw(g2,this);
 		s.draw(g2, this);
 		tbee.draw(g2, this);
+		bottle.draw(g2, this);
 		
 	
 		honey.draw(g2, this);

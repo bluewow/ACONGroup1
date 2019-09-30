@@ -24,7 +24,7 @@ public class Butterfly {
 		h = 80;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/nabi.png");
+		img = tk.getImage("res/나비(122X96).png");
 
 	}
 
@@ -36,7 +36,7 @@ public class Butterfly {
 
 	}
 
-	public void draw(Graphics g, Butterfly bf) {
+	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
 		// g.drawImage(img, imglndex, vy, observer);
 		
 
