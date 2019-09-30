@@ -9,7 +9,7 @@ public class Butterfly {
 	private int y;
 	private int vx;
 	private int vy;
-//kkkk
+
 	private int w;
 	private int h;
 	private int speed;
