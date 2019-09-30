@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-public class Timer {
+public class GameTimer {
 	
 	private int x;
 	private int y;
@@ -13,7 +13,7 @@ public class Timer {
 	private Image img;
 	
 	
-	public Timer() {
+	public GameTimer() {
 		x = 45;
 		y = 85;
 		w = 486;
