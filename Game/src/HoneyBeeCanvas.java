@@ -10,7 +10,7 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 //	private BackGround bg;
 //	private Time t;
 //	private Score s;
-//	private Bee bee;
+	private Bee bee;
 //	private Bottle bottle;
 //	private Bar bar;
 //	private Honey honey;
@@ -24,7 +24,7 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 //		bg = new BackGround();
 //		t = new Time();
 //		s = new Score();
-//		bee = new Bee();
+		bee = new Bee();
 //		bottle = new Bottle();
 //		bar = new Bar();
 //		honey = new Honey();
