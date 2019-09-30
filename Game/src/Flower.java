@@ -19,7 +19,7 @@ public class Flower {
 		y =380;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/²É ÀüÃ¼(260X380).png");
+		img = tk.getImage("res/ê½ƒ ì „ì²´(260X380).png");
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
