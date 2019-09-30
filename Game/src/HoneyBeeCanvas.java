@@ -8,9 +8,10 @@ import java.sql.Time;
 public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	
 //	private BackGround bg;
-//	private Time t;
-//	private Score s;
+	private Timer t;
+	private Score s;
 	private Bee bee;
+	private TimeBee tbee;
 //	private Bottle bottle;
 //	private Bar bar;
 //	private Honey honey;
@@ -22,9 +23,11 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	
 	public HoneyBeeCanvas() {
 //		bg = new BackGround();
-//		t = new Time();
-//		s = new Score();
+		t = new Timer();
+		s = new Score();
 		bee = new Bee();
+		tbee = new TimeBee();
+		
 //		bottle = new Bottle();
 //		bar = new Bar();
 //		honey = new Honey();
