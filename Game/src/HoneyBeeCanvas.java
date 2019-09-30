@@ -9,7 +9,7 @@ import java.util.Timer;
 public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	
 //	private BackGround bg;
-	private Timer t;
+	private GameTimer t;
 	private Score s;
 	private Bee bee;
 	private TimeBee tbee;
@@ -24,7 +24,7 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	
 	public HoneyBeeCanvas() {
 //		bg = new BackGround();
-		t = new Timer();
+		t = new GameTimer();
 		s = new Score();
 		bee = new Bee();
 		tbee = new TimeBee();
@@ -41,7 +41,8 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 			while (true) {
 				try {
 //					bg.update();
-					
+					tbee.update();
+
 					Thread.sleep(17);
 				} catch(InterruptedException e) {
 					e.printStackTrace();
@@ -56,10 +57,13 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 //		bg.draw(g2, this);
-		
-		
-		
 		fw.draw(g2, this);
+		
+		t.draw(g2,this);
+		s.draw(g2, this);
+		tbee.draw(g2, this);
+		
+	
 		honey.draw(g2, this);
 		g.drawImage(bufImage, 0, 0, this);
 	}
