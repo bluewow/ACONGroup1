@@ -18,7 +18,7 @@ public class TimeBee {
 		w = 40;
 		h = 27;
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/타이머용벌.png");
+		img = tk.getImage("res/timerBee.png");
 		sc = (int)System.currentTimeMillis();
 		
 	}

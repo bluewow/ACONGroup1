@@ -24,7 +24,7 @@ public class Butterfly {
 		h = 96;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/나비(122X96).png");
+		img = tk.getImage("res/butterfly(122X96).png");
 
 	}
 

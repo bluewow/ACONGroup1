@@ -7,7 +7,7 @@ public class BackGround {
 	
 	public BackGround() {
 		Toolkit tk = Toolkit.getDefaultToolkit(); //이미지 그리는 api
-		img = tk.getImage("res/배경 낮.png"); // 
+		img = tk.getImage("res/backGroundDay.png"); // 
 		
 	}
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {

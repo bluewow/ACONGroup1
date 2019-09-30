@@ -11,10 +11,7 @@ public class Bottle {
 	private int w;
 	private int h;
 	private int sh;
-	//인트수에 따라 인덱스 번호가 바뀌어.10점에 인덱스 +1
-	
-//	int h = sendHoney();
-	
+
 	public Bottle() {
 		x=540;
 		y=340;
@@ -22,8 +19,8 @@ public class Bottle {
 		h=380;
 		sh=422;
 		
-		Toolkit tk = Toolkit.getDefaultToolkit(); //이미지 그리는 api
-		img = tk.getImage("res/꿑통 템플릿(165X422).png"); // 
+		Toolkit tk = Toolkit.getDefaultToolkit(); 
+		img = tk.getImage("res/bottle(165X422).png");
 		imgIndex = 0;
 	}
 

@@ -21,7 +21,7 @@ public class Flower {
 		h =380;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/꽃 전체(260X380).png");
+		img = tk.getImage("res/flowerAll(260X380).png");
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {

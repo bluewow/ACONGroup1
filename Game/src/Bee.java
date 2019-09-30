@@ -16,7 +16,7 @@ public class Bee {
 		w = 176;
 		h = 136;
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/벌(176X136).png");
+		img = tk.getImage("res/bee(176X136).png");
 	}
 	
 	public void getHoney() {
