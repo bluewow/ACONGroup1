@@ -19,28 +19,23 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 	private Butterfly bf;
 	private Flower fw;
 	
-	
-	
-	
 	public HoneyBeeCanvas() {
 		bg = new BackGround();
+		bottle = new Bottle();
+		fw = new Flower();
 		t = new GameTimer();
 		s = new Score();
-		bee = new Bee();
 		tbee = new TimeBee();
-		
-		bottle = new Bottle();
 //		bar = new Bar();
 		honey = new Honey();
+		bee = new Bee();
 		bf = new Butterfly();
-		fw = new Flower();
 		
 		addKeyListener(this);
 		
 		new Thread(() ->  {
 			while (true) {
 				try {
-//					bg.update();
 					tbee.update();
 
 					Thread.sleep(17);
@@ -57,15 +52,14 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 		bg.draw(g2, this);
+		bottle.draw(g2, this);
 		fw.draw(g2, this);
+		honey.draw(g2, this);
+		bee.draw(g2, this);
 		bf.draw(g2, this);
 		t.draw(g2,this);
 		s.draw(g2, this);
 		tbee.draw(g2, this);
-		bottle.draw(g2, this);
-		
-	
-		honey.draw(g2, this);
 		g.drawImage(bufImage, 0, 0, this);
 	}
 	
@@ -74,25 +68,17 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		paint(g);
 	}
 
-
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		switch (e.getKeyCode()) {
+		case KeyEvent.VK_SPACE:
+			//여기에 스페이스 누르면 명령 입력
+		}	
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
+	public void keyReleased(KeyEvent e) { }
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) { }
 }

@@ -19,9 +19,9 @@ public class Butterfly {
 	public Butterfly() {
 		speed = 3;
 		x = 150;
-		y = 150;
-		w = 80;
-		h = 80;
+		y = 250;
+		w = 122;
+		h = 96;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/나비(122X96).png");
@@ -36,8 +36,8 @@ public class Butterfly {
 
 	}
 
-	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
-		// g.drawImage(img, imglndex, vy, observer);
+	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
+		g2.drawImage(img, x, y, x+w, y+h, 0, 0, w*4, h*4, honeyBeeCanvas);
 		
 
 	}

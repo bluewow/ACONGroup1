@@ -11,8 +11,8 @@ public class Bee {
 	
 	
 	public Bee() {
-		xPos = 400;
-		yPos = 400;
+		xPos = 540;
+		yPos = 240;
 		w = 176;
 		h = 136;
 		Toolkit tk = Toolkit.getDefaultToolkit();
