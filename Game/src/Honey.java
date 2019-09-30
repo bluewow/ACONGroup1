@@ -6,17 +6,22 @@ import java.awt.Toolkit;
 
 public class Honey {
 
-	int x;
-	int y;
+	private int x;
+	private int y;
+	private int w ;
+	private int h ;
+	
 	
 	private int imgIndex;
 	
 	private Image img;
 	
-	public Honey(int x, int y) {
+	public Honey() {
 		
-		this.x = x;
-		this.y = y;
+		x =45;
+		y =45;
+		w =15;
+		h =15;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/꿀 인덱스(30X30).png");
@@ -25,7 +30,7 @@ public class Honey {
 	
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
 		g.drawImage(img, 
-						x, y, 30, 30, //ȭ����ǥ
+				 x, y, x+w, y+h, //ȭ����ǥ
 					   480, 0, 600, 120, // �̹�����ǥ
 					   honeyBeeCanvas);
 		
