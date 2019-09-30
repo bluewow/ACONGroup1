@@ -17,7 +17,7 @@ public class GameWindowListener implements WindowListener {
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
+		System.exit(0);
 
 	}
 
