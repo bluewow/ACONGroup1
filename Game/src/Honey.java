@@ -13,8 +13,8 @@ public class Honey {
 	private int y;
 	
 	
-
-	int timer;
+	private int sx;
+	private int timer;
 	private int imageIndex;	
 	private Image img;
 	
@@ -22,11 +22,14 @@ public class Honey {
 
 		this.x = x;
 		this.y = y;
+		
 		w =15;
 		h =15;
 
 		timer = 0;
 		imageIndex = 4;
+		
+		sx = imageIndex*w;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 
@@ -47,16 +50,18 @@ public class Honey {
 			   honeyBeeCanvas);	
 	}
 		
+	public void update() {
 
-//	public void update() {
-//		timer++;
-//		if (timer >= 300 /*  60*5초  */) {
-//			imagex += xWidth;
-//			if (imagex == 600) {
-//				imagex = 0;
-//			}
-//			timer = 0;
-//		}
-//	}
+		timer++;
+		if (timer >= 300 /*  60*5초  */) {
+			sx += w;
+			if (sx == 75) {
+				sx = 0;
+			}
+			timer = 0;
+		}
+		
+	}
+
 
 }
