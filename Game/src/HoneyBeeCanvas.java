@@ -1,6 +1,7 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -38,6 +39,16 @@ public class HoneyBeeCanvas extends Canvas {
 		posCnt=0;
 		
 		bee.move(340, 0);
+		
+		bee.addBeeListener(new BeeListener() {
+			
+			@Override
+			public void arrived() {
+				Point p = new Point();
+				p.x = 9;
+				System.out.println("TEST");
+			}
+		});
 		
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -102,7 +113,7 @@ public class HoneyBeeCanvas extends Canvas {
 				try {
 					tbee.update();
 					bee.update();
-
+					end();
 					
 					for(Bar b : bar)
                 		b.update();
