@@ -37,6 +37,8 @@ public class HoneyBeeCanvas extends Canvas {
 		bf = new Butterfly();
 		posCnt=0;
 		
+		bee.move(340, 0);
+		
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -99,8 +101,8 @@ public class HoneyBeeCanvas extends Canvas {
 			while (true) {
 				try {
 					tbee.update();
-					if (tbee.getX()==50)
-						end();
+					bee.update();
+
 					
 					for(Bar b : bar)
                 		b.update();
