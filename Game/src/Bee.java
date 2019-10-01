@@ -15,8 +15,8 @@ public class Bee {
 	private int w;
 	private int h;
 	Point[] leg;
-	private static final int MARGIN_W = 88;
-	private static final int MARGIN_H = 68;
+	private static final int MARGIN_W = 78;
+	private static final int MARGIN_H = 76;
 	
 	private Image img;
 	private List<Honey> honey = new ArrayList<>();
@@ -71,7 +71,9 @@ public class Bee {
 					0, 0, w, h, honeyBeeCanvas);
 		
 		//for check
-		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
+		g2.drawRect(dx, dy, 3, 3);
+		g2.drawRect(xPos, yPos, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
 		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
 		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
 		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
