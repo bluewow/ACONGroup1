@@ -23,6 +23,9 @@ public class TimeBee {
 		
 	}
 
+	public int getX() {
+		return x;
+	}
 	public void draw(Graphics g, HoneyBeeCanvas canvas) {
 		g.drawImage(img, x,y,w,h,canvas);
 		
