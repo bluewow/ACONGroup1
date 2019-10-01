@@ -43,20 +43,17 @@ public class HoneyBeeCanvas extends Canvas {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					
-					if(posCnt==0) { 
-					bar[0].setActivation(false);
-					xPos = bar[0].getPos();
-					bar[1].setActivation(true);
-					posCnt++;
+					if(posCnt == 0) { 
+						bar[0].setActivation(false);
+						xPos = bar[0].getPos();
+						bar[1].setActivation(true);
+						posCnt++;
 					} else {
-					bar[1].setActivation(false);
-					yPos = bar[1].getPos();
-//					bar[0].setActivation(true);
-					posCnt--;
-					
+						bar[1].setActivation(false);
+						yPos = bar[1].getPos();
+						bar[0].setActivation(true);
+						posCnt--;
 					}
-					
-					
 				}
 			}
 		});
