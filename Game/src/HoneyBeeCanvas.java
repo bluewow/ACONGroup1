@@ -19,7 +19,9 @@ public class HoneyBeeCanvas extends Canvas {
 	private Butterfly bf;
 	private Flower fw;
     private boolean running;
-
+    private int xPos;
+    private int yPos;
+    private int posCnt;
 	
     public HoneyBeeCanvas() {
 		bg = new BackGround();
@@ -29,7 +31,7 @@ public class HoneyBeeCanvas extends Canvas {
 		s = new Score();
 		tbee = new TimeBee();
 		honey = new Honey[10][10];
-
+		posCnt = 0;
 		bar = new Bar[2];
 
 		bar[0] = new Bar(150, 700, true, true);
@@ -46,9 +48,25 @@ public class HoneyBeeCanvas extends Canvas {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					// 여기에 스페이스 누르면 명령 입력
+					if(posCnt==0) {
+						bar[0].setActivation(false);
+						xPos = bar[0].getPos();
+						bar[1].setActivation(true);
+						posCnt++;
+					} else {
+						bar[1].setActivation(false);
+						yPos = bar[1].getPos();
+						bar[0].setActivation(true);
+						posCnt--;
+						System.out.println(xPos);
+						System.out.println(yPos);
+						bee.move(xPos, yPos);
+					}
 				}
 			}
 		});
+		
+
 	}
 
 	@Override
@@ -89,6 +107,7 @@ public class HoneyBeeCanvas extends Canvas {
 			while (running) {
 				try {
 					tbee.update();
+					bee.update();
 
 					if (tbee.getX() == 50)
 						end();	
