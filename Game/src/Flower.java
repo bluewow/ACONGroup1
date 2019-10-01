@@ -46,7 +46,7 @@ public class Flower {
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
 				honeies[i][j] = new Honey(hx + z*15, hy);
-			    System.out.printf("%d,%d\n",i,j);
+//			    System.out.printf("%d,%d\n",i,j);
 				hx += 15;
 			}
 			hx = x + 47;
