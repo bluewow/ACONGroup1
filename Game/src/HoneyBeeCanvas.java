@@ -19,6 +19,7 @@ public class HoneyBeeCanvas extends Canvas {
 	private Flower fw;
 	private int xPos;
 	private int yPos;
+	private int posCnt;
 	
 	public HoneyBeeCanvas() {
 		bg = new BackGround();
@@ -34,16 +35,28 @@ public class HoneyBeeCanvas extends Canvas {
 		bar[1] = new Bar(70, 330, false, false);
 		bee = new Bee();
 		bf = new Butterfly();
+		posCnt=0;
 		
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
-					//여기에 스페이스 누르면 명령 입력
 					
+					if(posCnt==0) { 
+					bar[0].setActivation(false);
 					xPos = bar[0].getPos();
-					yPos = bar[1].getPos();	
+					bar[1].setActivation(true);
+					posCnt++;
+					} else {
+					bar[1].setActivation(false);
+					yPos = bar[1].getPos();
+//					bar[0].setActivation(true);
+					posCnt--;
+					
+					}
+					
+					
 				}
 			}
 		});
