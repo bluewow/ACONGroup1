@@ -26,7 +26,7 @@ public class Bottle {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		int sx = imgIndex*w;
-		g2.drawImage(img, x, y, x+w, y+h, 0+sx, 0, w*4+sx, sh*4, honeyBeeCanvas);
+		g2.drawImage(img, x, y, x+w, y+h, 0+sx, 0, w+sx, sh, honeyBeeCanvas);
 	}
 	
 	public int getHoney() {

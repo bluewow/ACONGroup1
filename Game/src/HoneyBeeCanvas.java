@@ -20,6 +20,8 @@ public class HoneyBeeCanvas extends Canvas {
 	private Bar[] bar;
 	private Butterfly bf;
 	private Flower fw;
+	private int xPos;
+	private int yPos;
 	
 	public HoneyBeeCanvas() {
 		bg = new BackGround();
@@ -42,9 +44,13 @@ public class HoneyBeeCanvas extends Canvas {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					//여기에 스페이스 누르면 명령 입력
-				}	
+				}
+				xPos = bar[0].getPos();
+				yPos = bar[1].getPos();	
 			}
 		});
+		
+		
 	}
 	
 	
