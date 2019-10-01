@@ -42,7 +42,15 @@ public class HoneyBeeCanvas extends Canvas {
 		bf = new Butterfly();
 
 		running = false;
-
+		
+		bee.addBeeListener(new Bee.BeeListener() {
+			
+			@Override
+			public void arrived(Point[] leg) {
+				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
+			}
+		}); 
+			
 		
 		addKeyListener(new KeyAdapter() {
 			@Override

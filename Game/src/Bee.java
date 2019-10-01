@@ -1,21 +1,20 @@
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Bee {
 	private int xPos;
 	private int yPos;
 	private int dx;
 	private int dy;
-//	private int[] xLeg = { 17, 28, 60, 71, 107, 115};
-//	private int[] yLeg = { 119, 122, 134, 132, 131, 130};
 	private int vx;
 	private int vy;
 	private int w;
 	private int h;
+	Point[] leg;
 	private static final int MARGIN_W = 88;
 	private static final int MARGIN_H = 68;
 	
@@ -23,6 +22,10 @@ public class Bee {
 	private List<Honey> honey = new ArrayList<>();
 	private BeeListener listener;
 	
+	public interface BeeListener {
+		void arrived(Point[] honey);
+	}
+
 	public void addBeeListener(BeeListener listener) {
 		this.listener = listener;
 	}
@@ -32,13 +35,11 @@ public class Bee {
 		yPos = 240;
 		w = 176;
 		h = 136;
+		leg = new Point[6];
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
 	}
 
-	// 1 목적지까지
-	// 2 채취
-	// 3.돌아오기
 	public void move(int x, int y) {
 
 		dx = x;
@@ -70,13 +71,13 @@ public class Bee {
 					0, 0, w, h, honeyBeeCanvas);
 		
 		//for check
-//		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
+		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
+		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
 		
 	}
 
@@ -90,10 +91,37 @@ public class Bee {
 			vx = 0;
 
 		if(dx == xPos && dy == yPos) {
-			if(listener != null )
-				listener.arrived();
+			if(listener != null ) {
+				for(int i = 0; i < leg.length; i++)
+					leg[i] = new Point();
+				
+				passBeeLegPoint(leg);
+				listener.arrived(leg);
+			}
+			
 			dx = 0;
 			dy = 0;
 		}
+	}
+
+	private void passBeeLegPoint(Point[] honey) {
+		honey[0].x = xPos - MARGIN_W + 16;
+		honey[0].y = yPos - MARGIN_H + 118;
+		
+		honey[1].x = xPos - MARGIN_W + 27;
+		honey[1].y = yPos - MARGIN_H + 121;
+		
+		honey[2].x = xPos - MARGIN_W + 59;
+		honey[2].y = yPos - MARGIN_H + 133;
+		
+		honey[3].x = xPos - MARGIN_W + 71;
+		honey[3].y = yPos - MARGIN_H + 131;
+		
+		honey[4].x = xPos - MARGIN_W + 107;
+		honey[4].y = yPos - MARGIN_H + 130;
+		
+		honey[5].x = xPos - MARGIN_W + 114;
+		honey[5].y = yPos - MARGIN_H + 129;
+		
 	}
 }
