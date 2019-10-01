@@ -19,14 +19,14 @@ public class Honey {
 		this.y = y;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/²Ü ÀÎµ¦½º.png");
+		img = tk.getImage("res/ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½.png");
 		
 	}
 	
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
 		g.drawImage(img, 
-						x, y, 30, 30, //È­¸éÁÂÇ¥
-					   480, 0, 600, 120, // ÀÌ¹ÌÁöÁÂÇ¥
+						x, y, 30, 30, 
+					   480, 0, 600, 120, 
 					   honeyBeeCanvas);
 		
 		
