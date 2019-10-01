@@ -29,7 +29,7 @@ public class TimeBee {
 	}
 
 	public void update() {
-		System.out.println(((int)System.currentTimeMillis()-sc)/1000);
+//		System.out.println(((int)System.currentTimeMillis()-sc)/1000);
 		x = 470- (((int)System.currentTimeMillis()-sc)/1000)*7;
 		if(((int)System.currentTimeMillis()-sc)/1000>=60)
 			x = 50;
