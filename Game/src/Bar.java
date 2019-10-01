@@ -2,7 +2,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-// @author : naram kim
+/* 
+ * @author : naram kim
+ */
 public class Bar {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();;
 	private Image img;			// Get Bee image file
