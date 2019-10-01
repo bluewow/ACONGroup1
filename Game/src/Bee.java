@@ -8,11 +8,12 @@ import java.util.Map;
 public class Bee {
 	private int xPos;
 	private int yPos;
-	private int xPosDest;
-	private int yposDest;
+	private int dx;
+	private int dy;
 //	private int[] xLeg = { 17, 28, 60, 71, 107, 115};
 //	private int[] yLeg = { 119, 122, 134, 132, 131, 130};
-	private float speed;
+	private int vx;
+	private int vy;
 	private int w;
 	private int h;
 	private static final int MARGIN_W = 88;
@@ -31,23 +32,34 @@ public class Bee {
 		yPos = 240;
 		w = 176;
 		h = 136;
-		speed = 1.0f;
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
 	}
-	
+
+	// 1 목적지까지
+	// 2 채취
+	// 3.돌아오기
 	public void move(int x, int y) {
-		//1 목적지까지
-		xPosDest = x;
-		yposDest = y;
+
+		dx = x;
+		dy = y;
 		
-		//2 채취
+		float w = dx - this.xPos;
+		float h = dy - this.yPos;
+		float d = (float)Math.sqrt(w * w + h * h);
+		vx = (int) ((w / d) * 3);
+		if(vx > 0)
+			vx = 1;
+		else 
+			vx = -1;
 		
-		
-		//3.돌아오기
+		vy = (int) ((h / d) * 3);
+		if(vy > 0)
+			vy = 1;
+		else
+			vy = -1;
 	}
 	
-
 	public int sendHoney() {
 
 		return 0;
@@ -58,25 +70,30 @@ public class Bee {
 					0, 0, w, h, honeyBeeCanvas);
 		
 		//for check
-		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
+//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
 		
 	}
 
 	public void update() {
-		xPos -= speed;
-		yPos += speed;
+		xPos += vx;
+		yPos += vy;
+		
+		if(yPos == dy)
+			vy = 0;
+		if(xPos == dx)
+			vx = 0;
 
-		if(xPos == xPosDest) {
-			speed = 0;
-			xPosDest = 0;
-			if(listener != null)
+		if(dx == xPos && dy == yPos) {
+			if(listener != null )
 				listener.arrived();
+			dx = 0;
+			dy = 0;
 		}
 	}
 }

@@ -38,7 +38,7 @@ public class HoneyBeeCanvas extends Canvas {
 		bf = new Butterfly();
 		posCnt=0;
 		
-		bee.move(340, 0);
+		bee.move(270, 400);
 		
 		bee.addBeeListener(new BeeListener() {
 			
