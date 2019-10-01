@@ -15,8 +15,9 @@ public class HoneyBeeCanvas extends Canvas {
 	private Bee bee;
 	private TimeBee tbee;
 	private Bottle bottle;
+
+	private Honey[][] honey;
 	private Bar[] bar;
-	private Honey honey;
 	private Butterfly bf;
 	private Flower fw;
 	
@@ -27,10 +28,11 @@ public class HoneyBeeCanvas extends Canvas {
 		t = new GameTimer();
 		s = new Score();
 		tbee = new TimeBee();
+		honey = new Honey[10][10];
+
 		bar = new Bar[2];
 		bar[0] = new Bar(150, 700, true);
 		bar[1] = new Bar(70, 330, false);
-		honey = new Honey();
 		bee = new Bee();
 		bf = new Butterfly();
 		
@@ -43,8 +45,8 @@ public class HoneyBeeCanvas extends Canvas {
 				}	
 			}
 		});
-		
 	}
+	
 	
 	@Override
 	public void update(Graphics g) {
@@ -63,8 +65,6 @@ public class HoneyBeeCanvas extends Canvas {
 		
 		for(Bar b : bar)
 			b.draw(g2,this);
-		
-		honey.draw(g2, this);
 		
 		bee.draw(g2, this);
 		
