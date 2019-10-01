@@ -13,14 +13,17 @@ public class Bar {
 	private int height;
 	private boolean horizontal; // Bar Horizontal(default) and vertical
 
+	// Bar default Constructor
 	public Bar() {
 		this(100, 600, 1, true);
 	}
-
+	
+	// Bar constructor with x, y position and direction
 	public Bar(int x, int y, boolean horizontal) {
 		this(x, y, 1, horizontal);
 	}
 
+	// Bar constructor with x, y position, bee Vector, direction
 	public Bar(int x, int y, int vector, boolean horizontal) {
 		this.x = x;
 		this.y = y;
@@ -43,7 +46,7 @@ public class Bar {
 		bee.move();
 	}
 
-	public void draw(Graphics g, BeeCanvas canvas) {
+	public void draw(Graphics g, HoneyBeeCanvas canvas) {
 		g.drawImage(img, x, y, width, height, canvas);
 
 		bee.draw(g, canvas);		

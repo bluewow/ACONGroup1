@@ -35,7 +35,7 @@ public class BarBee {
 		}
 	}
 
-	protected void draw(Graphics g, BeeCanvas canvas) {
+	protected void draw(Graphics g, HoneyBeeCanvas canvas) {
 		if (horizontal)
 			g.drawImage(img, x, by, width, height, canvas);
 		else
