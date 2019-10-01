@@ -33,18 +33,6 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 		
 		addKeyListener(this);
 		
-		new Thread(() ->  {
-			while (true) {
-				try {
-					tbee.update();
-
-					Thread.sleep(17);
-				} catch(InterruptedException e) {
-					e.printStackTrace();
-				}
-				repaint();
-			}
-		}).start();
 	}
 
 	@Override
@@ -81,4 +69,20 @@ public class HoneyBeeCanvas extends Canvas implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) { }
+
+	public void start() {
+		new Thread(() ->  {
+			while (true) {
+				try {
+					tbee.update();
+
+					Thread.sleep(17);
+				} catch(InterruptedException e) {
+					e.printStackTrace();
+				}
+				repaint();
+			}
+		}).start();
+		
+	}
 }
