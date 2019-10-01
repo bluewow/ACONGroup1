@@ -90,6 +90,7 @@ public class HoneyBeeCanvas extends Canvas {
 			while (true) {
 				try {
 					tbee.update();
+					end();
 					
 					for(Bar b : bar)
                 		b.update();
@@ -102,5 +103,10 @@ public class HoneyBeeCanvas extends Canvas {
 			}
 		}).start();
 		
+	}
+	
+	public void end() {
+		if (tbee.getX()==50)
+		GameFrame.getInstance().endChange();
 	}
 }
