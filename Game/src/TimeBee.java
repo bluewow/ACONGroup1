@@ -18,7 +18,7 @@ public class TimeBee {
 		w = 40;
 		h = 27;
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/Å¸ÀÌ¸Ó¿ë¹ú.png");
+		img = tk.getImage("res/timerBee.png");
 		sc = (int)System.currentTimeMillis();
 		
 	}
@@ -30,7 +30,7 @@ public class TimeBee {
 
 	public void update() {
 		System.out.println(((int)System.currentTimeMillis()-sc)/1000);
-		x = 485- (((int)System.currentTimeMillis()-sc)/1000)*7;
+		x = 470- (((int)System.currentTimeMillis()-sc)/1000)*7;
 		if(((int)System.currentTimeMillis()-sc)/1000>=60)
 			x = 50;
 		
