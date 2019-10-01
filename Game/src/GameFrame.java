@@ -29,6 +29,7 @@ public class GameFrame extends Frame {
 		add(endCanvas);
 		endCanvas.setFocusable(true);
 		endCanvas.requestFocus();
+		canvas.stop();
 		remove(canvas);
 		revalidate();
 		
