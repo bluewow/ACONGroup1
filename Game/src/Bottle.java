@@ -32,27 +32,27 @@ public class Bottle {
 	public int getHoney() {
 		int honey = +this.getHoney();
 		
-		if (honey > 10) {
+		if (honey >= 10) {
 			imgIndex = 1;
-		} else if (honey > 20) {
+		} else if (honey >= 20) {
 			imgIndex = 2;
-		} else if (honey > 20) {
+		} else if (honey >= 20) {
 			imgIndex = 2;
-		} else if (honey > 30) {
+		} else if (honey >= 30) {
 			imgIndex = 3;
-		} else if (honey > 40) {
+		} else if (honey >= 40) {
 			imgIndex = 4;
-		} else if (honey > 50) {
+		} else if (honey >= 50) {
 			imgIndex = 5;
-		} else if (honey > 60) {
+		} else if (honey >= 60) {
 			imgIndex = 6;
-		} else if (honey > 70) {
+		} else if (honey >= 70) {
 			imgIndex = 7;
-		} else if (honey > 80) {
+		} else if (honey >= 80) {
 			imgIndex = 8;
-		} else if (honey > 90) {
+		} else if (honey >= 90) {
 			imgIndex = 9;
-		} else if (honey > 100) {
+		} else if (honey >= 100) {
 			imgIndex = 10;
 			honey = 100;
 		}
