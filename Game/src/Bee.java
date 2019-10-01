@@ -30,6 +30,6 @@ public class Bee {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		g2.drawImage(img, xPos, yPos, xPos + w, yPos+h, 
-					0, 0, w * 4, h * 4, honeyBeeCanvas);
+					0, 0, w, h, honeyBeeCanvas);
 	}
 }
