@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class HoneyBeeCanvas extends Canvas {
-	
+
 	private BackGround bg;
 	private GameTimer t;
 	private Score s;
@@ -20,7 +20,8 @@ public class HoneyBeeCanvas extends Canvas {
 	private int xPos;
 	private int yPos;
 	private int posCnt;
-	
+	private boolean running;
+
 	public HoneyBeeCanvas() {
 		bg = new BackGround();
 		bottle = new Bottle();
@@ -35,15 +36,16 @@ public class HoneyBeeCanvas extends Canvas {
 		bar[1] = new Bar(70, 330, false, false);
 		bee = new Bee();
 		bf = new Butterfly();
-		posCnt=0;
-		
+		posCnt = 0;
+		running = false;
+
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
-					
-					if(posCnt == 0) { 
+
+					if (posCnt == 0) {
 						bar[0].setActivation(false);
 						xPos = bar[0].getPos();
 						bar[1].setActivation(true);
@@ -58,8 +60,7 @@ public class HoneyBeeCanvas extends Canvas {
 			}
 		});
 	}
-	
-	
+
 	@Override
 	public void update(Graphics g) {
 		paint(g);
@@ -70,49 +71,54 @@ public class HoneyBeeCanvas extends Canvas {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 		bg.draw(g2, this);
-		
+
 		bottle.draw(g2, this);
-		
+
 		fw.draw(g2, this);
-		
-		for(Bar b : bar)
-			b.draw(g2,this);
-		
+
+		for (Bar b : bar)
+			b.draw(g2, this);
+
 		bee.draw(g2, this);
-		
+
 		bf.draw(g2, this);
-		
-		t.draw(g2,this);
-		
+
+		t.draw(g2, this);
+
 		s.draw(g2, this);
-		
+
 		tbee.draw(g2, this);
-		
+
 		g.drawImage(bufImage, 0, 0, this);
 	}
-	
+
 	public void start() {
-		new Thread(() ->  {
-			while (true) {
+		running = true;
+		new Thread(() -> {
+			while (running) {
 				try {
 					tbee.update();
-					if (tbee.getX()==50)
+					if (tbee.getX() == 50)
 						end();
-					
-					for(Bar b : bar)
-                		b.update();
-					
+					//s.update(bottle);
+					for (Bar b : bar)
+						b.update();
+
 					Thread.sleep(17);
-				} catch(InterruptedException e) {
+				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				repaint();
 			}
 		}).start();
-		
+
 	}
-	
+
 	public void end() {
 		GameFrame.getInstance().endChange();
+	}
+
+	public void stop() {
+		running = false;
 	}
 }
