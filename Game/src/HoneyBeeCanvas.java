@@ -30,8 +30,8 @@ public class HoneyBeeCanvas extends Canvas {
 		honey = new Honey[10][10];
 
 		bar = new Bar[2];
-		bar[0] = new Bar(150, 700, true);
-		bar[1] = new Bar(70, 330, false);
+		bar[0] = new Bar(150, 700, true, true);
+		bar[1] = new Bar(70, 330, false, false);
 		bee = new Bee();
 		bf = new Butterfly();
 		
@@ -41,13 +41,12 @@ public class HoneyBeeCanvas extends Canvas {
 				switch (e.getKeyCode()) {
 				case KeyEvent.VK_SPACE:
 					//여기에 스페이스 누르면 명령 입력
+					
+					xPos = bar[0].getPos();
+					yPos = bar[1].getPos();	
 				}
-				xPos = bar[0].getPos();
-				yPos = bar[1].getPos();	
 			}
 		});
-		
-		
 	}
 	
 	
@@ -87,7 +86,8 @@ public class HoneyBeeCanvas extends Canvas {
 			while (true) {
 				try {
 					tbee.update();
-					end();
+					if (tbee.getX()==50)
+						end();
 					
 					for(Bar b : bar)
                 		b.update();
@@ -103,7 +103,6 @@ public class HoneyBeeCanvas extends Canvas {
 	}
 	
 	public void end() {
-		if (tbee.getX()==50)
 		GameFrame.getInstance().endChange();
 	}
 }

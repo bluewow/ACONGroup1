@@ -2,7 +2,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-// @author : naram kim
+/* 
+ * @author : naram kim
+ */
 public class BarBee {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private Image img; // Get Bee image file
@@ -14,7 +16,7 @@ public class BarBee {
 	private int height;
 	private int range; // Range of Bar
 	private int vector; // Bee`s speed and direction
-	private boolean horizontal; // Bar Horizontal(default) and vertical
+	private boolean horizontal; // Choose between horizontal(default) and vertical bars
 
 	public BarBee(String imgRes, int bx, int by, int vector, int range, boolean horizontal) {
 		img = tk.getImage(imgRes);
@@ -24,6 +26,7 @@ public class BarBee {
 		this.range = range;
 		this.horizontal = horizontal;
 
+		// If you choose horizontal
 		if (horizontal) {
 			x = bx + range / 2;
 			width = 27;
@@ -54,15 +57,15 @@ public class BarBee {
 		}
 	}
 
-	protected void stop() {
-		vector = 0;
-	}
-
 	protected int getX() {
 		return x;
 	}
 
 	protected int getY() {
 		return y;
+	}
+	
+	protected void setVector(int vector) {
+		this.vector = vector;
 	}
 }
