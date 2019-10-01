@@ -22,6 +22,7 @@ public class HoneyBeeCanvas extends Canvas {
     private int xPos;
     private int yPos;
     private int posCnt;
+    private int honeyScore;
 	
     public HoneyBeeCanvas() {
 		bg = new BackGround();
@@ -31,6 +32,7 @@ public class HoneyBeeCanvas extends Canvas {
 		s = new Score();
 		tbee = new TimeBee();
 		honey = new Honey[10][10];
+		honeyScore = 0;
 		posCnt = 0;
 		bar = new Bar[2];
 
@@ -62,6 +64,7 @@ public class HoneyBeeCanvas extends Canvas {
 						System.out.println(yPos);
 						bee.move(xPos, yPos);
 					}
+					
 				}
 			}
 		});
