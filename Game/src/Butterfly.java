@@ -1,50 +1,80 @@
-
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.Random;
 
 public class Butterfly {
-	private int x;
-	private int y;
-	private int vx;
-	private int vy;
+   private double x;
+   private double y;// 현재위치
+   private double dx;
+   private double dy;// 가야할위치
+   private double vx;
+   private double vy;// 방향속도
 
-	private int w;
-	private int h;
-	private int speed;
+   private double w;
+   private double h;// 이미지 크기
 
-	private Image img;
+   private Image img;
 
-	public Butterfly() {
-		speed = 3;
-		x = 150;
-		y = 250;
-		w = 122;
-		h = 96;
+   int imgIndex;
+   int imageDelay;
 
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/butterfly(122X96).png");
+   public Butterfly() {
+      imgIndex = 0;
+      imageDelay = 0;
 
-	}
+      x = 150.0;
+      y = 250.0;// 현재위치
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
+      w = 122.0;
+      h = 96.0;// 이미지크기
+      move();
 
-	public void update() {
+      Toolkit tk = Toolkit.getDefaultToolkit();
+      img = tk.getImage("res/butterfly.png");
+   }
 
-	}
+   public void update() {
+      if (imageDelay++ % 120 == 0) {
+         imageDelay = 0;
+         imgIndex = (imgIndex == 1) ? 0 : 1;
+      }
 
-	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
-		g2.drawImage(img, x, y, x+w, y+h, 0, 0, w*4, h*4, honeyBeeCanvas);
-		
+      x += vx;
+      y += vy;
 
-	}
+      if (((dy - 2 < y) && (y < dy + 2)) || ((dx - 2 < x) && (x < dx + 2))) {
+         vy = 0;
+         vx = 0;
 
-	public void move(int x, int y) {
-	
+         move();
+      }
 
-	}
+   }
+
+   public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
+      int x = (int) this.x;
+      int y = (int) this.y;
+      int w = (int) this.w;
+      int h = (int) this.h;
+
+      g2.drawImage(img, x, y, x + w, y + h, w * imgIndex, 0, (w * imgIndex) + w, 96, honeyBeeCanvas);
+
+   }
+
+   public void move() {
+      Random random = new Random();
+      dx = random.nextInt(280) + 110;
+      dy = random.nextInt(200) + 330;
+      System.out.println(dx);
+
+      double w = dx - x;
+      double h = dy - y;
+      double d = (double) Math.sqrt(w * w + h * h);
+      vx = (w / d) * 3;
+//      System.out.println("vx:" + vx);
+      vy = (h / d) * 3;
+
+   }
 
 }

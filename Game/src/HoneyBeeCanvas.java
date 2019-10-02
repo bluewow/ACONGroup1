@@ -129,8 +129,9 @@ public class HoneyBeeCanvas extends Canvas {
 		new Thread(() -> {
 			while (running) {
 				try {
-
+					bg.update();
 					fw.flowerUpdate();
+					bf.update();
 
 					if (tbee.getX() == 50)
 						end();	
@@ -142,7 +143,7 @@ public class HoneyBeeCanvas extends Canvas {
 					bottle.update(bee);
 					s.update(bottle);
 
-					Thread.sleep(17);
+					Thread.sleep(16);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
