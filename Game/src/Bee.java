@@ -124,7 +124,7 @@ public class Bee {
 	public void update() {
 		xPos += vx;
 		yPos += vy;
-			
+
 		if(yPos == dy)
 			vy = 0;
 		if(xPos == dx)
