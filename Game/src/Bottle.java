@@ -32,7 +32,7 @@ public class Bottle {
 	}
 
 	public void update(Bee bee) {
-		honeyScore = bee.sendHoney();
+		
 		
 	}
 	
