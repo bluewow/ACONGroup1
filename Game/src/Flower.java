@@ -65,33 +65,39 @@ public class Flower {
 			hx = x + 47;
 		}
 	}
-//	public Point[] rangeSearch(Point[] point) {
-//		
+
+//	public Point rangeSearch(Point[] point) {
+//
 //		for (int i = 0; i < 10; i++)
 //			for (int j = 0; j < 10; j++) {
-//			
-//				honeies[i][j].getX();
-//		        honeies[i][j].getY();
-//		        
-//		        if(
-//		        		)
-//		        {
-//		   
-//		        
-//		        	return  point[i].x ,
-//		        }
-//		
+//				for (int z = 0; z < 6; z++) {
+//					honeies[i][j].getX();
+//					honeies[i][j].getY();
+//					if ((point[z].x > (honeies[i][j].getX() - 20)) && 
+//					    (point[z].x < (honeies[i][j].getX() + 20)) && 
+//					    (point[z].y > (honeies[i][j].getY() - 20)) && 
+//					    (point[z].y < (honeies[i][j].getY() + 20)))
+//					{
+//						point[z].honey = true;
+//						return point[z];
+//					} else {
+//						point[z].honey = false;
+//						return point[z];
+//					}
+//				}
 //			}
 //	}
+
 	public void flowerUpdate() {
 		if (imagedelay++ % 30 == 0) {
 			if (imageindex < 0) {
-				imageindex ++;
+				imageindex++;
 			} else {
 				imageindex--;
 			}
 		}
 	}
+
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
 		g2.drawImage(img, x, y, x + w, y + h, 0 - w * imageindex, 0, w - w * imageindex, h, honeybeecanvas);
 
