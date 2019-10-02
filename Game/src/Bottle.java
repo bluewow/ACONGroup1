@@ -32,13 +32,12 @@ public class Bottle {
 	}
 
 	public void update(Bee bee) {
-		honeyScore = bee.sendHoney();
+		
 		
 	}
 	
 	public int getHoney() {
 
-		//honeyScore =+ this.getHoney();
 		if(honeyScore>=10) {
 			imgIndex = 1;
 		} else if(honeyScore>=20) {
