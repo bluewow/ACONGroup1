@@ -27,6 +27,11 @@ import java.util.List;
  * 
  * Canvas 에게 벌이 도착했을때 callback 호출
  * L1 - addBeeListener(BeeListener) 
+ * 
+ * TODO
+ * 벌 bottle 이동후 꿀 null 처리
+ * dynamic move
+ * 벌 수집시 약간의 delay  
  * 		 
  */
 public class Bee {
@@ -152,13 +157,16 @@ public class Bee {
 		if (listener != null) {
 			for (int i = 0; i < leg.length; i++)
 				leg[i] = new Point();
-	
+
 			setHoneyPosition(leg);
 			listener.arrived(leg);
 		}			 
 	}
 
 	private void updateBeeImageIndex() {
+		if(vx == 0 && vy == 0)
+			return;
+		
 		if (imageDelay++ % 30 == 0) {
 			imageDelay = 0;
 			imageIndex = (imageIndex == 1) ? 0 : 1;
