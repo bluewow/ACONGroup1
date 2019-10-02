@@ -1,4 +1,5 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -46,16 +47,11 @@ public class HoneyBeeCanvas extends Canvas {
 			
 			@Override
 			public void arrived(Point[] leg) {
-//				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
-//				System.out.println("leg x : " + leg[1].x + " y : " + leg[1].y);
-//				System.out.println("leg x : " + leg[2].x + " y : " + leg[2].y);
-//				System.out.println("leg x : " + leg[3].x + " y : " + leg[4].y);
-//				System.out.println("leg x : " + leg[4].x + " y : " + leg[0].y);
-//				System.out.println("leg x : " + leg[5].x + " y : " + leg[0].y);
-//				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
+
 				leg = fw.rangeSearch(leg);
 				System.out.println(leg[0].honey);
-//				bee.sendToBottole(leg);
+
+				bee.sendToBottle();
 			}
 
 			
@@ -82,7 +78,6 @@ public class HoneyBeeCanvas extends Canvas {
 //						System.out.println(yPos);
 						bee.move(xPos, yPos);
 					}
-					
 				}
 			}
 		});
@@ -100,7 +95,6 @@ public class HoneyBeeCanvas extends Canvas {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 		
-		
 		bg.draw(g2, this);
 
 		bottle.draw(g2, this);
@@ -112,6 +106,12 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bee.draw(g2, this);
 
+		// 2번 스페이스바를 누를 때마다 나타난다. 시작 시 나타나지않는다.
+		if(posCnt == 0 && xPos != 0) {
+			g2.setColor(Color.RED);
+			g2.fillOval(xPos, yPos, 10, 10);
+		}
+		
 		bf.draw(g2, this);
 
 		t.draw(g2, this);
@@ -150,18 +150,13 @@ public class HoneyBeeCanvas extends Canvas {
 				repaint();
 			}
 		}).start();
-
 	}
 	
 	public void stop() {
 		running = false;
-		
 	}
 
 	public void end() {
-
-		
-
 		GameFrame.getInstance().endChange();
 	}
 
