@@ -47,7 +47,15 @@ public class HoneyBeeCanvas extends Canvas {
 			@Override
 			public void arrived(Point[] leg) {
 //				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
-				bee.sendToBottole(leg);
+//				System.out.println("leg x : " + leg[1].x + " y : " + leg[1].y);
+//				System.out.println("leg x : " + leg[2].x + " y : " + leg[2].y);
+//				System.out.println("leg x : " + leg[3].x + " y : " + leg[4].y);
+//				System.out.println("leg x : " + leg[4].x + " y : " + leg[0].y);
+//				System.out.println("leg x : " + leg[5].x + " y : " + leg[0].y);
+//				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
+				leg = fw.rangeSearch(leg);
+				System.out.println(leg[0].honey);
+//				bee.sendToBottole(leg);
 			}
 
 			
@@ -70,8 +78,8 @@ public class HoneyBeeCanvas extends Canvas {
 						yPos = bar[1].getPos();
 						bar[0].setActivation(true);
 						posCnt--;
-						System.out.println(xPos);
-						System.out.println(yPos);
+//						System.out.println(xPos);
+//						System.out.println(yPos);
 						bee.move(xPos, yPos);
 					}
 					
@@ -122,9 +130,6 @@ public class HoneyBeeCanvas extends Canvas {
 			while (running) {
 				try {
 
-
-					tbee.update();
-					bee.update();
 					fw.flowerUpdate();
 					
 
@@ -134,10 +139,9 @@ public class HoneyBeeCanvas extends Canvas {
 						b.update();
 					tbee.update();
 					bee.update();
+
 					bottle.update(bee);
-
 					s.update(bottle);
-
 
 					Thread.sleep(17);
 				} catch (InterruptedException e) {
