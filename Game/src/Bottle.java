@@ -12,6 +12,8 @@ public class Bottle {
 	private int h;
 	private int sh;
 	private int honeyScore;
+	private int bpx;
+	private int bpy;
 
 	public Bottle() {
 		x = 540;
@@ -19,7 +21,9 @@ public class Bottle {
 		w = 165;
 		h = 380;
 		sh = 422;
-
+		bpx = x+80;
+		bpy = y-20;
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bottle(165X422).png");
 		imgIndex = 0;
@@ -31,6 +35,16 @@ public class Bottle {
 		g2.drawImage(img, x, y, x + w, y + h, 0 + sx, 0, w + sx, sh, honeyBeeCanvas);
 	}
 
+	public int beePosX(int x) {
+		x = bpx;
+		return x;
+	}
+
+	public int beePosY(int y) {
+		y = bpx;
+		return y;
+	}
+	
 	public void update(Bee bee) {
 		
 		

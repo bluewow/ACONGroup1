@@ -23,10 +23,14 @@ public class HoneyBeeCanvas extends Canvas {
     private int yPos;
     private int posCnt;
     private int honeyScore;
+    private int bpx;
+    private int bpy;
 	
     public HoneyBeeCanvas() {
 		bg = new BackGround();
 		bottle = new Bottle();
+		bpx = bottle.beePosX(bpx);
+		bpy = bottle.beePosX(bpy);
 		fw = new Flower();
 		t = new GameTimer();
 		s = new Score();
@@ -38,7 +42,7 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
-		bee = new Bee(30, 30);
+		bee = new Bee(bpx, bpy);
 		bf = new Butterfly();
 
 		running = false;
