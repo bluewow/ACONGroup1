@@ -82,9 +82,8 @@ public class Flower {
 						} 
 					}
 				}
-			System.out.println("point:"+z+point[z].honey);
+//			System.out.println("point:"+z+point[z].honey);
 		}
-	
 		return point;
 
 	}
