@@ -72,7 +72,11 @@ public class Bee {
 			vy = -1;
 	}
 	
-	public void sendToBottole(Point[] honey) {
+	public void catchHoney(Point[] data) {
+		
+	}
+	
+	public void sendToBottole() {
 		
 	}
 	
