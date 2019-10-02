@@ -75,6 +75,7 @@ public class HoneyBeeCanvas extends Canvas {
 						posCnt--;
 //						System.out.println(xPos);
 //						System.out.println(yPos);
+//						System.out.println("move");
 						bee.move(xPos, yPos);
 					}
 				}

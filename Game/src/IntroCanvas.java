@@ -26,7 +26,7 @@ public class IntroCanvas extends Canvas implements KeyListener, MouseListener{
 	@Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(img, 200, 300,this);
+//		g.drawImage(img, 200, 300,this);
 		addKeyListener(this);
 	}
 
