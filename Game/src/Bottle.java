@@ -38,7 +38,6 @@ public class Bottle {
 	
 	public int getHoney() {
 
-		//honeyScore =+ this.getHoney();
 		if(honeyScore>=10) {
 			imgIndex = 1;
 		} else if(honeyScore>=20) {
