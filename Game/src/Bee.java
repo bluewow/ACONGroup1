@@ -13,6 +13,8 @@ import java.util.List;
  * 
  */
 public class Bee {
+	private int offsetX;
+	private int offsetY;
 	private int xPos;
 	private int yPos;
 	private int dx;
@@ -41,9 +43,11 @@ public class Bee {
 		this.listener = listener;
 	}
 	
-	public Bee() {
-		xPos = 620;
-		yPos = 320;
+	public Bee(int x, int y) {
+		offsetX = x;
+		offsetY = y;
+		xPos = x;
+		yPos = y;
 		w = 176;
 		h = 136;
 		imageIndex = 0;
@@ -85,7 +89,7 @@ public class Bee {
 	}
 	
 	public void sendToBottle() {
-		
+		this.move(offsetX, offsetY);
 	}
 	
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {

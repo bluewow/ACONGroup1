@@ -38,7 +38,7 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
-		bee = new Bee();
+		bee = new Bee(30, 30);
 		bf = new Butterfly();
 
 		running = false;
