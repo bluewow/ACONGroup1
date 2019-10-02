@@ -79,6 +79,7 @@ public class Flower {
 							(point[z].y < (honeies[i][j].getY() + 15))) 
 						    {
 							point[z].honey = true;
+							honeies[i][j] = null;
 						} 
 					}
 				}
@@ -100,7 +101,7 @@ public class Flower {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
 		g2.drawImage(img, x, y, x + w, y + h, 0 - w * imageindex, 0, w - w * imageindex, h, honeybeecanvas);
-
+		
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
 				if (honeies[i][j] != null)
