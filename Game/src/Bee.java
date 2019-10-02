@@ -91,7 +91,7 @@ public class Bee {
 					sx, 0, sx + w, h, honeyBeeCanvas);
 		
 		//for check
-		g2.drawRect(dx, dy, 3, 3);
+//		g2.drawRect(dx, dy, 3, 3);
 		g2.drawRect(xPos, yPos, 3, 3);
 //		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
 //		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
