@@ -1,10 +1,17 @@
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Bee 행동패턴
+ * 
+ * - 꽃으로 이동
+ * - 꿀 채취
+ * - 꿀통이동 
+ * 
+ */
 public class Bee {
 	private int xPos;
 	private int yPos;
@@ -21,7 +28,6 @@ public class Bee {
 	private static final int MARGIN_H = 76;
 	
 	private Image img;
-	private List<Honey> honey = new ArrayList<>();
 	private BeeListener listener;
 	
 	public interface BeeListener {
@@ -73,7 +79,6 @@ public class Bee {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		int sx = imageIndex * w;
-
 		g2.drawImage(img, xPos - MARGIN_W, yPos - MARGIN_H, xPos + w - MARGIN_W, yPos+h - MARGIN_H, 
 					sx, 0, sx + w, h, honeyBeeCanvas);
 		
@@ -94,7 +99,6 @@ public class Bee {
 		xPos += vx;
 		yPos += vy;
 		
-		System.out.println(imageDelay);
 		if(imageDelay++ % 30 == 0) {
 			imageDelay = 0;
 			imageIndex = (imageIndex == 1)? 0:1;
