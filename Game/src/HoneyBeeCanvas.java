@@ -89,11 +89,13 @@ public class HoneyBeeCanvas extends Canvas {
 	public void paint(Graphics g) {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
+		
+		
 		bg.draw(g2, this);
 
 		bottle.draw(g2, this);
 
-//		fw.draw(g2, this);
+		fw.draw(g2, this);
 
 		for (Bar b : bar)
 			b.draw(g2, this);
@@ -117,6 +119,8 @@ public class HoneyBeeCanvas extends Canvas {
 		new Thread(() -> {
 			while (running) {
 				try {
+					fw.flowerUpdate();
+					
 					tbee.update();
 					bee.update();
 

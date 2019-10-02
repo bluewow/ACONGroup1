@@ -1,6 +1,7 @@
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 public class Flower {
@@ -12,6 +13,8 @@ public class Flower {
 	private int h;
 	private int hx;
 	private int hy;
+	private int imageindex;
+	private int imagedelay;
 
 	Image img;
 	Honey[][] honeies;
@@ -26,19 +29,27 @@ public class Flower {
 		h = 380;
 		hx = x + 47;
 		hy = h - 20;
-		
+		imageindex = 0;
+		imagedelay = 1;
+
 		honeies = new Honey[10][10];
+
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		img = tk.getImage("res/flowerFullIndex.png");
+		honeyPosition();
+	}
+
+	public void honeyPosition() {
 		for (int i = 0; i < 5; i++) {
 			z = 2 - i;
 			if (z < 0)
 				z = 0;
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
-				honeies[i][j] = new Honey(hx + z*15, hy);
-			    System.out.printf("%d,%d\n",i,j);
+				honeies[i][j] = new Honey(hx + z * 15, hy);
+//			    System.out.printf("%d,%d\n",i,j);
 				hx += 15;
 			}
-
 			hx = x + 47;
 		}
 		for (int i = 5; i < 10; i++) {
@@ -47,21 +58,42 @@ public class Flower {
 				z = 0;
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
-				honeies[i][j] = new Honey(hx + z*15, hy);
-
+				honeies[i][j] = new Honey(hx + z * 15, hy);
+//			    System.out.printf("%d,%d\n",i,j);
 				hx += 15;
 			}
 			hx = x + 47;
 		}
-
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/flowerAll(260X380).png");
-
-
+	}
+//	public Point[] rangeSearch(Point[] point) {
+//		
+//		for (int i = 0; i < 10; i++)
+//			for (int j = 0; j < 10; j++) {
+//			
+//				honeies[i][j].getX();
+//		        honeies[i][j].getY();
+//		        
+//		        if(
+//		        		)
+//		        {
+//		   
+//		        
+//		        	return  point[i].x ,
+//		        }
+//		
+//			}
+//	}
+	public void flowerUpdate() {
+		if (imagedelay++ % 30 == 0) {
+			if (imageindex < 0) {
+				imageindex ++;
+			} else {
+				imageindex--;
+			}
+		}
+	}
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
-
-
-		g2.drawImage(img, x, y, x + w, y + h, 0, 0, w * 4, h * 4, honeybeecanvas);
+		g2.drawImage(img, x, y, x + w, y + h, 0 - w * imageindex, 0, w - w * imageindex, h, honeybeecanvas);
 
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
