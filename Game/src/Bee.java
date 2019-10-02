@@ -103,7 +103,7 @@ public class Bee {
 			imageDelay = 0;
 			imageIndex = (imageIndex == 1)? 0:1;
 		}
-			
+	
 		if(yPos == dy)
 			vy = 0;
 		if(xPos == dx)

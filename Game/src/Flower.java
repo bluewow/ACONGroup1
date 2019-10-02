@@ -66,27 +66,25 @@ public class Flower {
 		}
 	}
 
-//	public Point rangeSearch(Point[] point) {
-//
-//		for (int i = 0; i < 10; i++)
-//			for (int j = 0; j < 10; j++) {
-//				for (int z = 0; z < 6; z++) {
-//					honeies[i][j].getX();
-//					honeies[i][j].getY();
-//					if ((point[z].x > (honeies[i][j].getX() - 20)) && 
-//					    (point[z].x < (honeies[i][j].getX() + 20)) && 
-//					    (point[z].y > (honeies[i][j].getY() - 20)) && 
-//					    (point[z].y < (honeies[i][j].getY() + 20)))
-//					{
-//						point[z].honey = true;
-//						return point[z];
-//					} else {
-//						point[z].honey = false;
-//						return point[z];
-//					}
-//				}
-//			}
-//	}
+	public Point[] rangeSearch(Point[] point) {
+		point.honey = false;
+//		for (int z = 0; z < 6; z++)
+			for (int i = 0; i < 10; i++)
+				for (int j = 0; j < 10; j++) {
+					if (honeies[i][j] != null) {
+						if ((point[z].x > (honeies[i][j].getX() - 20)) && (point[z].x < (honeies[i][j].getX() + 20))
+								&& (point[z].y > (honeies[i][j].getY() - 20))
+								&& (point[z].y < (honeies[i][j].getY() + 20))) {
+							point[z].honey = true;
+						} else {
+							point[z].honey = false;
+							
+						}
+					}
+				}
+		return point;
+
+	}
 
 	public void flowerUpdate() {
 		if (imagedelay++ % 30 == 0) {

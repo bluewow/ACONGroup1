@@ -122,10 +122,11 @@ public class HoneyBeeCanvas extends Canvas {
 			while (running) {
 				try {
 
-					fw.flowerUpdate();
-					
+
 					tbee.update();
 					bee.update();
+					fw.flowerUpdate();
+					
 
 					if (tbee.getX() == 50)
 						end();	
