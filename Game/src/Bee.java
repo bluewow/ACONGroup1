@@ -76,7 +76,7 @@ public class Bee {
 		
 	}
 	
-	public void sendToBottole() {
+	public void sendToBottle() {
 		
 	}
 	

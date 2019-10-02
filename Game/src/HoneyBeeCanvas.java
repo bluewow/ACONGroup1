@@ -55,7 +55,7 @@ public class HoneyBeeCanvas extends Canvas {
 //				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
 				leg = fw.rangeSearch(leg);
 				System.out.println(leg[0].honey);
-				bee.sendToBottole();
+				bee.sendToBottle();
 			}
 
 			
