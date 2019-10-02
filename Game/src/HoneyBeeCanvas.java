@@ -38,7 +38,7 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
-		bee = new Bee();
+		bee = new Bee(30, 30);
 		bf = new Butterfly();
 
 		running = false;
@@ -48,10 +48,9 @@ public class HoneyBeeCanvas extends Canvas {
 			@Override
 			public void arrived(Point[] leg) {
 
-				leg = fw.rangeSearch(leg);
-				System.out.println(leg[0].honey);
-
+				bee.catchHoney(leg);
 				bee.sendToBottle();
+
 			}
 
 			
@@ -109,7 +108,7 @@ public class HoneyBeeCanvas extends Canvas {
 		// 2번 스페이스바를 누를 때마다 나타난다. 시작 시 나타나지않는다.
 		if(posCnt == 0 && xPos != 0) {
 			g2.setColor(Color.RED);
-			g2.fillOval(xPos, yPos, 10, 10);
+			g2.fillOval(xPos - 10 / 2, yPos - 10 / 2, 10, 10);
 		}
 		
 		bf.draw(g2, this);

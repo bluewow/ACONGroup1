@@ -13,6 +13,8 @@ import java.util.List;
  * 
  */
 public class Bee {
+	private int offsetX;
+	private int offsetY;
 	private int xPos;
 	private int yPos;
 	private int dx;
@@ -23,11 +25,14 @@ public class Bee {
 	private int h;
 	private int imageIndex;
 	private int imageDelay;
-	Point[] leg;
 	private static final int MARGIN_W = 78;
 	private static final int MARGIN_H = 76;
+	private static final int HONEY_MARGIN_WH = 7;
+	Point[] leg;
+	Honey[] honeies;
 	
 	private Image img;
+	private Image honeyImg;
 	private BeeListener listener;
 	
 	public interface BeeListener {
@@ -38,17 +43,21 @@ public class Bee {
 		this.listener = listener;
 	}
 	
-	public Bee() {
-		xPos = 620;
-		yPos = 320;
+	public Bee(int x, int y) {
+		offsetX = x;
+		offsetY = y;
+		xPos = x;
+		yPos = y;
 		w = 176;
 		h = 136;
 		imageIndex = 0;
 		imageDelay = 0;
 		
 		leg = new Point[6];
+		honeies = new Honey[6];
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
+
 	}
 
 	public void move(int x, int y) {
@@ -72,12 +81,15 @@ public class Bee {
 			vy = -1;
 	}
 	
-	public void catchHoney(Point[] data) {
-		
+	public void catchHoney(Point[] honey) {
+		for(int i = 0; i < honey.length; i++) {
+			if(honey[i].honey)
+				honeies[i] = new Honey(honey[i].x - HONEY_MARGIN_WH, honey[i].y - HONEY_MARGIN_WH);
+		}
 	}
 	
 	public void sendToBottle() {
-		
+		this.move(offsetX, offsetY);
 	}
 	
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
@@ -89,6 +101,12 @@ public class Bee {
 		int sx = imageIndex * w;
 		g2.drawImage(img, xPos - MARGIN_W, yPos - MARGIN_H, xPos + w - MARGIN_W, yPos+h - MARGIN_H, 
 					sx, 0, sx + w, h, honeyBeeCanvas);
+		
+		
+		for(int i = 0; i < honeies.length; i++) {
+			if(honeies[i] != null)
+				honeies[i].draw(g2, honeyBeeCanvas);
+		}
 		
 		//for check
 //		g2.drawRect(dx, dy, 3, 3);
