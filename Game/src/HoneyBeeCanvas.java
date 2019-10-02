@@ -58,7 +58,7 @@ public class HoneyBeeCanvas extends Canvas {
 
 			@Override
 			public void deliveryHoney(int honey) {
-				System.out.println(honey);
+				System.out.println("toBottle : " + honey);
 			}
 		}); 
 		
