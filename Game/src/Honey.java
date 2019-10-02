@@ -35,7 +35,6 @@ public class Honey {
 	
 	public Honey() {
 		this(45,45);
-
 	}
 	
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {

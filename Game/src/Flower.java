@@ -22,8 +22,8 @@ public class Flower {
 		y =330;
 		w =260;
 		h =380;
-		hx = 44;
-		hy = 40;
+		hx = x+47;
+		hy = h-20;
 		
 		honeies = new Honey[10][10];
 		for(int i = 0; i<10 ; i++) 
@@ -35,7 +35,7 @@ public class Flower {
 				System.out.println(i+","+j);
 				hx += 15;
 			}
-		hx =0;
+		hx = x+47 ;
 	    }
 //		honey1 = new Honey(hx,hy);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -47,12 +47,11 @@ public class Flower {
 		// TODO Auto-generated method stub
 		g2.drawImage(img, x, y, x+w, y+h,
 				0, 0, w*4, h*4,honeybeecanvas);
-		
-		for(int i = 0; i<10 ; i++) 		
+		int z;
+		for(int i = 0; i<10 ; i++)
 			for( int j = 0 ; j<10; j++)
 				honeies[i][j].draw(g2, honeybeecanvas);
 			
-	
 	}
 	
 
