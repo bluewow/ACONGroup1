@@ -22,6 +22,7 @@ import java.util.List;
  *   L2 - updateBeeImageIndex();
  *   L2 - updateHoneyPosition()
  *   L2 - arriveAtLocation
+ *     L3 - refreshBeeInfo
  *     L3 - callHoneyBeeCanvas
  *       L4 - setHoneyPosition(Point[])
  * 
@@ -29,7 +30,6 @@ import java.util.List;
  * L1 - addBeeListener(BeeListener) 
  * 
  * TODO
- * 벌 bottle 이동후 꿀 null 처리
  * dynamic move
  * 벌 수집시 약간의 delay  
  * 		 
@@ -104,8 +104,9 @@ public class Bee {
 
 	public void catchHoney(Point[] honey) {
 		for (int i = 0; i < honey.length; i++) {
-			if (honey[i].honey)
+			if (honey[i].honey) {
 				honeies[i] = new Honey(honey[i].x - HONEY_MARGIN_WH, honey[i].y - HONEY_MARGIN_WH);
+			}
 		}
 	}
 
@@ -121,8 +122,9 @@ public class Bee {
 					      sx, 0, sx + w, h, honeyBeeCanvas);
 
 		for (int i = 0; i < honeies.length; i++) {
-			if (honeies[i] != null)
+			if (honeies[i] != null) {
 				honeies[i].draw(g2, honeyBeeCanvas);
+			}
 		}
 
 //		Test Range
@@ -149,14 +151,31 @@ public class Bee {
 		    xPos = (int)dx;
 		    yPos = (int)dy;
 		    
+		    if(refreshBeeInfo())
+		    	return;
+		    
 		    callHoneyBeeCanvas();
 		}		
 	}
 
+	private boolean refreshBeeInfo() {
+		if(xPos == offsetX && yPos == offsetY) {
+			for(int i = 0; i < honeies.length; i++) 
+				honeies[i] = null;
+			
+			for (int i = 0; i < leg.length; i++) 
+				leg[i] = null;
+			
+			return true;
+		}
+		return false;
+	}
+
 	private void callHoneyBeeCanvas() {
 		if (listener != null) {
-			for (int i = 0; i < leg.length; i++)
+			for (int i = 0; i < leg.length; i++) {
 				leg[i] = new Point();
+			}
 
 			setHoneyPosition(leg);
 			listener.arrived(leg);
