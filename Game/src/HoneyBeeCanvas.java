@@ -123,20 +123,17 @@ public class HoneyBeeCanvas extends Canvas {
 				try {
 
 					fw.flowerUpdate();
-					
-					tbee.update();
-					bee.update();
 
 					if (tbee.getX() == 50)
 						end();	
+					
 					for (Bar b : bar)
 						b.update();
+					
 					tbee.update();
 					bee.update();
 					bottle.update(bee);
-
 					s.update(bottle);
-
 
 					Thread.sleep(17);
 				} catch (InterruptedException e) {

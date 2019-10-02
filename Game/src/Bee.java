@@ -52,13 +52,13 @@ public class Bee {
 	}
 
 	public void move(int x, int y) {
-
 		dx = x;
 		dy = y;
 		
 		float w = dx - this.xPos;
 		float h = dy - this.yPos;
 		float d = (float)Math.sqrt(w * w + h * h);
+		
 		vx = (int) ((w / d) * 3);
 		if(vx > 0)
 			vx = 1;
@@ -76,8 +76,12 @@ public class Bee {
 		
 	}
 	
-	
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
+		if(imageDelay++ % 30 == 0) {
+			imageDelay = 0;
+			imageIndex = (imageIndex == 1)? 0:1;
+		}
+		
 		int sx = imageIndex * w;
 		g2.drawImage(img, xPos - MARGIN_W, yPos - MARGIN_H, xPos + w - MARGIN_W, yPos+h - MARGIN_H, 
 					sx, 0, sx + w, h, honeyBeeCanvas);
@@ -86,23 +90,18 @@ public class Bee {
 		g2.drawRect(dx, dy, 3, 3);
 		g2.drawRect(xPos, yPos, 3, 3);
 //		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
 		
 	}
 
 	public void update() {
 		xPos += vx;
 		yPos += vy;
-		
-		if(imageDelay++ % 30 == 0) {
-			imageDelay = 0;
-			imageIndex = (imageIndex == 1)? 0:1;
-		}
 			
 		if(yPos == dy)
 			vy = 0;

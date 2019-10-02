@@ -40,8 +40,6 @@ public class Score {
 
 		pos2 = getScore / 10;
 		pos1 = getScore % 10;
-		System.out.printf("pos2: %d\n", pos2);
-		System.out.printf("pos1: %d\n", pos1);
 
 		g.drawImage(plate, x, y, w, h, canvas);
 		
