@@ -31,9 +31,13 @@ public class Bottle {
 		g2.drawImage(img, x, y, x + w, y + h, 0 + sx, 0, w + sx, sh, honeyBeeCanvas);
 	}
 
+	public void update(Bee bee) {
+		honeyScore = bee.sendHoney();
+		
+	}
+	
 	public int getHoney() {
 
-		honeyScore =+ this.getHoney();
 		if(honeyScore>=10) {
 			imgIndex = 1;
 		} else if(honeyScore>=20) {
@@ -61,5 +65,6 @@ public class Bottle {
 		
 		return honeyScore;
 	}
+
 
 }
