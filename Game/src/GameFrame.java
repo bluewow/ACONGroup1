@@ -5,6 +5,7 @@ public class GameFrame extends Frame {
 
 	private IntroCanvas introCanvas;
 	private HoneyBeeCanvas canvas;
+	private EndCanvas endCanvas;
 	
 	public static GameFrame frame;
 	public static GameFrame getInstance() {
@@ -24,12 +25,23 @@ public class GameFrame extends Frame {
 		canvas.start();
 		
 	}
+	public void endChange() {
+		add(endCanvas);
+		endCanvas.setFocusable(true);
+		endCanvas.requestFocus();
+		canvas.stop();
+		remove(canvas);
+		revalidate();
+		
+		
+	}
 	
 	private GameFrame() {
 		setSize(800,800);
 		
 		introCanvas = new IntroCanvas();
 		canvas = new HoneyBeeCanvas();
+		endCanvas = new EndCanvas();
 		add(introCanvas);
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
