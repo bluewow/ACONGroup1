@@ -30,7 +30,7 @@ public class HoneyBeeCanvas extends Canvas {
 		bg = new BackGround();
 		bottle = new Bottle();
 		bpx = bottle.beePosX(bpx);
-		bpy = bottle.beePosX(bpy);
+		bpy = bottle.beePosY(bpy);
 		fw = new Flower();
 		t = new GameTimer();
 		s = new Score();

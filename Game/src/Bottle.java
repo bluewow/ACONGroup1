@@ -41,7 +41,7 @@ public class Bottle {
 	}
 
 	public int beePosY(int y) {
-		y = bpx;
+		y = bpy;
 		return y;
 	}
 	
