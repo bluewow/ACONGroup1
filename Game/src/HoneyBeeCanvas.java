@@ -52,6 +52,7 @@ public class HoneyBeeCanvas extends Canvas {
 			@Override
 			public void arrived(Point[] leg) {
 			    leg = fw.putHoney(leg);
+//			    System.out.println(leg[0].honey);
 				bee.catchHoney(leg);
 				bee.sendToBottle();
 			}
