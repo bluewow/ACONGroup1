@@ -55,6 +55,11 @@ public class HoneyBeeCanvas extends Canvas {
 				bee.catchHoney(leg);
 				bee.move(bpx, bpy);
 			}
+
+			@Override
+			public void deliveryHoney(int honey) {
+				System.out.println(honey);
+			}
 		}); 
 		
 		addKeyListener(new KeyAdapter() {

@@ -22,9 +22,12 @@ import java.util.List;
  *   L2 - updateBeeImageIndex();
  *   L2 - updateHoneyPosition()
  *   L2 - arriveAtLocation
- *     L3 - refreshBeeInfo
+ *     L3 - refreshBeeInfo 
  *     L3 - callHoneyBeeCanvas
  *       L4 - setHoneyPosition(Point[])
+ * 
+ * bottle 에게 꿀 전달 및 honey/leg null 처리
+ * L3 - refreshBeeInfo
  * 
  * Canvas 에게 벌이 도착했을때 callback 호출
  * L1 - addBeeListener(BeeListener) 
@@ -59,6 +62,7 @@ public class Bee {
 
 	public interface BeeListener {
 		void arrived(Point[] honey);
+		void deliveryHoney(int honey);
 	}
 
 	public void addBeeListener(BeeListener listener) {
@@ -163,8 +167,18 @@ public class Bee {
 			for(int i = 0; i < honeies.length; i++) 
 				honeies[i] = null;
 			
-			for (int i = 0; i < leg.length; i++) 
+			int honeyNum = 0;
+			for (int i = 0; i < leg.length; i++) {
+				if(leg[i] != null && leg[i].honey == true)
+					honeyNum++;
+				
 				leg[i] = null;
+			}
+			
+			if(listener != null && honeyNum > 0) {
+				listener.deliveryHoney(honeyNum);
+				
+			}
 			
 			return true;
 		}
@@ -173,9 +187,8 @@ public class Bee {
 
 	private void callHoneyBeeCanvas() {
 		if (listener != null) {
-			for (int i = 0; i < leg.length; i++) {
+			for (int i = 0; i < leg.length; i++) 
 				leg[i] = new Point();
-			}
 
 			setHoneyPosition(leg);
 			listener.arrived(leg);
