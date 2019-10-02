@@ -16,14 +16,13 @@ public class Score {
 	private Image number1;
 	private Image number2;
 	private Image score100;
-	
 
 	public Score() {
 		x = 590;
 		y = 80;
 		w = 156;
 		h = 46;
-		pos2 = 1;
+		getScore = 100;
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		plate = tk.getImage("res/Scoreplate(156X46).png");
@@ -33,33 +32,32 @@ public class Score {
 
 	}
 
-
 	public void update(Bottle bottle) {
 		this.getScore = bottle.getHoney();
 	}
-	
-	public void draw(Graphics g, HoneyBeeCanvas canvas) {
-		
-		g.drawImage(plate, x, y,w,h, canvas);
-		
-		pos2 = getScore/10;
-		pos1 = getScore%10;
-		
-		if (pos1<10) 
-			g.drawImage(number1, x, y,w,h,w*pos1,h,w*(pos1+1),h, canvas);
-		else 
-			g.drawImage(number1, x, y,w,h,0,0,w,h, canvas);
-		
-		if (pos2==10) 
-			g.drawImage(score100, x, y,w,h, canvas);
-		else if (pos2 !=0 && pos2<=9)
-			g.drawImage(number2, x, y,w,h,w*pos2,h,w*(pos2+1),h, canvas);
-		else 
-			g.drawImage(number2, x, y,w,h,0,0,w,h, canvas);
-		
-		}
 
-	public void update() {
+	public void draw(Graphics g, HoneyBeeCanvas canvas) {
+
+		pos2 = getScore / 10;
+		pos1 = getScore % 10;
+		System.out.printf("pos2: %d\n", pos2);
+		System.out.printf("pos1: %d\n", pos1);
+
+		g.drawImage(plate, x, y, w, h, canvas);
+		
+	
+
+		if (pos1 > 0 && pos1 < 10)
+			g.drawImage(number1, x, y, x+w, y+h, w * pos1, 0, w * (pos1 + 1), h, canvas);
+		else if (pos1 == 0 || pos1 == 10)
+			g.drawImage(number1, x, y, x+w, y+h, 0, 0, w, h, canvas);
+
+		if (pos2 == 10)
+			g.drawImage(score100, x, y, w, h, canvas);
+		else if (pos2 > 0 && pos2 <= 9)
+			g.drawImage(number2, x, y, x+w, y+h, w * pos2, 0, w * (pos2 + 1), h, canvas);
+		else
+			g.drawImage(number2, x, y, x+w, y+h, 0, 0, w, h, canvas);
 
 	}
 

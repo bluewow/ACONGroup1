@@ -1,7 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -119,6 +118,7 @@ public class HoneyBeeCanvas extends Canvas {
 		new Thread(() -> {
 			while (running) {
 				try {
+
 					fw.flowerUpdate();
 					
 					tbee.update();
@@ -126,9 +126,13 @@ public class HoneyBeeCanvas extends Canvas {
 
 					if (tbee.getX() == 50)
 						end();	
-					//s.update(bottle);
 					for (Bar b : bar)
 						b.update();
+					tbee.update();
+					bee.update();
+					bottle.update(bee);
+
+					s.update(bottle);
 
 
 					Thread.sleep(17);
