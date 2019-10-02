@@ -130,6 +130,7 @@ public class HoneyBeeCanvas extends Canvas {
 				try {
 					bg.update();
 					fw.flowerUpdate();
+					bf.update();
 
 					if (tbee.getX() == 50)
 						end();	
