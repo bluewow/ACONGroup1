@@ -47,15 +47,11 @@ public class HoneyBeeCanvas extends Canvas {
 			
 			@Override
 			public void arrived(Point[] leg) {
-
+			    leg = fw.putHoney(leg);
 				bee.catchHoney(leg);
 				bee.sendToBottle();
-
 			}
-
-			
 		}); 
-			
 		
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -130,7 +126,6 @@ public class HoneyBeeCanvas extends Canvas {
 				try {
 
 					fw.flowerUpdate();
-					
 
 					if (tbee.getX() == 50)
 						end();	

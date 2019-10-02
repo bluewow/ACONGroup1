@@ -67,9 +67,7 @@ public class Flower {
 		}
 	}
 
-	public Point[] rangeSearch(Point[] point) {
-
-		
+	public Point[] putHoney(Point[] point) {
 		for (int z = 0; z < 6; z++) {
 			point[z].honey = false;
 			for (int i = 0; i < 10; i++)
@@ -81,16 +79,7 @@ public class Flower {
 							(point[z].y < (honeies[i][j].getY() + 15))) 
 						    {
 							point[z].honey = true;
-//							System.out.println("true------"+z+"------");
-//							System.out.println("honeyx: "+ honeies[i][j].getX());
-//							System.out.println("point:" + point[z].x);
 						} 
-//						else {
-//							point[z].honey = false;	
-//							System.out.println("false------"+z+"------");
-//							System.out.println("honeyx: "+ honeies[i][j].getX());
-//							System.out.println("point:" + point[z].x);
-//						}
 					}
 				}
 			System.out.println("point:"+z+point[z].honey);
