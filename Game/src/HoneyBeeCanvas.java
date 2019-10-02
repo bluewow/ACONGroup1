@@ -46,8 +46,11 @@ public class HoneyBeeCanvas extends Canvas {
 			
 			@Override
 			public void arrived(Point[] leg) {
-				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
+//				System.out.println("leg x : " + leg[0].x + " y : " + leg[0].y);
+				bee.sendToBottole(leg);
 			}
+
+			
 		}); 
 			
 		

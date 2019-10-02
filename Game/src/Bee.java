@@ -39,8 +39,8 @@ public class Bee {
 	}
 	
 	public Bee() {
-		xPos = 540;
-		yPos = 240;
+		xPos = 620;
+		yPos = 320;
 		w = 176;
 		h = 136;
 		imageIndex = 0;
@@ -72,11 +72,11 @@ public class Bee {
 			vy = -1;
 	}
 	
-	public int sendHoney() {
-
-		return 0;
+	public void sendToBottole(Point[] honey) {
+		
 	}
-
+	
+	
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		int sx = imageIndex * w;
 		g2.drawImage(img, xPos - MARGIN_W, yPos - MARGIN_H, xPos + w - MARGIN_W, yPos+h - MARGIN_H, 
