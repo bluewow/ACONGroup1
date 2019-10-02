@@ -18,6 +18,7 @@ public class Flower {
 	Image img;
 	Honey[][] honeies;
 	Honey honey1;
+	Honey[] honeies2;
 
 	public Flower() {
 
@@ -32,7 +33,8 @@ public class Flower {
 		imagedelay = 1;
 
 		honeies = new Honey[10][10];
-
+		honeies2 = new Honey[100]; // honeies2[0]
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/flowerFullIndex.png");
 		honeyPosition();
@@ -65,21 +67,26 @@ public class Flower {
 		}
 	}
 
-	public Point[] rangeSearch(Point[] point) {
+	public Point[] putHoney(Point[] point) {
 		for (int z = 0; z < 6; z++) {
+			point[z].honey = false;
 			for (int i = 0; i < 10; i++)
 				for (int j = 0; j < 10; j++) {
-					if ((point[z].x > (honeies[i][j].getX() - 5)) && 
-						(point[z].x < (honeies[i][j].getX() + 5))
-					&& (point[z].y > (honeies[i][j].getY() - 20))
-					&& (point[z].y < (honeies[i][j].getY() + 20))) {
-						point[z].honey = true;
-					} else {
-						point[z].honey = false;
+					if (honeies[i][j] != null) {
+						if ((point[z].x > (honeies[i][j].getX() - 15)) && 
+							(point[z].x < (honeies[i][j].getX() + 15)) && 
+							(point[z].y > (honeies[i][j].getY() - 15)) && 
+							(point[z].y < (honeies[i][j].getY() + 15))) 
+						    {
+							point[z].honey = true;
+							honeies[i][j] = null;
+						} 
 					}
 				}
+//			System.out.println("point:"+z+point[z].honey);
 		}
 		return point;
+
 	}
 
 	public void flowerUpdate() {
@@ -94,11 +101,12 @@ public class Flower {
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
 		g2.drawImage(img, x, y, x + w, y + h, 0 - w * imageindex, 0, w - w * imageindex, h, honeybeecanvas);
-
+		
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
 				if (honeies[i][j] != null)
 					honeies[i][j].draw(g2, honeybeecanvas);
+//		g2.drawRect(15,15,15,15);
 	}
 
 }
