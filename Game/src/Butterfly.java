@@ -72,7 +72,7 @@ public class Butterfly {
       double h = dy - y;
       double d = (double) Math.sqrt(w * w + h * h);
       vx = (w / d) * 3;
-      System.out.println("vx:" + vx);
+//      System.out.println("vx:" + vx);
       vy = (h / d) * 3;
 
    }
