@@ -53,7 +53,7 @@ public class HoneyBeeCanvas extends Canvas {
 			public void arrived(Point[] leg) {
 			    leg = fw.putHoney(leg);
 				bee.catchHoney(leg);
-				bee.sendToBottle();
+				bee.move(bpx, bpy);
 			}
 		}); 
 		
