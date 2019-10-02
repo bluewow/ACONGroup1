@@ -110,7 +110,7 @@ public class Bee {
 		
 		//for check
 //		g2.drawRect(dx, dy, 3, 3);
-		g2.drawRect(xPos, yPos, 3, 3);
+//		g2.drawRect(xPos, yPos, 3, 3);
 //		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
 //		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
 //		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
@@ -130,6 +130,7 @@ public class Bee {
 		if(xPos == dx)
 			vx = 0;
 
+		honeyMoving();
 		if(dx == xPos && dy == yPos) {
 			if(listener != null ) {
 				for(int i = 0; i < leg.length; i++)
@@ -143,7 +144,40 @@ public class Bee {
 			dy = 0;
 		}
 	}
-
+	
+	private void honeyMoving() {
+		if(honeies[0] != null) {
+			honeies[0].setX(xPos - MARGIN_W + 16);
+			honeies[0].setY(yPos - MARGIN_H + 118);
+		}
+		
+		if(honeies[1] != null) {
+			honeies[1].setX(xPos - MARGIN_W + 27);
+			honeies[1].setY(yPos - MARGIN_H + 121);
+		}
+		
+		if(honeies[2] != null) {
+			honeies[2].setX(xPos - MARGIN_W + 59);
+			honeies[2].setY(yPos - MARGIN_H + 133);
+		}
+		
+		if(honeies[3] != null) {
+			honeies[3].setX(xPos - MARGIN_W + 71);
+			honeies[3].setY(yPos - MARGIN_H + 131);
+		}
+		
+		if(honeies[4] != null) {
+			honeies[4].setX(xPos - MARGIN_W + 107);
+			honeies[4].setY(yPos - MARGIN_H + 130);
+		}
+		
+		if(honeies[5] != null) {
+			honeies[5].setX(xPos - MARGIN_W + 114);
+			honeies[5].setY(yPos - MARGIN_H + 129);
+		}
+		
+	}
+	
 	private void passBeeLegPoint(Point[] honey) {
 		honey[0].x = xPos - MARGIN_W + 16;
 		honey[0].y = yPos - MARGIN_H + 118;
