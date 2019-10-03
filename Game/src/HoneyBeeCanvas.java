@@ -59,6 +59,8 @@ public class HoneyBeeCanvas extends Canvas {
 			@Override
 			public void deliveryHoney(int honey) {
 				System.out.println("toBottle : " + honey);
+				bottle.getHoney(honey);
+								
 			}
 		}); 
 		
@@ -144,8 +146,6 @@ public class HoneyBeeCanvas extends Canvas {
 						b.update();
 					tbee.update();
 					bee.update();
-
-					bottle.update(bee);
 					s.update(bottle);
 
 					Thread.sleep(16);
