@@ -21,7 +21,7 @@ public class IntroCanvas extends Canvas {
 	private Image imgAfter;
 
 	public IntroCanvas() {
-		x = 250;
+		x = (800-255)/2;
 		y = 400;
 		sx = 0;
 		sy = 0;

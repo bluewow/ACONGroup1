@@ -14,7 +14,8 @@ public class BackGround {
 	private int yTimeForReady;
 
 
-	private Image img;
+	private Image sky;
+	private Image garden;
 
 	public BackGround() {
 		x = 0;
@@ -28,7 +29,8 @@ public class BackGround {
 		yTimeForReady = 0;
 
 		Toolkit tk = Toolkit.getDefaultToolkit(); // 이미지 그리는 api
-		img = tk.getImage("res/backTemplet.png"); //
+		sky = tk.getImage("res/backSkyTemplet.png"); //
+		garden = tk.getImage("res/backGarden.png");
 
 	}
 
@@ -55,7 +57,8 @@ public class BackGround {
 	}
 
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
-		g.drawImage(img, x, y, w, h, sx, sy, w + sx, sy + h, honeyBeeCanvas);
+		g.drawImage(garden, x, y+140, w, h+140, 0, sy, 800,sy+800, honeyBeeCanvas);
+		g.drawImage(sky, x, y, w, h, sx, sy, w + sx, sy + h, honeyBeeCanvas);
 
 	}
 	
