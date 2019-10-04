@@ -81,12 +81,12 @@ public class Bottle {
 			break;
 		}
 
-		System.out.println("total honey : "+honeyScore);
+//		System.out.println("total honey : "+honeyScore);
 		return honeyScore;
 	}
 
 	public int getHoney() {
-		System.out.println("getHoney"+honeyScore);
+//		System.out.println("getHoney"+honeyScore);
 		return honeyScore;
 	}
 
