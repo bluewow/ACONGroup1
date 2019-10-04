@@ -53,7 +53,14 @@ public class HoneyBeeCanvas extends Canvas {
 			public void arrived(Point[] leg) {
 			    leg = fw.putHoney(leg);
 				bee.catchHoney(leg);
-				bee.sendToBottle();
+				bee.move(bpx, bpy);
+			}
+
+			@Override
+			public void deliveryHoney(int honeyNum) {
+				System.out.println("toBottle : " + honeyNum);
+				bottle.getHoney(honeyNum);
+								
 			}
 		}); 
 		
@@ -71,11 +78,12 @@ public class HoneyBeeCanvas extends Canvas {
 					} else {
 						bar[1].setActivation(false);
 						yPos = bar[1].getPos();
-						bar[0].setActivation(true);
 						posCnt--;
 //						System.out.println(xPos);
 //						System.out.println(yPos);
+//						System.out.println("move");
 						bee.move(xPos, yPos);
+						bar[0].setActivation(true);
 					}
 				}
 			}
@@ -124,7 +132,7 @@ public class HoneyBeeCanvas extends Canvas {
 
 	public void start() {
 		running = true;
-		
+		BgMusic.Sound("res/MainBgm.wav", true);
 		new Thread(() -> {
 			while (running) {
 				try {
@@ -138,8 +146,6 @@ public class HoneyBeeCanvas extends Canvas {
 						b.update();
 					tbee.update();
 					bee.update();
-
-					bottle.update(bee);
 					s.update(bottle);
 
 					Thread.sleep(16);

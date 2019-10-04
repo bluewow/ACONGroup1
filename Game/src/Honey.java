@@ -50,20 +50,8 @@ public class Honey {
 				sx, 0, sx + w, h, 
 			   honeyBeeCanvas);	
 	}
-		
-	public void update() {
 
-		timer++;
-		if (timer >= 300 /*  60*5초  */) {
-			sx += w;
-			if (sx == 75) {
-				sx = 0;
-			}
-			timer = 0;
-		}
-		
-	}
-
+	
 	public int getX() {
 		return x;
 	}
@@ -80,5 +68,15 @@ public class Honey {
 		this.y = y;
 	}
 
-
+	public void update() {
+		timer++;
+		if (timer >= 300 /*  60*5초  */) {
+			sx += w;
+			if (sx == 75) {
+				sx = 0;
+			}
+			timer = 0;
+		}
+		
+	}
 }

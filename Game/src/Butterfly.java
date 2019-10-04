@@ -66,7 +66,7 @@ public class Butterfly {
       Random random = new Random();
       dx = random.nextInt(280) + 110;
       dy = random.nextInt(200) + 330;
-      System.out.println(dx);
+//      System.out.println(dx);
 
       double w = dx - x;
       double h = dy - y;
