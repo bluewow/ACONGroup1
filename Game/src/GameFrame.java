@@ -17,39 +17,38 @@ public class GameFrame extends Frame {
 
 		introCanvas = new IntroCanvas();
 		endCanvas = new EndCanvas();
-		
+
 		add(introCanvas);
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
-		
+
 		addWindowListener(new GameWindowListener());
-		
+
 		setVisible(true);
 	}
 
 	public void introChange() {
 		introCanvas = new IntroCanvas();
 		add(introCanvas);
-		
-		if(honeyBeeCanvas.isValid()) {
+
+		if (honeyBeeCanvas.isValid()) {
 			remove(honeyBeeCanvas);
 			honeyBeeCanvas.stop();
 			honeyBeeCanvas = null;
-		}
-		else if(endCanvas.isValid())
+		} else if (endCanvas.isValid())
 			remove(endCanvas);
-		
+
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
 		revalidate();
 	}
-	
+
 	public void honeyBeeChange() {
 		honeyBeeCanvas = new HoneyBeeCanvas();
 
 		add(honeyBeeCanvas);
 		remove(introCanvas);
-		
+
 		honeyBeeCanvas.setFocusable(true);
 		honeyBeeCanvas.requestFocus();
 		revalidate();
@@ -57,10 +56,10 @@ public class GameFrame extends Frame {
 		honeyBeeCanvas.start();
 	}
 
-	public void endChange() {		
+	public void endChange() {
 		add(endCanvas);
 		remove(honeyBeeCanvas);
-		
+
 		endCanvas.setFocusable(true);
 		endCanvas.requestFocus();
 		honeyBeeCanvas.stop();

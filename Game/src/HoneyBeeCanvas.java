@@ -14,7 +14,6 @@ public class HoneyBeeCanvas extends Canvas {
 	private Bee bee;
 	private TimeBee tbee;
 	private Bottle bottle;
-
 	private Honey[][] honey;
 	private Bar[] bar;
 	private Butterfly bf;
@@ -56,7 +55,13 @@ public class HoneyBeeCanvas extends Canvas {
 			public void arrived(Point[] leg) {
 				leg = fw.putHoney(leg);
 				bee.catchHoney(leg);
-				bee.sendToBottle();
+				bee.move(bpx, bpy);
+			}
+
+			@Override
+			public void deliveryHoney(int honeyNum) {
+				System.out.println("toBottle : " + honeyNum);
+				bottle.getHoney(honeyNum);
 			}
 		});
 
@@ -69,16 +74,15 @@ public class HoneyBeeCanvas extends Canvas {
 						// 여기에 스페이스 누르면 명령 입력
 						if (posCnt == 0) {
 							bar[0].setActivation(false);
-							xPos = bar[0].getPos();
 							bar[1].setActivation(true);
+							xPos = bar[0].getPos();
 							posCnt++;
 						} else {
 							bar[1].setActivation(false);
-							yPos = bar[1].getPos();
 							bar[0].setActivation(true);
+							yPos = bar[1].getPos();
 							posCnt--;
-//						System.out.println(xPos);
-//						System.out.println(yPos);
+							
 							bee.move(xPos, yPos);
 						}
 					}
@@ -144,12 +148,14 @@ public class HoneyBeeCanvas extends Canvas {
 	public void start() {
 		running = true;
 
+		BgMusic.Sound("res/MainBgm.wav", true);
 		new Thread(() -> {
 			while (running) {
 				if (!pause.getPauseMode()) {
 					try {
 						bg.update();
 						fw.flowerUpdate();
+						bf.update();
 
 						if (tbee.getX() == 50)
 							end();
@@ -159,8 +165,6 @@ public class HoneyBeeCanvas extends Canvas {
 						
 						tbee.update();
 						bee.update();
-
-						bottle.update(bee);
 						s.update(bottle);
 
 						Thread.sleep(16);

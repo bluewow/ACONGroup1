@@ -44,39 +44,49 @@ public class Bottle {
 		y = bpy;
 		return y;
 	}
-	
-	public void update(Bee bee) {
-		
-		
-	}
-	
-	public int getHoney() {
 
-		if(honeyScore>=10) {
+	public int getHoney(int honey) {
+		honeyScore = honeyScore + honey;
+		int cnt;
+		switch (cnt = honeyScore / 10) {
+		case 1:
 			imgIndex = 1;
-		} else if(honeyScore>=20) {
+			break;
+		case 2:
 			imgIndex = 2;
-		}  else if(honeyScore>=20) {
-			imgIndex = 2;
-		}  else if(honeyScore>=30) {
+			break;
+		case 3:
 			imgIndex = 3;
-		}  else if(honeyScore>=40) {
+			break;
+		case 4:
 			imgIndex = 4;
-		}  else if(honeyScore>=50) {
+			break;
+		case 5:
 			imgIndex = 5;
-		}  else if(honeyScore>=60) {
+			break;
+		case 6:
 			imgIndex = 6;
-		}  else if(honeyScore>=70) {
+			break;
+		case 7:
 			imgIndex = 7;
-		}  else if(honeyScore>=80) {
+			break;
+		case 8:
 			imgIndex = 8;
-		}  else if(honeyScore>=90) {
+			break;
+		case 9:
 			imgIndex = 9;
-		}  else if(honeyScore>=100) {
+			break;
+		case 10:
 			imgIndex = 10;
-			honeyScore = 100;
+			break;
 		}
-		
+
+//		System.out.println("total honey : "+honeyScore);
+		return honeyScore;
+	}
+
+	public int getHoney() {
+//		System.out.println("getHoney"+honeyScore);
 		return honeyScore;
 	}
 
