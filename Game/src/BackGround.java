@@ -10,9 +10,9 @@ public class BackGround {
 	private int w;
 	private int h;
 
-	private int xtimeForReady;
-	private int y1timeForReady;
-	private int y2timeForReady;
+	private int xTimeForReady;
+	private int yTimeForReady;
+
 
 	private Image img;
 
@@ -24,9 +24,8 @@ public class BackGround {
 		sx = 0;
 		sy = 0;
 
-		xtimeForReady = 0;
-		y1timeForReady = 0;
-		y2timeForReady = 0;
+		xTimeForReady = 0;
+		yTimeForReady = 0;
 
 		Toolkit tk = Toolkit.getDefaultToolkit(); // 이미지 그리는 api
 		img = tk.getImage("res/backTemplet.png"); //
@@ -34,35 +33,23 @@ public class BackGround {
 	}
 
 	public void update() {
-		if (xtimeForReady < 2)
-			xtimeForReady++;
-		else if (xtimeForReady == 2) {
+		if (xTimeForReady < 2)
+			xTimeForReady++;
+		else if (xTimeForReady == 2) {
 			sx++;
-			xtimeForReady = 0;
+			xTimeForReady = 0;
 		} // 배경 X의 속도
 
-		if (y1timeForReady < 200)
-			y1timeForReady++;
-
-		if (y1timeForReady <= 100 && y1timeForReady % 10 == 0 )
+		if (yTimeForReady < 200)
+			yTimeForReady++;
+		
+		if (yTimeForReady <= 100 && yTimeForReady % 10 == 0 )
 			sy++;
-		else if (y1timeForReady>100 && y1timeForReady<=200 && y1timeForReady % 10 == 0)
+		else if (yTimeForReady>100 && yTimeForReady<=200 && yTimeForReady % 10 == 0)
 			sy--;	
 	
-		if (y1timeForReady == 200)
-			y1timeForReady = 0;
-
-		// }
-
-//
-//		if (y2timeForReady < 30)
-//			y2timeForReady++;
-//		else if (y2timeForReady-y1timeForReady%5==0) 
-//			sy--;	
-//		else if(y2timeForReady==30)
-//			y2timeForReady = 0;			
-//		System.out.printf("x: %d\n", sx);
-
+		if (yTimeForReady == 200)
+			yTimeForReady = 0;
 		// 배경 Y의 속도
 
 	}
@@ -71,4 +58,6 @@ public class BackGround {
 		g.drawImage(img, x, y, w, h, sx, sy, w + sx, sy + h, honeyBeeCanvas);
 
 	}
+	
+
 }
