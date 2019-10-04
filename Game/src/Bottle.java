@@ -86,7 +86,7 @@ public class Bottle {
 	}
 
 	public int getHoney() {
-//		System.out.println("getHoney"+honeyScore);
+		System.out.println("getHoney"+honeyScore);
 		return honeyScore;
 	}
 
