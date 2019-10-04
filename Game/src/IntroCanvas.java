@@ -20,14 +20,15 @@ public class IntroCanvas extends Canvas implements KeyListener, MouseListener{
 		x=200;
 		y=300;
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
+		//img = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
 	}
 	
 	@Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(img, 200, 300,this);
+		g.drawImage(img, 200, 300,255,85,this);
 		addKeyListener(this);
+		addMouseListener(this);
 	}
 
 	@Override
