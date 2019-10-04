@@ -61,7 +61,7 @@ public class BackGround {
 //			sy--;	
 //		else if(y2timeForReady==30)
 //			y2timeForReady = 0;			
-		System.out.printf("x: %d\n", sx);
+//		System.out.printf("x: %d\n", sx);
 
 		// 배경 Y의 속도
 
