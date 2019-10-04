@@ -46,9 +46,9 @@ public class Bottle {
 	}
 
 	public int getHoney(int honey) {
+		honey*=5;
 		honeyScore = honeyScore + honey;
-		int cnt;
-		switch (cnt = honeyScore / 10) {
+		switch (honeyScore / 10) {
 		case 1:
 			imgIndex = 1;
 			break;
@@ -81,6 +81,8 @@ public class Bottle {
 			break;
 		}
 
+		HoneyBeeCanvas.bar[0].setActivation(true);
+		HoneyBeeCanvas.posCnt=0;
 //		System.out.println("total honey : "+honeyScore);
 		return honeyScore;
 	}

@@ -15,14 +15,14 @@ public class HoneyBeeCanvas extends Canvas {
 	private TimeBee tbee;
 	private Bottle bottle;
 	private Honey[][] honey;
-	private Bar[] bar;
+	public static Bar[] bar;
 	private Butterfly bf;
 	private Flower fw;
 	private Pause pause;
 	private boolean running;
 	private int xPos;
 	private int yPos;
-	private int posCnt;
+	public static int posCnt;
 	private int honeyScore;
 	private int bpx;
 	private int bpy;
@@ -77,14 +77,12 @@ public class HoneyBeeCanvas extends Canvas {
 							bar[1].setActivation(true);
 							xPos = bar[0].getPos();
 							posCnt++;
-						} else {
+						} else if(posCnt==1){
 							bar[1].setActivation(false);
-							bar[0].setActivation(true);
 							yPos = bar[1].getPos();
-							posCnt--;
-							
+							posCnt++;
 							bee.move(xPos, yPos);
-						}
+						} else posCnt++;
 					}
 				}
 			}
