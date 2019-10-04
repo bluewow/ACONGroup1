@@ -46,7 +46,7 @@ import java.util.Random;
  *  - 병에 넣기 clear
  *  - 병에 넣을때 실패음
  *  - 꽃에서 꿀따기
- * 벌 이미지 추가  
+ * 벌과 다리 분리
  * 		 
  */
 public class Bee {
@@ -70,11 +70,12 @@ public class Bee {
 	private static final int HONEY_MARGIN_WH = 7;
 	private static final int NORMAL_MOVING = 1;
 	private static final int RANDOM_MOVING = 0;
+	private int[] xArrayLeg = {56, 65, 100, 111, 142, 154 };
+	private int[] yArrayLeg = {128, 129, 129, 131, 119, 115 };
 	
 	Random random = new Random();
-	
-	Point[] leg;
-	Honey[] honeies;
+	private Point[] leg;
+	private Honey[] honeies;
 
 	private Image img;
 	private BeeListener listener;
@@ -101,6 +102,7 @@ public class Bee {
 		
 		leg = new Point[6];
 		honeies = new Honey[6];
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
 
@@ -228,6 +230,8 @@ public class Bee {
 
 	private boolean refreshBeeInfo() {
 		if(checkBoxScope(offsetX, offsetY)) {
+			imageIndex = 0;
+			
 			int honeyNum = 0;
 			for (int i = 0; i < leg.length; i++) {
 				if(leg[i] != null && leg[i].honey == true)
@@ -270,62 +274,27 @@ public class Bee {
 		
 		if (imageDelay++ % 30 == 0) {
 			imageDelay = 0;
-			imageIndex = (imageIndex == 1) ? 0 : 1;
+			if(dx == offsetX && dy == offsetY)
+				imageIndex = (imageIndex == 2) ? 3 : 2;
+			else
+				imageIndex = (imageIndex == 1) ? 0 : 1;
 		}
 	}
 
 	private void updateHoneyPosition() {
-		if (honeies[0] != null) {
-			honeies[0].setX((int)xPos - MARGIN_W + 16);
-			honeies[0].setY((int)yPos - MARGIN_H + 118);
+		for(int i = 0; i < honeies.length; i++) {
+			if (honeies[i] != null) {
+				honeies[i].setX((int)xPos - MARGIN_W + xArrayLeg[i]);
+				honeies[i].setY((int)yPos - MARGIN_H + yArrayLeg[i]);
+			}
 		}
-
-		if (honeies[1] != null) {
-			honeies[1].setX((int)xPos - MARGIN_W + 27);
-			honeies[1].setY((int)yPos - MARGIN_H + 121);
-		}
-
-		if (honeies[2] != null) {
-			honeies[2].setX((int)xPos - MARGIN_W + 59);
-			honeies[2].setY((int)yPos - MARGIN_H + 133);
-		}
-
-		if (honeies[3] != null) {
-			honeies[3].setX((int)xPos - MARGIN_W + 71);
-			honeies[3].setY((int)yPos - MARGIN_H + 131);
-		}
-
-		if (honeies[4] != null) {
-			honeies[4].setX((int)xPos - MARGIN_W + 107);
-			honeies[4].setY((int)yPos - MARGIN_H + 130);
-		}
-
-		if (honeies[5] != null) {
-			honeies[5].setX((int)xPos - MARGIN_W + 114);
-			honeies[5].setY((int)yPos - MARGIN_H + 129);
-		}
-
 	}
 
 	private void setHoneyPosition(Point[] honey) {
-		honey[0].x = (int)xPos - MARGIN_W + 16;
-		honey[0].y = (int)yPos - MARGIN_H + 118;
-
-		honey[1].x = (int)xPos - MARGIN_W + 27;
-		honey[1].y = (int)yPos - MARGIN_H + 121;
-
-		honey[2].x = (int)xPos - MARGIN_W + 59;
-		honey[2].y = (int)yPos - MARGIN_H + 133;
-
-		honey[3].x = (int)xPos - MARGIN_W + 71;
-		honey[3].y = (int)yPos - MARGIN_H + 131;
-
-		honey[4].x = (int)xPos - MARGIN_W + 107;
-		honey[4].y = (int)yPos - MARGIN_H + 130;
-
-		honey[5].x = (int)xPos - MARGIN_W + 114;
-		honey[5].y = (int)yPos - MARGIN_H + 129;
-
+		for(int i = 0; i < honey.length; i++) {
+			honey[i].x = (int)xPos - MARGIN_W + xArrayLeg[i];
+			honey[i].y = (int)yPos - MARGIN_H + yArrayLeg[i];
+		}
 	}
 	
 	private void testObjectRange(Graphics g2) {
@@ -337,11 +306,17 @@ public class Bee {
 		g2.drawRect(250, 250, 350, 350);
 		g2.drawRect(xPos, yPos, 3, 3);
 		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
+//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 129, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 67, yPos - MARGIN_H + 130, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 102, yPos - MARGIN_H + 130, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 113, yPos - MARGIN_H + 132, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 146, yPos - MARGIN_H + 122, 3, 3);
+		g2.drawRect(xPos - MARGIN_W + 157, yPos - MARGIN_H + 118, 3, 3);
 	}
 }
