@@ -43,6 +43,9 @@ import java.util.Random;
  * TODO
  * 벌 수집시 약간의 delay
  * 벌 효과음
+ *  - 병에 넣기 clear
+ *  - 병에 넣을때 실패음
+ *  - 꽃에서 꿀따기
  * 벌 이미지 추가  
  * 		 
  */
@@ -240,6 +243,10 @@ public class Bee {
 
 			if(listener != null && honeyNum >= 0) {
 				listener.deliveryHoney(honeyNum);
+				if(honeyNum > 0)
+					BgMusic.Sound("res/BeePut.wav", false);
+//				else 
+					//실패 효과음 
 			}
 
 			return true;
