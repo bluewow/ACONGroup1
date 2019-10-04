@@ -228,22 +228,23 @@ public class Bee {
 
 	private boolean refreshBeeInfo() {
 		if(xPos == offsetX && yPos == offsetY) {
-			for(int i = 0; i < honeies.length; i++) 
-				honeies[i] = null;
-			
 			int honeyNum = 0;
 			for (int i = 0; i < leg.length; i++) {
 				if(leg[i] != null && leg[i].honey == true)
 					honeyNum++;
+				if(leg[i] == null)
+					honeyNum = -1;
 				
 				leg[i] = null;
 			}
 			
+			for(int i = 0; i < honeies.length; i++) 
+				honeies[i] = null;
+
 			if(listener != null && honeyNum >= 0) {
 				listener.deliveryHoney(honeyNum);
-				
 			}
-			
+
 			return true;
 		}
 		return false;
