@@ -1,7 +1,7 @@
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -23,10 +23,14 @@ public class HoneyBeeCanvas extends Canvas {
     private int yPos;
     private int posCnt;
     private int honeyScore;
+    private int bpx;
+    private int bpy;
 	
     public HoneyBeeCanvas() {
 		bg = new BackGround();
 		bottle = new Bottle();
+		bpx = bottle.beePosX(bpx);
+		bpy = bottle.beePosY(bpy);
 		fw = new Flower();
 		t = new GameTimer();
 		s = new Score();
@@ -38,11 +42,27 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
-		bee = new Bee();
+		bee = new Bee(bpx, bpy);
 		bf = new Butterfly();
 
 		running = false;
+		
+		bee.addBeeListener(new Bee.BeeListener() {
+			
+			@Override
+			public void arrived(Point[] leg) {
+			    leg = fw.putHoney(leg);
+				bee.catchHoney(leg);
+				bee.move(bpx, bpy);
+			}
 
+			@Override
+			public void deliveryHoney(int honeyNum) {
+				System.out.println("toBottle : " + honeyNum);
+				bottle.getHoney(honeyNum);
+								
+			}
+		}); 
 		
 		addKeyListener(new KeyAdapter() {
 			@Override
@@ -58,13 +78,13 @@ public class HoneyBeeCanvas extends Canvas {
 					} else {
 						bar[1].setActivation(false);
 						yPos = bar[1].getPos();
-						bar[0].setActivation(true);
 						posCnt--;
-						System.out.println(xPos);
-						System.out.println(yPos);
+//						System.out.println(xPos);
+//						System.out.println(yPos);
+//						System.out.println("move");
 						bee.move(xPos, yPos);
+						bar[0].setActivation(true);
 					}
-					
 				}
 			}
 		});
@@ -81,6 +101,7 @@ public class HoneyBeeCanvas extends Canvas {
 	public void paint(Graphics g) {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
+		
 		bg.draw(g2, this);
 
 		bottle.draw(g2, this);
@@ -92,6 +113,12 @@ public class HoneyBeeCanvas extends Canvas {
 
 		bee.draw(g2, this);
 
+		// 2번 스페이스바를 누를 때마다 나타난다. 시작 시 나타나지않는다.
+		if(posCnt == 0 && xPos != 0) {
+			g2.setColor(Color.RED);
+			g2.fillOval(xPos - 10 / 2, yPos - 10 / 2, 10, 10);
+		}
+		
 		bf.draw(g2, this);
 
 		t.draw(g2, this);
@@ -105,39 +132,36 @@ public class HoneyBeeCanvas extends Canvas {
 
 	public void start() {
 		running = true;
-		
+		BgMusic.Sound("res/MainBgm.wav", true);
 		new Thread(() -> {
 			while (running) {
 				try {
-					tbee.update();
-					bee.update();
+					bg.update();
+					fw.flowerUpdate();
+					bf.update();
 
 					if (tbee.getX() == 50)
 						end();	
-					//s.update(bottle);
 					for (Bar b : bar)
 						b.update();
+					tbee.update();
+					bee.update();
+					s.update(bottle);
 
-
-					Thread.sleep(17);
+					Thread.sleep(16);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 				repaint();
 			}
 		}).start();
-
 	}
 	
 	public void stop() {
 		running = false;
-		
 	}
 
 	public void end() {
-
-		
-
 		GameFrame.getInstance().endChange();
 	}
 

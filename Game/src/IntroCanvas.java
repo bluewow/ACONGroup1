@@ -1,17 +1,32 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Paint;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class IntroCanvas extends Canvas implements KeyListener, MouseListener{
+	private int x;
+	private int y;
+	private int w;
+	private int h;
+	
+	private Image img;
+	
+	
+	public IntroCanvas() {
+		x=200;
+		y=300;
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		img = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
+	}
 	
 	@Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawString("게임 시작", 200, 300);
+//		g.drawImage(img, 200, 300,this);
 		addKeyListener(this);
 	}
 

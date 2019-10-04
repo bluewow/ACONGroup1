@@ -12,6 +12,8 @@ public class Bottle {
 	private int h;
 	private int sh;
 	private int honeyScore;
+	private int bpx;
+	private int bpy;
 
 	public Bottle() {
 		x = 540;
@@ -19,7 +21,9 @@ public class Bottle {
 		w = 165;
 		h = 380;
 		sh = 422;
-
+		bpx = x+80;
+		bpy = y-20;
+		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bottle(165X422).png");
 		imgIndex = 0;
@@ -31,35 +35,60 @@ public class Bottle {
 		g2.drawImage(img, x, y, x + w, y + h, 0 + sx, 0, w + sx, sh, honeyBeeCanvas);
 	}
 
-	public int getHoney() {
+	public int beePosX(int x) {
+		x = bpx;
+		return x;
+	}
 
-		honeyScore =+ this.getHoney();
-		if(honeyScore>=10) {
+	public int beePosY(int y) {
+		y = bpy;
+		return y;
+	}
+
+	public int getHoney(int honey) {
+		honeyScore = honeyScore + honey;
+		int cnt;
+		switch (cnt = honeyScore / 10) {
+		case 1:
 			imgIndex = 1;
-		} else if(honeyScore>=20) {
+			break;
+		case 2:
 			imgIndex = 2;
-		}  else if(honeyScore>=20) {
-			imgIndex = 2;
-		}  else if(honeyScore>=30) {
+			break;
+		case 3:
 			imgIndex = 3;
-		}  else if(honeyScore>=40) {
+			break;
+		case 4:
 			imgIndex = 4;
-		}  else if(honeyScore>=50) {
+			break;
+		case 5:
 			imgIndex = 5;
-		}  else if(honeyScore>=60) {
+			break;
+		case 6:
 			imgIndex = 6;
-		}  else if(honeyScore>=70) {
+			break;
+		case 7:
 			imgIndex = 7;
-		}  else if(honeyScore>=80) {
+			break;
+		case 8:
 			imgIndex = 8;
-		}  else if(honeyScore>=90) {
+			break;
+		case 9:
 			imgIndex = 9;
-		}  else if(honeyScore>=100) {
+			break;
+		case 10:
 			imgIndex = 10;
-			honeyScore = 100;
+			break;
 		}
-		
+
+//		System.out.println("total honey : "+honeyScore);
 		return honeyScore;
 	}
+
+	public int getHoney() {
+//		System.out.println("getHoney"+honeyScore);
+		return honeyScore;
+	}
+
 
 }

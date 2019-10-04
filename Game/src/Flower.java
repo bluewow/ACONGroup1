@@ -14,22 +14,36 @@ public class Flower {
 	private int hy;
 	private int setx;
 	private int sety;
+	private int imageindex;
+	private int imagedelay;
+
 
 	Image img;
 	Honey[][] honeies;
 	Honey honey1;
+	Honey[] honeies2;
 
 	public Flower() {
 
-		z = 3;
+		z = 0;
 		x = 150;
 		y = 330;
 		w = 260;
 		h = 380;
 		hx = x + 47;
 		hy = h - 20;
+		imageindex = 0;
+		imagedelay = 1;
 
 		honeies = new Honey[10][10];
+		honeies2 = new Honey[100]; // honeies2[0]
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		img = tk.getImage("res/flowerFullIndex.png");
+		honeyPosition();
+	}
+
+	public void honeyPosition() {
 		for (int i = 0; i < 5; i++) {
 			z = 2 - i;
 			if (z < 0)
@@ -37,7 +51,9 @@ public class Flower {
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
 				honeies[i][j] = new Honey(hx + z * 15, hy);
-				System.out.printf("%d,%d\n", i, j);
+
+//			    System.out.printf("%d,%d\n",i,j);
+
 				hx += 15;
 			}
 			hx = x + 47;
@@ -54,8 +70,38 @@ public class Flower {
 			}
 			hx = x + 47;
 		}
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/flowerAll(260X380).png");
+	}
+
+	public Point[] putHoney(Point[] point) {
+		for (int z = 0; z < 6; z++) {
+			point[z].honey = false;
+			for (int i = 0; i < 10; i++)
+				for (int j = 0; j < 10; j++) {
+					if (honeies[i][j] != null) {
+						if ((point[z].x > (honeies[i][j].getX() - 8)) && 
+							(point[z].x < (honeies[i][j].getX() + 8)) && 
+							(point[z].y > (honeies[i][j].getY() - 8)) && 
+							(point[z].y < (honeies[i][j].getY() + 8))) 
+						    {
+							point[z].honey = true;
+							honeies[i][j] = null;
+						} 
+					}
+				}
+//			System.out.println("point:"+z+point[z].honey);
+		}
+		return point;
+
+	}
+
+	public void flowerUpdate() {
+		if (imagedelay++ % 30 == 0) {
+			if (imageindex < 0) {
+				imageindex++;
+			} else {
+				imageindex--;
+			}
+		}
 	}
 
 	public void setX(int setx) {
@@ -75,12 +121,13 @@ public class Flower {
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
-		// TODO Auto-generated method stub
-		g2.drawImage(img, x, y, x + w, y + h, 0, 0, w * 4, h * 4, honeybeecanvas);
-
+		g2.drawImage(img, x, y, x + w, y + h, 0 - w * imageindex, 0, w - w * imageindex, h, honeybeecanvas);
+		
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++)
 				if (honeies[i][j] != null)
 					honeies[i][j].draw(g2, honeybeecanvas);
+//		g2.drawRect(15,15,15,15);
 	}
+
 }

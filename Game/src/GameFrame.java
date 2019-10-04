@@ -27,10 +27,10 @@ public class GameFrame extends Frame {
 	}
 	public void endChange() {
 		add(endCanvas);
+		remove(canvas);
 		endCanvas.setFocusable(true);
 		endCanvas.requestFocus();
 		canvas.stop();
-		remove(canvas);
 		revalidate();
 		
 		
@@ -39,9 +39,9 @@ public class GameFrame extends Frame {
 	private GameFrame() {
 		setSize(800,800);
 		
-		introCanvas = new IntroCanvas();
-		canvas = new HoneyBeeCanvas();
 		endCanvas = new EndCanvas();
+		canvas = new HoneyBeeCanvas();
+		introCanvas = new IntroCanvas();
 		add(introCanvas);
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
