@@ -3,13 +3,19 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
- * Bee 행동패턴
+ * 
+ * Bee 요구사항
+ * - 이동
+ * - 꿀 채취
+ * - 꿀병에 꿀 전달
  * 
  * 벌 이동
  * L1 - move(int, int)
- *   L2 - calculateMove
+ *   L2 - normalMove
+ *   L2 - dynamicMove
  *  
  * 꿀 수집
  * L1 - catchHoney(Point[])
@@ -20,10 +26,11 @@ import java.util.List;
  * 벌/꿀 이동좌표 갱신
  * L1 - update();
  *   L2 - updateBeeImageIndex();
+ *   L2 - updateDynamicMoveStatus ? yes or no
  *   L2 - updateHoneyPosition()
  *   L2 - arriveAtLocation
- *     L3 - refreshBeeInfo 
- *     L3 - callHoneyBeeCanvas
+ *     L3 - refreshBeeInfo ? yes or no
+ *     L3 - callHoneyBeeCanvas no
  *       L4 - setHoneyPosition(Point[])
  * 
  * bottle 에게 꿀 전달 및 honey/leg null 처리
@@ -44,20 +51,27 @@ public class Bee {
 	private double yPos;
 	private double dx;
 	private double dy;
+	private double rdx;
+	private double rdy;
 	private double vx;
 	private double vy;
 	private int w;
 	private int h;
 	private int imageIndex;
 	private int imageDelay;
+	private int dynamicMoveCnt;
 	private static final int MARGIN_W = 78;
 	private static final int MARGIN_H = 76;
 	private static final int HONEY_MARGIN_WH = 7;
+	private static final int NORMAL_MOVING = 1;
+	private static final int RANDOM_MOVING = 0;
+	
+	Random random = new Random();
+	
 	Point[] leg;
 	Honey[] honeies;
 
 	private Image img;
-	private Image honeyImg;
 	private BeeListener listener;
 
 	public interface BeeListener {
@@ -78,6 +92,7 @@ public class Bee {
 		h = 136;
 		imageIndex = 0;
 		imageDelay = 0;
+		dynamicMoveCnt = 0;
 		
 		leg = new Point[6];
 		honeies = new Honey[6];
@@ -92,20 +107,39 @@ public class Bee {
 		
 		if(dx == xPos && dy == yPos)
 			return;
-		
-		calculateMove();
-		
+
+		//check bottle position
+		if(offsetX == dx && offsetY == dy)
+			normalMove();
+		else {
+			dynamicMove();			
+			dynamicMoveCnt = random.nextInt(3) + 1;
+		}
 	}
 	
-	private void calculateMove() {
+	private void normalMove() {
 		double w = dx - xPos;
-		double h = dy - yPos;
+		double h = dy - yPos; 
 		double d = (double) Math.sqrt(w * w + h * h);
 		
 		vx = (w / d) * 3;
 		vy = (h / d) * 3;
 	}
+	
+	private void dynamicMove() {
+		rdx = random.nextInt(250) + 250 + random.nextInt(100);
+	    rdy = random.nextInt(250) + 250 + random.nextInt(100);
+	      
+		double w = rdx - xPos;
+		double h = rdy - yPos;
+		double d = (double) Math.sqrt(w * w + h * h);
 
+		vx = (w / d) * 5;
+		vy = (h / d) * 5;
+	}
+
+	
+	
 	public void catchHoney(Point[] honey) {
 		for (int i = 0; i < honey.length; i++) {
 			if (honey[i].honey) {
@@ -130,7 +164,7 @@ public class Bee {
 				honeies[i].draw(g2, honeyBeeCanvas);
 			}
 		}
-
+	
 //		Test Range
 //		testObjectRange(g2);
 
@@ -141,9 +175,30 @@ public class Bee {
 		yPos += vy;
 
 		updateBeeImageIndex();
+		if(updateDynamicMoveStatus() == RANDOM_MOVING)
+			return;
 		updateHoneyPosition();
 		arriveAtLocation();
 		
+	}
+
+	private int updateDynamicMoveStatus() {
+		if(dynamicMoveCnt > 0) {
+			if (((rdy - 2 < yPos) && (yPos < rdy + 2)) || 	
+				((rdx - 2 < xPos) && (xPos < rdx + 2))) {
+				dynamicMoveCnt--;
+				if(dynamicMoveCnt == 0) {
+					normalMove();
+					return NORMAL_MOVING;
+				} 
+				else {
+					dynamicMove();
+					return RANDOM_MOVING;
+				}
+			}
+			return RANDOM_MOVING;
+		}
+		return NORMAL_MOVING;
 	}
 
 	private void arriveAtLocation() {
@@ -265,6 +320,7 @@ public class Bee {
 		int w = (int)this.w;
 		int h = (int)this.h;
 		
+		g2.drawRect(250, 250, 350, 350);
 		g2.drawRect(xPos, yPos, 3, 3);
 		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
 		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
