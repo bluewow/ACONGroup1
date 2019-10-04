@@ -41,8 +41,9 @@ import java.util.Random;
  * L1 - addBeeListener(BeeListener) 
  * 
  * TODO
- * dynamic move
- * 벌 수집시 약간의 delay  
+ * 벌 수집시 약간의 delay
+ * 벌 효과음
+ * 벌 이미지 추가  
  * 		 
  */
 public class Bee {
@@ -183,9 +184,9 @@ public class Bee {
 		
 	}
 
-	private boolean checkBoxRange() {
-		if(((rdy - 3 < yPos) && (yPos < rdy + 3)) || 	
-			((rdx - 3 < xPos) && (xPos < rdx + 3))) 
+	private boolean checkBoxScope(double x, double y) {
+		if((y - 3 < yPos) && (yPos < y + 3) &&   	
+		   (x - 3 < xPos) && (xPos < x + 3)) 
 			return true;
 		else
 			return false;
@@ -195,7 +196,7 @@ public class Bee {
 		if(dynamicMoveCnt == 0)
 			return NORMAL_MOVING;
 		
-		if(checkBoxRange() && dynamicMoveCnt != 0) {
+		if(checkBoxScope(rdx, rdy) && dynamicMoveCnt != 0) {
 			dynamicMoveCnt--;
 			if(dynamicMoveCnt == 0) {
 				normalMove();
@@ -211,13 +212,9 @@ public class Bee {
 	}
 
 	private void arriveAtLocation() {
-		if (((dy - 3 < yPos) && (yPos < dy + 3)) || 
-			((dx - 3 < xPos) && (xPos < dx + 3))) {
-			
+		if(checkBoxScope(dx, dy)) {
 			vx = 0.0;
 		    vy = 0.0;
-		    xPos = (int)dx;
-		    yPos = (int)dy;
 		    
 		    if(refreshBeeInfo())
 		    	return;
@@ -227,7 +224,7 @@ public class Bee {
 	}
 
 	private boolean refreshBeeInfo() {
-		if(xPos == offsetX && yPos == offsetY) {
+		if(checkBoxScope(offsetX, offsetY)) {
 			int honeyNum = 0;
 			for (int i = 0; i < leg.length; i++) {
 				if(leg[i] != null && leg[i].honey == true)
