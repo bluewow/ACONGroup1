@@ -28,6 +28,7 @@ import java.util.Random;
  *   L2 - updateBeeImageIndex();
  *   L2 - updateDynamicMoveStatus ? yes or no
  *   L2 - updateHoneyPosition()
+ *     L3 - checkBoxRange()
  *   L2 - arriveAtLocation
  *     L3 - refreshBeeInfo ? yes or no
  *     L3 - callHoneyBeeCanvas no
@@ -182,23 +183,31 @@ public class Bee {
 		
 	}
 
+	private boolean checkBoxRange() {
+		if(((rdy - 3 < yPos) && (yPos < rdy + 3)) || 	
+			((rdx - 3 < xPos) && (xPos < rdx + 3))) 
+			return true;
+		else
+			return false;
+	}
+	
 	private int updateDynamicMoveStatus() {
-		if(dynamicMoveCnt > 0) {
-			if (((rdy - 2 < yPos) && (yPos < rdy + 2)) || 	
-				((rdx - 2 < xPos) && (xPos < rdx + 2))) {
-				dynamicMoveCnt--;
-				if(dynamicMoveCnt == 0) {
-					normalMove();
-					return NORMAL_MOVING;
-				} 
-				else {
-					dynamicMove();
-					return RANDOM_MOVING;
-				}
+		if(dynamicMoveCnt == 0)
+			return NORMAL_MOVING;
+		
+		if(checkBoxRange() && dynamicMoveCnt != 0) {
+			dynamicMoveCnt--;
+			if(dynamicMoveCnt == 0) {
+				normalMove();
+				return NORMAL_MOVING;
+			} 
+			else {
+				dynamicMove();
+				return RANDOM_MOVING;
 			}
-			return RANDOM_MOVING;
 		}
-		return NORMAL_MOVING;
+
+		return RANDOM_MOVING;
 	}
 
 	private void arriveAtLocation() {
@@ -230,7 +239,7 @@ public class Bee {
 				leg[i] = null;
 			}
 			
-			if(listener != null && honeyNum > 0) {
+			if(listener != null && honeyNum >= 0) {
 				listener.deliveryHoney(honeyNum);
 				
 			}
