@@ -2,11 +2,11 @@ import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
-public class IntroCanvas extends Canvas implements MouseListener, MouseMotionListener {
+public class IntroCanvas extends Canvas {
+
 	private int x;
 	private int y;
 	private int sx;
@@ -33,8 +33,23 @@ public class IntroCanvas extends Canvas implements MouseListener, MouseMotionLis
 		imgBefore = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
 		imgAfter = tk.getImage("res/IntroAfterBtnTemplet(255X85).png");
 
-		addMouseMotionListener(this);
-		addMouseListener(this);
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y && e.getY() <= y + h)
+					GameFrame.getInstance().honeyBeeChange();
+				else if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y + 200 && e.getY() <= y + 200 + h)
+					System.exit(0);
+			}
+		});
+		
+		addMouseMotionListener(new MouseAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				getX = e.getX();
+				getY = e.getY();
+			}
+		});
 	}
 
 	@Override
@@ -60,49 +75,4 @@ public class IntroCanvas extends Canvas implements MouseListener, MouseMotionLis
 		repaint();
 	}
 
-	@Override
-	// 메뉴 클릭할 때 메뉴마다 실행할 행동.
-	public void mouseClicked(MouseEvent e) {
-		if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y && e.getY() <= y + h)
-			// Audio 넣어야 함
-			GameFrame.getInstance().change();
-		else if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y + 200 && e.getY() <= y + 200 + h)
-			System.exit(0);
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		getX = e.getX();
-		getY = e.getY();
-	}
 }
