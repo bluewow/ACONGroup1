@@ -12,12 +12,15 @@ public class Flower {
 	private int h;
 	private int hx;
 	private int hy;
+	private int setx;
+	private int sety;
 
 	Image img;
 	Honey[][] honeies;
 	Honey honey1;
 
 	public Flower() {
+
 		z = 3;
 		x = 150;
 		y = 330;
@@ -33,8 +36,8 @@ public class Flower {
 				z = 0;
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
-				honeies[i][j] = new Honey(hx + z*15, hy);
-			    System.out.printf("%d,%d\n",i,j);
+				honeies[i][j] = new Honey(hx + z * 15, hy);
+				System.out.printf("%d,%d\n", i, j);
 				hx += 15;
 			}
 			hx = x + 47;
@@ -45,7 +48,7 @@ public class Flower {
 				z = 0;
 			hy += 15;
 			for (int j = 0 + z; j < 10 - z; j++) {
-				honeies[i][j] = new Honey(hx + z*15, hy);
+				honeies[i][j] = new Honey(hx + z * 15, hy);
 //			    System.out.printf("%d,%d\n",i,j);
 				hx += 15;
 			}
@@ -53,6 +56,22 @@ public class Flower {
 		}
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/flowerAll(260X380).png");
+	}
+
+	public void setX(int setx) {
+		this.setx = setx;
+	}
+
+	public void setY(int sety) {
+		this.sety = sety;
+	}
+
+	public void update() {
+		for (int i = 0; i < 10; i++)
+			for (int j = 0; j < 10; j++) {
+				honeies[i][j].getX();
+				honeies[i][j].getY();
+			}
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeybeecanvas) {
