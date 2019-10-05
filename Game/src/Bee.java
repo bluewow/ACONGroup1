@@ -41,10 +41,6 @@ import java.util.Random;
  * L1 - addBeeListener(BeeListener) 
  * 
  * TODO
- * 벌 효과음
- *  - 병에 넣기 clear
- *  - 병에 넣을때 실패음
- *  - 꽃에서 꿀따기
  * 벌과 다리 분리
  * 		 
  */
