@@ -80,7 +80,7 @@ public class HoneyBeeCanvas extends Canvas {
 							yBarBee = bar[1].getPos();
 							spaceHitCnt++;
 							bee.move(xBarBee, yBarBee);
-							BgMusic.Sound("res/BeeFly.wav", false);
+							BgMusic.Sound("res/BeeFly.wav", "Play");
 						} else
 							spaceHitCnt++;
 					}
@@ -136,7 +136,7 @@ public class HoneyBeeCanvas extends Canvas {
 	public void start() {
 		running = true;
 
-		BgMusic.Sound("res/MainBgm.wav", true);
+		BgMusic.Sound("res/MainBgm.wav", "Loop");
 		new Thread(() -> {
 			while (running) {
 				if (!pause.getPauseMode()) {

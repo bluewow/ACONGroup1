@@ -248,9 +248,9 @@ public class Bee {
 			if(listener != null && honeyNum >= 0) {
 				listener.deliveryHoney(honeyNum);
 				if(honeyNum > 0)
-					BgMusic.Sound("res/BeePut.wav", false);
-//				else 
-					BgMusic.Sound("res/Empty.wav", false);
+					BgMusic.Sound("res/BeePut.wav", "Play");
+				else 
+					BgMusic.Sound("res/Empty.wav", "Play");
 			}
 
 			return true;
