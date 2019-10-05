@@ -11,9 +11,9 @@ public class Bottle {
 	private int w;
 	private int h;
 	private int sh;
-	private int honeyScore;
-	private int bpx;
-	private int bpy;
+	private int honeySum;
+	private int xBottleOnBee;
+	private int yBottleOnBee;
 
 	public Bottle() {
 		x = 540;
@@ -21,13 +21,13 @@ public class Bottle {
 		w = 165;
 		h = 380;
 		sh = 422;
-		bpx = x+80;
-		bpy = y-20;
-		
+		xBottleOnBee = x + 80;
+		yBottleOnBee = y - 20;
+		imgIndex = 0;
+		honeySum = 0;
+
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bottle(165X422).png");
-		imgIndex = 0;
-		honeyScore = 0;
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
@@ -36,61 +36,39 @@ public class Bottle {
 	}
 
 	public int beePosX(int x) {
-		x = bpx;
-		return x;
+		return xBottleOnBee;
 	}
 
 	public int beePosY(int y) {
-		y = bpy;
-		return y;
+		return yBottleOnBee;
 	}
 
 	public int getHoney(int honey) {
-		honey*=5;
-		honeyScore = honeyScore + honey;
-		switch (honeyScore / 10) {
-		case 1:
-			imgIndex = 1;
-			break;
-		case 2:
-			imgIndex = 2;
-			break;
-		case 3:
-			imgIndex = 3;
-			break;
-		case 4:
-			imgIndex = 4;
-			break;
-		case 5:
-			imgIndex = 5;
-			break;
-		case 6:
-			imgIndex = 6;
-			break;
-		case 7:
-			imgIndex = 7;
-			break;
-		case 8:
-			imgIndex = 8;
-			break;
-		case 9:
-			imgIndex = 9;
-			break;
+		honey *= 5;
+		honeySum = honeySum + honey;
+		switch (honeySum / 10) {
+		case 1:	imgIndex = 1; break;
+		case 2:	imgIndex = 2; break;
+		case 3:	imgIndex = 3; break;
+		case 4:	imgIndex = 4; break;
+		case 5:	imgIndex = 5; break;
+		case 6:	imgIndex = 6; break;
+		case 7:	imgIndex = 7; break;
+		case 8:	imgIndex = 8; break;
+		case 9:	imgIndex = 9; break;
 		case 10:
 			imgIndex = 10;
-			break;
+			honeySum=100;
+			//여기에 victory canvas를 call?
+		break;
 		}
-
 		HoneyBeeCanvas.bar[0].setActivation(true);
-		HoneyBeeCanvas.posCnt=0;
-//		System.out.println("total honey : "+honeyScore);
-		return honeyScore;
+		HoneyBeeCanvas.spaceHitCnt = 0;
+		return honeySum;
 	}
-
+	
 	public int getHoney() {
-//		System.out.println("getHoney"+honeyScore);
-		return honeyScore;
+		return honeySum;
 	}
-
 
 }

@@ -9,43 +9,42 @@ import java.awt.event.MouseEvent;
 
 public class HoneyBeeCanvas extends Canvas {
 	private BackGround bg;
-	private GameTimer t;
-	private Score s;
+	private GameTimer timer;
+	private Score score;
 	private Bee bee;
-	private TimeBee tbee;
+	private TimeBee timeBee;
 	private Bottle bottle;
 	private Honey[][] honey;
-	public static Bar[] bar;
-	private Butterfly bf;
-	private Flower fw;
+	private Butterfly butterfly;
+	private Flower flower;
 	private Pause pause;
-	private boolean running;
-	private int xPos;
-	private int yPos;
-	public static int posCnt;
+	public static Bar[] bar;
+	public static int spaceHitCnt;
+	private int xBarBee;
+	private int yBarBee;
 	private int honeyScore;
-	private int bpx;
-	private int bpy;
+	private int xBeeStartPos;
+	private int yBeeStartPos;
+	private boolean running;
 
 	public HoneyBeeCanvas() {
 		bg = new BackGround();
 		bottle = new Bottle();
-		bpx = bottle.beePosX(bpx);
-		bpy = bottle.beePosY(bpy);
-		fw = new Flower();
-		t = new GameTimer();
-		s = new Score();
-		tbee = new TimeBee();
+		flower = new Flower();
+		timer = new GameTimer();
+		score = new Score();
+		timeBee = new TimeBee();
 		honey = new Honey[10][10];
 		bar = new Bar[2];
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
 		pause = new Pause();
-
+		butterfly = new Butterfly();
+		xBeeStartPos = bottle.beePosX(xBeeStartPos);
+		yBeeStartPos = bottle.beePosY(yBeeStartPos);
+		bee = new Bee(xBeeStartPos, yBeeStartPos);
 		honeyScore = 0;
-		posCnt = 0;
-		bee = new Bee(bpx, bpy);
-		bf = new Butterfly();
+		spaceHitCnt = 0;
 
 		running = false;
 
@@ -53,9 +52,9 @@ public class HoneyBeeCanvas extends Canvas {
 
 			@Override
 			public void arrived(Point[] leg) {
-				leg = fw.putHoney(leg);
+				leg = flower.putHoney(leg);
 				bee.catchHoney(leg);
-				bee.move(bpx, bpy);
+				bee.move(xBeeStartPos, yBeeStartPos);
 			}
 
 			@Override
@@ -64,25 +63,25 @@ public class HoneyBeeCanvas extends Canvas {
 				bottle.getHoney(honeyNum);
 			}
 		});
-
+		// 스페이스키가 눌렸을 때 이벤트 발생
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (!pause.getPauseMode()) {
 					switch (e.getKeyCode()) {
 					case KeyEvent.VK_SPACE:
-						// 여기에 스페이스 누르면 명령 입력
-						if (posCnt == 0) {
+						if (spaceHitCnt == 0) {
 							bar[0].setActivation(false);
 							bar[1].setActivation(true);
-							xPos = bar[0].getPos();
-							posCnt++;
-						} else if(posCnt==1){
+							xBarBee = bar[0].getPos();
+							spaceHitCnt++;
+						} else if (spaceHitCnt == 1) {
 							bar[1].setActivation(false);
-							yPos = bar[1].getPos();
-							posCnt++;
-							bee.move(xPos, yPos);
-						} else posCnt++;
+							yBarBee = bar[1].getPos();
+							spaceHitCnt++;
+							bee.move(xBarBee, yBarBee);
+						} else
+							spaceHitCnt++;
 					}
 				}
 			}
@@ -92,6 +91,7 @@ public class HoneyBeeCanvas extends Canvas {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
 				// 일시정지 버튼이 눌렸는지 체크
 				pause.btnPauseClicked(e.getX(), e.getY());
 
@@ -112,34 +112,23 @@ public class HoneyBeeCanvas extends Canvas {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 
+		pause.draw(g2, this);
 		bg.draw(g2, this);
-
 		bottle.draw(g2, this);
-
-		fw.draw(g2, this);
-
-		for (Bar b : bar)
-			b.draw(g2, this);
-
+		flower.draw(g2, this);
+		timer.draw(g2, this);
+		score.draw(g2, this);
+		timeBee.draw(g2, this);
+		butterfly.draw(g2, this);
 		bee.draw(g2, this);
+		for (Bar b : bar) b.draw(g2, this);
 
 		// 벌의 목적지를 빨간 점으로 표시
 		// 2번 스페이스바를 누를 때마다 나타난다. 시작 시 나타나지않는다.
-		if (posCnt == 0 && xPos != 0) {
+		if (spaceHitCnt == 0 && xBarBee != 0) {
 			g2.setColor(Color.RED);
-			g2.fillOval(xPos - 10 / 2, yPos - 10 / 2, 10, 10);
+			g2.fillOval(xBarBee - 10 / 2, yBarBee - 10 / 2, 10, 10);
 		}
-
-		bf.draw(g2, this);
-
-		t.draw(g2, this);
-
-		s.draw(g2, this);
-
-		tbee.draw(g2, this);
-
-		pause.draw(g2, this);
-
 		g.drawImage(bufImage, 0, 0, this);
 	}
 
@@ -152,27 +141,23 @@ public class HoneyBeeCanvas extends Canvas {
 				if (!pause.getPauseMode()) {
 					try {
 						bg.update();
-						fw.flowerUpdate();
-						bf.update();
-
-						if (tbee.getX() == 50)
-							end();
-
-						for (Bar b : bar)
-							b.update();
-						
-						tbee.update();
+						flower.flowerUpdate();
+						butterfly.update();
+						timeBee.update();
 						bee.update();
-						s.update(bottle);
+						score.update(bottle);
+
+						if (timeBee.getX() == 50) end();
+
+						for (Bar b : bar) b.update();
 
 						Thread.sleep(16);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-				if(pause.getReplay())
-					replay();
-				
+				if (pause.getReplay()) replay();
+
 				repaint();
 			}
 		}).start();
