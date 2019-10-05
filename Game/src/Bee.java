@@ -41,7 +41,6 @@ import java.util.Random;
  * L1 - addBeeListener(BeeListener) 
  * 
  * TODO
- * 벌 수집시 약간의 delay
  * 벌 효과음
  *  - 병에 넣기 clear
  *  - 병에 넣을때 실패음
@@ -64,6 +63,7 @@ public class Bee {
 	private int h;
 	private int imageIndex;
 	private int imageDelay;
+	private int captureDelay;
 	private int dynamicMoveCnt;
 	private static final int MARGIN_W = 78;
 	private static final int MARGIN_H = 76;
@@ -99,6 +99,7 @@ public class Bee {
 		imageIndex = 0;
 		imageDelay = 0;
 		dynamicMoveCnt = 0;
+		captureDelay = 0; 
 		
 		leg = new Point[6];
 		honeies = new Honey[6];
@@ -145,16 +146,6 @@ public class Bee {
 		vy = (h / d) * 5;
 	}
 
-	
-	
-	public void catchHoney(Point[] honey) {
-		for (int i = 0; i < honey.length; i++) {
-			if (honey[i].honey) {
-				honeies[i] = new Honey(honey[i].x - HONEY_MARGIN_WH, honey[i].y - HONEY_MARGIN_WH);
-			}
-		}
-	}
-
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		int sx = imageIndex * w;
 		int xPos = (int)this.xPos;
@@ -178,15 +169,31 @@ public class Bee {
 	}
 
 	public void update() {
+		updateBeeImageIndex();
+		if(captureStatus())
+			return;
+		
 		xPos += vx;
 		yPos += vy;
-
-		updateBeeImageIndex();
+		
 		if(updateDynamicMoveStatus() == RANDOM_MOVING)
 			return;
+		
 		updateHoneyPosition();
 		arriveAtLocation();
 		
+	}
+
+	private boolean captureStatus() {
+		if(--captureDelay > 0) {
+			if(captureDelay % 20 == 0)
+				BgMusic.Sound("res/BeePut.wav", "Play");
+			
+			return true;
+		}
+		
+		captureDelay = 0;
+		return false;
 	}
 
 	private boolean checkBoxScope(double x, double y) {
@@ -198,21 +205,15 @@ public class Bee {
 	}
 	
 	private int updateDynamicMoveStatus() {
-		if(dynamicMoveCnt == 0)
+		if(dynamicMoveCnt == 0) 
 			return NORMAL_MOVING;
-		
-		if(checkBoxScope(rdx, rdy) && dynamicMoveCnt != 0) {
+		else if(checkBoxScope(rdx, rdy)) {
 			dynamicMoveCnt--;
-			if(dynamicMoveCnt == 0) {
-				normalMove();
-				return NORMAL_MOVING;
-			} 
-			else {
+			if(dynamicMoveCnt > 0) 
 				dynamicMove();
-				return RANDOM_MOVING;
-			}
+			else 
+				normalMove();
 		}
-
 		return RANDOM_MOVING;
 	}
 
@@ -252,7 +253,6 @@ public class Bee {
 				else 
 					BgMusic.Sound("res/Empty.wav", "Play");
 			}
-
 			return true;
 		}
 		return false;
@@ -281,6 +281,17 @@ public class Bee {
 		}
 	}
 
+		
+	public void catchHoney(Point[] honey) {
+		captureDelay = 100; //약 1.5초
+		for (int i = 0; i < honey.length; i++) {
+			if (honey[i].honey) {
+				honeies[i] = new Honey(honey[i].x - HONEY_MARGIN_WH, honey[i].y - HONEY_MARGIN_WH);
+			}
+		}
+		updateHoneyPosition();
+	}
+	
 	private void updateHoneyPosition() {
 		for(int i = 0; i < honeies.length; i++) {
 			if (honeies[i] != null) {
