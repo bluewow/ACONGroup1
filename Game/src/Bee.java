@@ -81,8 +81,8 @@ public class Bee {
 	private BeeListener listener;
 
 	public interface BeeListener {
-		void arrived(Point[] honey);
-		void deliveryHoney(int honey);
+		void arrivedInFlower(Point[] honey);
+		void arrivedInBottle(int honey);
 	}
 
 	public void addBeeListener(BeeListener listener) {
@@ -246,7 +246,7 @@ public class Bee {
 				honeies[i] = null;
 
 			if(listener != null && honeyNum >= 0) {
-				listener.deliveryHoney(honeyNum);
+				listener.arrivedInBottle(honeyNum);
 				if(honeyNum > 0)
 					BgMusic.Sound("res/BeePut.wav", "Play");
 				else 
@@ -264,7 +264,7 @@ public class Bee {
 				leg[i] = new Point();
 
 			setHoneyPosition(leg);
-			listener.arrived(leg);
+			listener.arrivedInFlower(leg);
 		}			 
 	}
 

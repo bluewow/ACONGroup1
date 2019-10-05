@@ -51,15 +51,15 @@ public class HoneyBeeCanvas extends Canvas {
 		bee.addBeeListener(new Bee.BeeListener() {
 
 			@Override
-			public void arrived(Point[] leg) {
+			public void arrivedInFlower(Point[] leg) {
 				leg = flower.putHoney(leg);
 				bee.catchHoney(leg);
 				bee.move(xBeeStartPos, yBeeStartPos);
 			}
 
 			@Override
-			public void deliveryHoney(int honeyNum) {
-				System.out.println("toBottle : " + honeyNum);
+			public void arrivedInBottle(int honeyNum) {
+//				System.out.println("toBottle : " + honeyNum);
 				bottle.getHoney(honeyNum);
 			}
 		});
