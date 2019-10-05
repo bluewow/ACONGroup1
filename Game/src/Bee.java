@@ -250,7 +250,7 @@ public class Bee {
 				if(honeyNum > 0)
 					BgMusic.Sound("res/BeePut.wav", false);
 //				else 
-					//실패 효과음 
+					BgMusic.Sound("res/Empty.wav", false);
 			}
 
 			return true;

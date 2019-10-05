@@ -80,6 +80,7 @@ public class HoneyBeeCanvas extends Canvas {
 							yBarBee = bar[1].getPos();
 							spaceHitCnt++;
 							bee.move(xBarBee, yBarBee);
+							BgMusic.Sound("res/BeeFly.wav", false);
 						} else
 							spaceHitCnt++;
 					}
