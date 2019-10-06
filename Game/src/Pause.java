@@ -72,11 +72,11 @@ public class Pause {
 		return pauseMode;
 	}
 
-	public void setReplay(boolean button) {
-		this.buttons[0] = button;
+	public boolean getStopGame() {
+		return buttons[0];
 	}
 
-	public boolean getReplay() {
-		return buttons[0];
+	public boolean getReplayGame() {
+		return buttons[1];
 	}
 }

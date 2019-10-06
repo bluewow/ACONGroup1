@@ -47,13 +47,24 @@ public class GameFrame extends Frame {
 		honeyBeeCanvas = new HoneyBeeCanvas();
 
 		add(honeyBeeCanvas);
-		remove(introCanvas);
+		
+		if (introCanvas.isValid())
+			remove(introCanvas);
 
 		honeyBeeCanvas.setFocusable(true);
 		honeyBeeCanvas.requestFocus();
 		revalidate();
 
 		honeyBeeCanvas.start();
+	}
+	
+	public void honeyBeeReChange() {
+		if (honeyBeeCanvas.isValid()) {
+			remove(honeyBeeCanvas);
+			honeyBeeCanvas.stop();
+			honeyBeeCanvas = null;
+		}
+		honeyBeeChange();
 	}
 
 	public void endChange() {

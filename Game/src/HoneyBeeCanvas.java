@@ -161,7 +161,8 @@ public class HoneyBeeCanvas extends Canvas {
 						e.printStackTrace();
 					}
 				}
-				if (pause.getReplay()) replay();
+				if (pause.getStopGame()) stopGame();
+				if (pause.getReplayGame()) replayGame();
 
 				repaint();
 			}
@@ -172,9 +173,14 @@ public class HoneyBeeCanvas extends Canvas {
 		running = false;
 	}
 
-	public void replay() {
+	public void stopGame() {
 		BgMusic.Sound("res/MainBgm.wav", "Stop");
 		GameFrame.getInstance().introChange();
+	}
+	
+	public void replayGame() {
+		BgMusic.Sound("res/MainBgm.wav", "Stop");
+		GameFrame.getInstance().honeyBeeReChange();		
 	}
 
 	public void end() {
