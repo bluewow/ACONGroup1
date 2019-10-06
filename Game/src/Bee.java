@@ -36,9 +36,6 @@ import java.util.Random;
  * Canvas 에게 벌이 도착했을때 callback 호출
  *	L1 - arrivedInFlower();
  *	L1 - arrivedInBottle();
- * 
- * TODO
- * 다리 unit 교체 고민중
  * 		 
  */
 public class Bee {
@@ -60,7 +57,9 @@ public class Bee {
 	private Random random = new Random();
 	private BeeListener listener;
 	private Image img;
-
+	private int[] xArrayLeg = { 56, 65, 98, 111, 142, 154 };
+	private int[] yArrayLeg = { 128, 129, 132, 130, 121, 115 };
+	
 	public Bee(int x, int y) {
 		offsetX = x;
 		offsetY = y;
@@ -72,7 +71,7 @@ public class Bee {
 		imageDelay = 0;
 		dynamicMoveCnt = 0;
 		captureDelay = 0; 
-		leg = new Leg();
+		leg = new Leg(6, xArrayLeg, yArrayLeg);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
 	}
@@ -83,6 +82,13 @@ public class Bee {
 	}
 	public void addBeeListener(BeeListener listener) {
 		this.listener = listener;
+	}
+	
+	public void catchHoney(Point[] honey) {
+		captureDelay = 100; //약 1.5초
+		
+		leg.catchHoney(honey);
+		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 	}
 	
 	public void move(int x, int y) {
@@ -227,12 +233,5 @@ public class Bee {
 
 		if (listener != null) 
 			listener.arrivedInFlower(leg.getLeg());
-	}
-		
-	public void catchHoney(Point[] honey) {
-		captureDelay = 100; //약 1.5초
-		
-		leg.catchHoney(honey);
-		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 	}
 }
