@@ -29,7 +29,7 @@ public class Leg {
 		}
 	}
 	
-	public void initLeg(int xPos, int yPos) {
+	public void setLegPosition(int xPos, int yPos) {
 		for (int i = 0; i < leg.length; i++) 
 			leg[i] = new Point();
 		
@@ -39,7 +39,7 @@ public class Leg {
 		}
 	}
 	
-	public void updateHoneyPosition(int xPos, int yPos) {
+	public void updateHoneyImage(int xPos, int yPos) {
 		for(int i = 0; i < honeies.length; i++) {
 			if (honeies[i] != null) {
 				honeies[i].setX(xPos + xArrayLeg[i]);
