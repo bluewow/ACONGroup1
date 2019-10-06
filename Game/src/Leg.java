@@ -29,13 +29,13 @@ public class Leg {
 		}
 	}
 	
-	public void setHoneyPosition(Point[] honey, int xPos, int yPos) {
+	public void initLeg(int xPos, int yPos) {
 		for (int i = 0; i < leg.length; i++) 
 			leg[i] = new Point();
 		
-		for(int i = 0; i < honey.length; i++) {
-			honey[i].x = xPos + xArrayLeg[i];
-			honey[i].y = yPos + yArrayLeg[i];
+		for(int i = 0; i < leg.length; i++) {
+			leg[i].x = xPos + xArrayLeg[i];
+			leg[i].y = yPos + yArrayLeg[i];
 		}
 	}
 	
@@ -69,5 +69,6 @@ public class Leg {
 	public Point[] getLeg() {
 		return leg;
 	}
+
 }
 

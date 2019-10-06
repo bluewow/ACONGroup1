@@ -28,21 +28,18 @@ import java.util.Random;
  * 벌/꿀 이동좌표 갱신
  * L1 - update();
  *   L2 - updateBeeImageIndex()
- *   L2 - captureStatus()
+ *   L2 - collectStatus()
  *   L2 - updateDynamicMoveStatus()
- *   leg.updateHoneyPosition()
  *   L2 - arriveAtLocation
- *     L3 - refreshBeeInfo 
- *     leg.refreshLegInfo
- *     L3 - callHoneyBeeCanvas 
- *       L4 - setHoneyPosition(Point[])
- * 
+ *     L3 - arriveBottle 
+ *     L3 - arriveFlower 
+ *       
  * 
  * Canvas 에게 벌이 도착했을때 callback 호출
  * L1 - addBeeListener(BeeListener) 
  * 
  * TODO
- * 벌과 다리 분리
+ * 다리 unit 교체 고민중
  * 		 
  */
 public class Bee {
@@ -136,7 +133,7 @@ public class Bee {
 
 	public void update() {
 		updateBeeImageIndex();
-		if(captureStatus())
+		if(collectStatus())
 			return;
 		
 		xPos += vx;
@@ -162,7 +159,7 @@ public class Bee {
 		}
 	}
 
-	private boolean captureStatus() {
+	private boolean collectStatus() {
 		if(--captureDelay > 0) {
 			if(captureDelay % 20 == 0)
 				BgMusic.Sound("res/BeePut.wav", "Play");
@@ -199,14 +196,14 @@ public class Bee {
 			vx = 0.0;
 		    vy = 0.0;
 		    
-		    if(refreshBeeInfo())
+		    if(arriveBottle())
 		    	return;
-		    
-		    callHoneyBeeCanvas();
+		    else
+		    	arriveFlower();
 		}		
 	}
 
-	private boolean refreshBeeInfo() {
+	private boolean arriveBottle() {
 		if(checkBoxScope(offsetX, offsetY)) {
 			imageIndex = 0;
 			
@@ -225,11 +222,11 @@ public class Bee {
 		return false;
 	}
 
-	private void callHoneyBeeCanvas() {
-		if (listener != null) {
-			leg.setHoneyPosition(leg.getLeg(), (int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+	private void arriveFlower() {
+		leg.initLeg((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+
+		if (listener != null) 
 			listener.arrivedInFlower(leg.getLeg());
-		}			 
 	}
 		
 	public void catchHoney(Point[] honey) {
@@ -237,29 +234,5 @@ public class Bee {
 		
 		leg.catchHoney(honey);
 		leg.updateHoneyPosition((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
-	}
-
-	
-	private void testObjectRange(Graphics g2) {
-		int xPos = (int)this.xPos;
-		int yPos = (int)this.yPos;
-		int w = (int)this.w;
-		int h = (int)this.h;
-		
-		g2.drawRect(250, 250, 350, 350);
-		g2.drawRect(xPos, yPos, 3, 3);
-		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 129, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 67, yPos - MARGIN_H + 130, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 102, yPos - MARGIN_H + 130, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 113, yPos - MARGIN_H + 132, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 146, yPos - MARGIN_H + 122, 3, 3);
-		g2.drawRect(xPos - MARGIN_W + 157, yPos - MARGIN_H + 118, 3, 3);
 	}
 }
