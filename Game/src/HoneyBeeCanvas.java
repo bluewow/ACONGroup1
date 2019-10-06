@@ -113,7 +113,6 @@ public class HoneyBeeCanvas extends Canvas {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 
-		pause.draw(g2, this);
 		bg.draw(g2, this);
 		bottle.draw(g2, this);
 		flower.draw(g2, this);
@@ -130,6 +129,10 @@ public class HoneyBeeCanvas extends Canvas {
 			g2.setColor(Color.RED);
 			g2.fillOval(xBarBee - 10 / 2, yBarBee - 10 / 2, 10, 10);
 		}
+		
+		// 일시정지시 나타나는 패널
+		pause.draw(g2, this);
+		
 		g.drawImage(bufImage, 0, 0, this);
 	}
 
@@ -137,6 +140,7 @@ public class HoneyBeeCanvas extends Canvas {
 		running = true;
 
 		BgMusic.Sound("res/MainBgm.wav", "Loop");
+		
 		new Thread(() -> {
 			while (running) {
 				if (!pause.getPauseMode()) {
@@ -169,6 +173,7 @@ public class HoneyBeeCanvas extends Canvas {
 	}
 
 	public void replay() {
+		BgMusic.Sound("res/MainBgm.wav", "Stop");
 		GameFrame.getInstance().introChange();
 	}
 

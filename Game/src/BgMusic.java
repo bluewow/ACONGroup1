@@ -6,18 +6,23 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class BgMusic {
+	private static Clip clip;
 
 	public static void Sound(String file, String Options) {
-		Clip clip;
 		try {
-			AudioInputStream ais = AudioSystem.getAudioInputStream
-					(new BufferedInputStream(new FileInputStream(file)));
-			clip = AudioSystem.getClip();
-			clip.open(ais);
+			AudioInputStream ais = AudioSystem.getAudioInputStream(
+					new BufferedInputStream(new FileInputStream(file)));
+			
+			if (clip == null) {
+				clip = AudioSystem.getClip();
+				clip.open(ais);
+			}
 			clip.start();
-			if (Options=="Loop")
+
+			if (Options == "Loop") {
 				clip.loop(-1);
-			else if(Options=="Stop") {
+			} else if (Options == "Stop") {
+				clip.flush();
 				clip.stop();
 				clip.close();
 			}
