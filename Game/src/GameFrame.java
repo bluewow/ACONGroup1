@@ -1,7 +1,7 @@
 import java.awt.Frame;
 
 public class GameFrame extends Frame {
-	public static GameFrame frame;
+	private static GameFrame frame;
 	private IntroCanvas introCanvas;
 	private HoneyBeeCanvas honeyBeeCanvas;
 	private EndCanvas endCanvas;
