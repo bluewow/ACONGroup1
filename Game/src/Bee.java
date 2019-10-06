@@ -16,30 +16,26 @@ import java.util.Random;
  * L1 - move()
  *   L2 - normalMove()   
  *   L2 - dynamicMove()  
- *     L3 - calculateVector()
  *  
  * 꿀 수집
- * L1 - catchHoney(Point[])
+ * L1 - catchHoney()
  *
  * 벌/꿀 그리기
  * L1 - draw(Graphics, HoneyBeeCanvas)
- *   leg.draw
  * 
  * 벌/꿀 이동좌표 갱신
  * L1 - update();
  *   L2 - updateBeeImageIndex()
- *   L2 - collectStatus()
- *   L2 - updateDynamicMoveStatus()
+ *   L2 - checkCollectStatus()
+ *   L2 - changeSpeed()
+ *   L2 - checkDynamicMoveStatus()
  *   L2 - arriveAtLocation
  *     L3 - arriveBottle 
  *     L3 - arriveFlower 
  *       
- * 
  * Canvas 에게 벌이 도착했을때 callback 호출
- * L1 - addBeeListener(BeeListener) 
- * 
- * TODO
- * 다리 unit 교체 고민중
+ *	L1 - arrivedInFlower();
+ *	L1 - arrivedInBottle();
  * 		 
  */
 public class Bee {
@@ -61,7 +57,9 @@ public class Bee {
 	private Random random = new Random();
 	private BeeListener listener;
 	private Image img;
-
+	private int[] xArrayLeg = { 56, 65, 98, 111, 142, 154 };
+	private int[] yArrayLeg = { 128, 129, 132, 130, 121, 115 };
+	
 	public Bee(int x, int y) {
 		offsetX = x;
 		offsetY = y;
@@ -73,7 +71,7 @@ public class Bee {
 		imageDelay = 0;
 		dynamicMoveCnt = 0;
 		captureDelay = 0; 
-		leg = new Leg();
+		leg = new Leg(6, xArrayLeg, yArrayLeg);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
 	}
@@ -84,6 +82,13 @@ public class Bee {
 	}
 	public void addBeeListener(BeeListener listener) {
 		this.listener = listener;
+	}
+	
+	public void catchHoney(Point[] honey) {
+		captureDelay = 100; //약 1.5초
+		
+		leg.catchHoney(honey);
+		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 	}
 	
 	public void move(int x, int y) {
@@ -133,16 +138,13 @@ public class Bee {
 
 	public void update() {
 		updateBeeImageIndex();
-		if(collectStatus())
+		if(checkCollectStatus())
 			return;
 		
-		xPos += vx;
-		yPos += vy;
-		
-		if(updateDynamicMoveStatus() == RANDOM_MOVING)
+		updateSpeed();
+		if(checkDynamicMoveStatus() == RANDOM_MOVING)
 			return;
 		
-		leg.updateHoneyPosition((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 		arriveAtLocation();
 	}
 	
@@ -150,6 +152,7 @@ public class Bee {
 		if(vx == 0 && vy == 0)
 			return;
 		
+		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 		if (imageDelay++ % 30 == 0) {
 			imageDelay = 0;
 			if(dx == offsetX && dy == offsetY)
@@ -159,7 +162,7 @@ public class Bee {
 		}
 	}
 
-	private boolean collectStatus() {
+	private boolean checkCollectStatus() {
 		if(--captureDelay > 0) {
 			if(captureDelay % 20 == 0)
 				BgMusic.Sound("res/BeePut.wav", "Play");
@@ -170,6 +173,11 @@ public class Bee {
 		return false;
 	}
 
+	private void updateSpeed() {
+		xPos += vx;
+		yPos += vy;
+	}
+	
 	private boolean checkBoxScope(double x, double y) {
 		if((y - 3 < yPos) && (yPos < y + 3) &&   	
 		   (x - 3 < xPos) && (xPos < x + 3)) 
@@ -178,7 +186,7 @@ public class Bee {
 			return false;
 	}
 	
-	private int updateDynamicMoveStatus() {
+	private int checkDynamicMoveStatus() {
 		if(dynamicMoveCnt == 0) 
 			return NORMAL_MOVING;
 		else if(checkBoxScope(rdx, rdy)) {
@@ -192,47 +200,38 @@ public class Bee {
 	}
 
 	private void arriveAtLocation() {
-		if(checkBoxScope(dx, dy)) {
-			vx = 0.0;
-		    vy = 0.0;
-		    
-		    if(arriveBottle())
-		    	return;
-		    else
-		    	arriveFlower();
-		}		
+		if(checkBoxScope(offsetX, offsetY)) {
+			arriveBottle();
+			return;
+		}
+		
+		if(checkBoxScope(dx, dy)) 
+		    arriveFlower();
 	}
 
 	private boolean arriveBottle() {
-		if(checkBoxScope(offsetX, offsetY)) {
-			imageIndex = 0;
-			
-			int honeyNum = 0;
-			honeyNum = leg.refreshLegInfo();
-
-			if(listener != null && honeyNum >= 0) {
-				listener.arrivedInBottle(honeyNum);
-				if(honeyNum > 0)
-					BgMusic.Sound("res/BeePut.wav", "Play");
-				else 
-					BgMusic.Sound("res/Empty.wav", "Play");
-			}
-			return true;
+		vx = 0.0;
+	    vy = 0.0;
+		imageIndex = 0;
+		
+		int honeyNum = 0;
+		honeyNum = leg.refreshLegInfo();
+		if(listener != null && honeyNum >= 0) {
+			listener.arrivedInBottle(honeyNum);
+			if(honeyNum > 0)
+				BgMusic.Sound("res/BeePut.wav", "Play");
+			else 
+				BgMusic.Sound("res/Empty.wav", "Play");
 		}
-		return false;
+		return true;
 	}
 
 	private void arriveFlower() {
-		leg.initLeg((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+		vx = 0.0;
+	    vy = 0.0;
+		leg.setLegPosition((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 
 		if (listener != null) 
 			listener.arrivedInFlower(leg.getLeg());
-	}
-		
-	public void catchHoney(Point[] honey) {
-		captureDelay = 100; //약 1.5초
-		
-		leg.catchHoney(honey);
-		leg.updateHoneyPosition((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 	}
 }
