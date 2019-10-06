@@ -113,7 +113,6 @@ public class HoneyBeeCanvas extends Canvas {
 		Image bufImage = createImage(this.getWidth(), this.getHeight());
 		Graphics g2 = bufImage.getGraphics();
 
-		pause.draw(g2, this);
 		bg.draw(g2, this);
 		bottle.draw(g2, this);
 		flower.draw(g2, this);
@@ -130,6 +129,8 @@ public class HoneyBeeCanvas extends Canvas {
 			g2.setColor(Color.RED);
 			g2.fillOval(xBarBee - 10 / 2, yBarBee - 10 / 2, 10, 10);
 		}
+		
+		pause.draw(g2, this);
 		g.drawImage(bufImage, 0, 0, this);
 	}
 
