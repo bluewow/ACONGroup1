@@ -76,7 +76,7 @@ public class Flower {
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++) {
 				if (honeies[i][j] != null) {
-				   honeies[i][j].onHoney(point,honeies,i,j);
+				   honeies[i][j].onHoney(point/*,honeies,i,j*/);
 				}
 //				if (honeies[i][j] == null) {
 //					   System.out.println("i:" + i + "j:" +j);
@@ -88,6 +88,15 @@ public class Flower {
 	}
  
 	public void flowerUpdate() {
+		
+		for (int i = 0; i < honeies.length; i++) {
+			for (int j = 0; j < honeies[i].length; j++) {
+				if (honeies[i][j] != null)
+					honeies[i][j].update();
+			}
+		}
+		
+		
 		if (imagedelay++ % 30 == 0) {
 			if (imageindex < 0) {
 				imageindex++;
