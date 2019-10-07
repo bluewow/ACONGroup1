@@ -3,45 +3,62 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /*
- * Bee 행동패턴
  * 
- * - 꽃으로 이동
+ * Bee 요구사항
+ * - 이동
  * - 꿀 채취
- * - 꿀통이동 
+ * - 꿀병에 꿀 전달
  * 
+ * 벌 이동
+ * L1 - move()
+ *   L2 - normalMove()   
+ *   L2 - dynamicMove()  
+ *  
+ * 꿀 수집
+ * L1 - catchHoney()
+ *
+ * 벌/꿀 그리기
+ * L1 - draw(Graphics, HoneyBeeCanvas)
+ * 
+ * 벌/꿀 이동좌표 갱신
+ * L1 - update();
+ *   L2 - updateBeeImageIndex()
+ *   L2 - checkCollectStatus()
+ *   L2 - changeSpeed()
+ *   L2 - checkDynamicMoveStatus()
+ *   L2 - arriveAtLocation
+ *     L3 - arriveBottle 
+ *     L3 - arriveFlower 
+ *       
+ * Canvas 에게 벌이 도착했을때 callback 호출
+ *	L1 - arrivedInFlower();
+ *	L1 - arrivedInBottle();
+ * 		 
  */
 public class Bee {
-	private int offsetX;
-	private int offsetY;
-	private int xPos;
-	private int yPos;
-	private int dx;
-	private int dy;
-	private int vx;
-	private int vy;
-	private int w;
-	private int h;
+	private int offsetX, offsetY;
+	private double xPos, yPos;
+	private double dx, dy;
+	private double rdx, rdy;
+	private double vx, vy;
+	private int w, h;
 	private int imageIndex;
 	private int imageDelay;
+	private int captureDelay;
+	private int dynamicMoveCnt;
 	private static final int MARGIN_W = 78;
 	private static final int MARGIN_H = 76;
-	private static final int HONEY_MARGIN_WH = 7;
-	Point[] leg;
-	Honey[] honeies;
-	
-	private Image img;
-	private Image honeyImg;
+	private static final int NORMAL_MOVING = 1;
+	private static final int RANDOM_MOVING = 0;
+	private Leg leg;
+	private Random random = new Random();
 	private BeeListener listener;
-	
-	public interface BeeListener {
-		void arrived(Point[] honey);
-	}
-
-	public void addBeeListener(BeeListener listener) {
-		this.listener = listener;
-	}
+	private Image img;
+	private int[] xArrayLeg = { 56, 65, 98, 111, 142, 154 };
+	private int[] yArrayLeg = { 128, 129, 132, 130, 121, 115 };
 	
 	public Bee(int x, int y) {
 		offsetX = x;
@@ -52,150 +69,169 @@ public class Bee {
 		h = 136;
 		imageIndex = 0;
 		imageDelay = 0;
-		
-		leg = new Point[6];
-		honeies = new Honey[6];
+		dynamicMoveCnt = 0;
+		captureDelay = 0; 
+		leg = new Leg(6, xArrayLeg, yArrayLeg);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/bee(176X136).png");
-
 	}
 
+	public interface BeeListener {
+		void arrivedInFlower(Point[] honey);
+		void arrivedInBottle(int honey);
+	}
+	public void addBeeListener(BeeListener listener) {
+		this.listener = listener;
+	}
+	
+	public void catchHoney(Point[] honey) {
+		captureDelay = 100; //약 1.5초
+		
+		leg.catchHoney(honey);
+		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+	}
+	
 	public void move(int x, int y) {
 		dx = x;
 		dy = y;
 		
-		float w = dx - this.xPos;
-		float h = dy - this.yPos;
-		float d = (float)Math.sqrt(w * w + h * h);
-		
-		vx = (int) ((w / d) * 3);
-		if(vx > 0)
-			vx = 1;
-		else 
-			vx = -1;
-		
-		vy = (int) ((h / d) * 3);
-		if(vy > 0)
-			vy = 1;
-		else
-			vy = -1;
-	}
-	
-	public void catchHoney(Point[] honey) {
-		for(int i = 0; i < honey.length; i++) {
-			if(honey[i].honey)
-				honeies[i] = new Honey(honey[i].x - HONEY_MARGIN_WH, honey[i].y - HONEY_MARGIN_WH);
+		if(dx == xPos && dy == yPos)
+			return;
+
+		//check bottle position
+		if(offsetX == dx && offsetY == dy)
+			normalMove();
+		else {
+			dynamicMove();			
+			dynamicMoveCnt = random.nextInt(3) + 1;
 		}
 	}
 	
-	public void sendToBottle() {
-		this.move(offsetX, offsetY);
+	private void calculateVecotr(double x, double y, int speed) {
+		double w = x - xPos;
+		double h = y - yPos; 
+		double d = (double) Math.sqrt(w * w + h * h);
+		
+		vx = (w / d) * speed;
+		vy = (h / d) * speed;
 	}
 	
+	private void normalMove() {
+		calculateVecotr(dx, dy, 3);
+	}
+	
+	private void dynamicMove() {
+		rdx = random.nextInt(250) + 250 + random.nextInt(100);
+	    rdy = random.nextInt(250) + 250 + random.nextInt(100);
+	    
+	    calculateVecotr(rdx, rdy, 5);
+	}
+
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
-		if(imageDelay++ % 30 == 0) {
-			imageDelay = 0;
-			imageIndex = (imageIndex == 1)? 0:1;
-		}
+		g2.drawImage(img, (int)xPos - MARGIN_W,     (int)yPos - MARGIN_H, 
+					      (int)xPos + w - MARGIN_W, (int)yPos + h - MARGIN_H,
+					      imageIndex * w, 0, 
+					      imageIndex * w + w, h, honeyBeeCanvas);
 		
-		int sx = imageIndex * w;
-		g2.drawImage(img, xPos - MARGIN_W, yPos - MARGIN_H, xPos + w - MARGIN_W, yPos+h - MARGIN_H, 
-					sx, 0, sx + w, h, honeyBeeCanvas);
-		
-		
-		for(int i = 0; i < honeies.length; i++) {
-			if(honeies[i] != null)
-				honeies[i].draw(g2, honeyBeeCanvas);
-		}
-		
-		//for check
-//		g2.drawRect(dx, dy, 3, 3);
-//		g2.drawRect(xPos, yPos, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W, yPos - MARGIN_H, 176, 136);
-//		g2.drawRect(xPos - MARGIN_W + 16, yPos - MARGIN_H + 118, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 27, yPos - MARGIN_H + 121, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 59, yPos - MARGIN_H + 133, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 71, yPos - MARGIN_H + 131, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 107, yPos - MARGIN_H + 130, 3, 3);
-//		g2.drawRect(xPos - MARGIN_W + 114, yPos - MARGIN_H + 129, 3, 3);
-		
+		leg.draw(g2, honeyBeeCanvas);
 	}
 
 	public void update() {
+		updateBeeImageIndex();
+		if(checkCollectStatus())
+			return;
+		
+		updateSpeed();
+		if(checkDynamicMoveStatus() == RANDOM_MOVING)
+			return;
+		
+		arriveAtLocation();
+	}
+	
+	private void updateBeeImageIndex() {
+		if(vx == 0 && vy == 0)
+			return;
+		
+		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+		if (imageDelay++ % 30 == 0) {
+			imageDelay = 0;
+			if(dx == offsetX && dy == offsetY)
+				imageIndex = (imageIndex == 2) ? 3 : 2;
+			else
+				imageIndex = (imageIndex == 1) ? 0 : 1;
+		}
+	}
+
+	private boolean checkCollectStatus() {
+		if(--captureDelay > 0) {
+			if(captureDelay % 20 == 0)
+				BgMusic.Sound("res/BeePut.wav", "Play");
+			
+			return true;
+		}
+		captureDelay = 0;
+		return false;
+	}
+
+	private void updateSpeed() {
 		xPos += vx;
 		yPos += vy;
-
-		if(yPos == dy)
-			vy = 0;
-		if(xPos == dx)
-			vx = 0;
-
-		honeyMoving();
-		if(dx == xPos && dy == yPos) {
-			if(listener != null ) {
-				for(int i = 0; i < leg.length; i++)
-					leg[i] = new Point();
-				
-				passBeeLegPoint(leg);
-				listener.arrived(leg);
-			}
-			
-			dx = 0;
-			dy = 0;
-		}
 	}
 	
-	private void honeyMoving() {
-		if(honeies[0] != null) {
-			honeies[0].setX(xPos - MARGIN_W + 16);
-			honeies[0].setY(yPos - MARGIN_H + 118);
-		}
-		
-		if(honeies[1] != null) {
-			honeies[1].setX(xPos - MARGIN_W + 27);
-			honeies[1].setY(yPos - MARGIN_H + 121);
-		}
-		
-		if(honeies[2] != null) {
-			honeies[2].setX(xPos - MARGIN_W + 59);
-			honeies[2].setY(yPos - MARGIN_H + 133);
-		}
-		
-		if(honeies[3] != null) {
-			honeies[3].setX(xPos - MARGIN_W + 71);
-			honeies[3].setY(yPos - MARGIN_H + 131);
-		}
-		
-		if(honeies[4] != null) {
-			honeies[4].setX(xPos - MARGIN_W + 107);
-			honeies[4].setY(yPos - MARGIN_H + 130);
-		}
-		
-		if(honeies[5] != null) {
-			honeies[5].setX(xPos - MARGIN_W + 114);
-			honeies[5].setY(yPos - MARGIN_H + 129);
-		}
-		
+	private boolean checkBoxScope(double x, double y) {
+		if((y - 3 < yPos) && (yPos < y + 3) &&   	
+		   (x - 3 < xPos) && (xPos < x + 3)) 
+			return true;
+		else
+			return false;
 	}
 	
-	private void passBeeLegPoint(Point[] honey) {
-		honey[0].x = xPos - MARGIN_W + 16;
-		honey[0].y = yPos - MARGIN_H + 118;
+	private int checkDynamicMoveStatus() {
+		if(dynamicMoveCnt == 0) 
+			return NORMAL_MOVING;
+		else if(checkBoxScope(rdx, rdy)) {
+			dynamicMoveCnt--;
+			if(dynamicMoveCnt > 0) 
+				dynamicMove();
+			else 
+				normalMove();
+		}
+		return RANDOM_MOVING;
+	}
+
+	private void arriveAtLocation() {
+		if(checkBoxScope(offsetX, offsetY)) {
+			arriveBottle();
+			return;
+		}
 		
-		honey[1].x = xPos - MARGIN_W + 27;
-		honey[1].y = yPos - MARGIN_H + 121;
+		if(checkBoxScope(dx, dy)) 
+		    arriveFlower();
+	}
+
+	private boolean arriveBottle() {
+		vx = 0.0;
+	    vy = 0.0;
+		imageIndex = 0;
 		
-		honey[2].x = xPos - MARGIN_W + 59;
-		honey[2].y = yPos - MARGIN_H + 133;
-		
-		honey[3].x = xPos - MARGIN_W + 71;
-		honey[3].y = yPos - MARGIN_H + 131;
-		
-		honey[4].x = xPos - MARGIN_W + 107;
-		honey[4].y = yPos - MARGIN_H + 130;
-		
-		honey[5].x = xPos - MARGIN_W + 114;
-		honey[5].y = yPos - MARGIN_H + 129;
-		
+		int honeyNum = 0;
+		honeyNum = leg.refreshLegInfo();
+		if(listener != null && honeyNum >= 0) {
+			listener.arrivedInBottle(honeyNum);
+			if(honeyNum > 0)
+				BgMusic.Sound("res/BeePut.wav", "Play");
+			else 
+				BgMusic.Sound("res/Empty.wav", "Play");
+		}
+		return true;
+	}
+
+	private void arriveFlower() {
+		vx = 0.0;
+	    vy = 0.0;
+		leg.setLegPosition((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
+
+		if (listener != null) 
+			listener.arrivedInFlower(leg.getLeg());
 	}
 }

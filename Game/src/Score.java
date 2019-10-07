@@ -34,6 +34,7 @@ public class Score {
 
 	public void update(Bottle bottle) {
 		this.getScore = bottle.getHoney();
+//		System.out.println("score : "+getScore);
 	}
 
 	public void draw(Graphics g, HoneyBeeCanvas canvas) {
