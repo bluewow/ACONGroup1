@@ -7,7 +7,7 @@ import javax.sound.sampled.Clip;
 
 public class BgMusic {
 	private static Clip clip;
-	
+
 	public static void Sound(String file, String Options) {
 		try {
 			AudioInputStream ais = AudioSystem.getAudioInputStream(
@@ -22,7 +22,11 @@ public class BgMusic {
 				clip.flush();
 				clip.stop();
 				clip.close();
-			}
+			} else if (Options == "Play") {
+				clip = AudioSystem.getClip();
+				clip.open(ais);
+				clip.start();}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
