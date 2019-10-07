@@ -1,4 +1,4 @@
 public interface ArriveListener {
-	void arrivedInFlower(Point[] honey);
-	void arrivedInBottle(int honey);
+	void arrivedInFlower(Point[] leg);
+	void arrivedInBottle(int honeyNum);
 }
