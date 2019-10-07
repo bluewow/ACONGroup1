@@ -7,24 +7,20 @@ public class Flower {
 
 	private int x;
 	private int y;
-	private int z;
+	private int emptyhoney;
 	private int w;
 	private int h;
 	private int hx;
 	private int hy;
-	private int setx;
-	private int sety;
 	private int imageindex;
 	private int imagedelay;
 
-	Image img;
-	Honey[][] honeies;
-	Honey honey1;
+	private Image img;
+	private Honey[][] honeies;
 //	Honey[] honeies2;
 
 	public Flower() {
-
-		z = 0;
+		emptyhoney = 0;
 		x = 150;
 		y = 330;
 		w = 260;
@@ -33,10 +29,7 @@ public class Flower {
 		hy = h - 20;
 		imageindex = 0;
 		imagedelay = 1;
-
 		honeies = new Honey[10][10];
-//		honeies2 = new Honey[100]; // honeies2[0]
-
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/flowerFullIndex.png");
 		honeyPosition();
@@ -44,50 +37,48 @@ public class Flower {
 
 	public void honeyPosition() {
 		for (int i = 0; i < 5; i++) {
-			z = 2 - i;
-			if (z < 0)
-				z = 0;
-			hy += 15;
-			for (int j = 0 + z; j < 10 - z; j++) {
-				honeies[i][j] = new Honey(hx + z * 15, hy);
-				hx += 15;
-			}
-			hx = x + 45;
+			emptyhoney = 2 - i;
+			honeymake(i);
 		}
-		
 		for (int i = 5; i < 10; i++) {
-			z = i - 7;
-			noneymake(i);
+			emptyhoney = i - 7;
+			honeymake(i);
 		}
 	}
 	
-	public void noneymake(int i) {
-		if (z < 0)
-			z = 0;
+	public void honeymake(int i) {
+		if (emptyhoney < 0)
+			emptyhoney = 0;
 		hy += 15;
-		for (int j = 0 + z; j < 10 - z; j++) {
-			honeies[i][j] = new Honey(hx + z * 15, hy);
-//		    System.out.printf("%d,%d\n",i,j);
+		for (int j = 0 + emptyhoney; j < 10 - emptyhoney; j++) {
+			honeies[i][j] = new Honey(hx + emptyhoney * 15, hy);
 			hx += 15;
 		}
 		hx = x + 45;
-		
 	}
 	
 	
 
 	public Point[] putHoney(Point[] point) {
-	
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++) {
 				if (honeies[i][j] != null) {
-				   honeies[i][j].onHoney(point,honeies,i,j);
+				   honeies[i][j].onHoney(point);
 				}
-		}
+ 
+			}
 		return point;
 	}
  
 	public void flowerUpdate() {
+		
+		for (int i = 0; i < honeies.length; i++) {
+			for (int j = 0; j < honeies[i].length; j++) {
+				if (honeies[i][j] != null)
+					honeies[i][j].update();
+			}
+		}
+			
 		if (imagedelay++ % 30 == 0) {
 			if (imageindex < 0) {
 				imageindex++;
@@ -96,15 +87,7 @@ public class Flower {
 			}
 		}
 	}
-
-	public void setX(int setx) {
-		this.setx = setx;
-	}
-
-	public void setY(int sety) {
-		this.sety = sety;
-	}
-
+	
 	public void update() {
 		for (int i = 0; i < 10; i++)
 			for (int j = 0; j < 10; j++) {
@@ -120,7 +103,6 @@ public class Flower {
 			for (int j = 0; j < 10; j++)
 				if (honeies[i][j] != null)
 					honeies[i][j].draw(g2, honeybeecanvas);
-//		g2.drawRect(15,15,15,15);
 	}
 
 }

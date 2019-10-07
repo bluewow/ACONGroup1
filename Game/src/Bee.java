@@ -76,6 +76,7 @@ public class Bee {
 		img = tk.getImage("res/bee(176X136).png");
 	}
 
+	//callback to HoneyBeeCanvas
 	public interface BeeListener {
 		void arrivedInFlower(Point[] honey);
 		void arrivedInBottle(int honey);
@@ -84,6 +85,7 @@ public class Bee {
 		this.listener = listener;
 	}
 	
+	//꽃으로부터 다리좌표의 honey 유/무를 돌려받는다
 	public void catchHoney(Point[] honey) {
 		captureDelay = 100; //약 1.5초
 		
@@ -91,6 +93,9 @@ public class Bee {
 		leg.updateHoneyImage((int)xPos- MARGIN_W, (int)yPos - MARGIN_W);
 	}
 	
+	//이동 
+	//normal move -> bottle 또는 꽃으로 이동시
+	//random move -> 꽃으로 이동시 중간에 random move 활성화된다.
 	public void move(int x, int y) {
 		dx = x;
 		dy = y;
@@ -107,6 +112,7 @@ public class Bee {
 		}
 	}
 	
+	//속도 계산
 	private void calculateVecotr(double x, double y, int speed) {
 		double w = x - xPos;
 		double h = y - yPos; 
@@ -127,6 +133,7 @@ public class Bee {
 	    calculateVecotr(rdx, rdy, 5);
 	}
 
+	//벌과 다리의 꿀을 함께 그린다
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
 		g2.drawImage(img, (int)xPos - MARGIN_W,     (int)yPos - MARGIN_H, 
 					      (int)xPos + w - MARGIN_W, (int)yPos + h - MARGIN_H,
@@ -136,6 +143,10 @@ public class Bee {
 		leg.draw(g2, honeyBeeCanvas);
 	}
 
+	//1.벌의 상태 및 이미지 체크
+	//2.이동 스피드를 업데이트
+	//3.이동상태 체크(Random, Normal)
+	//4.도착 처리(Flower, Bottle)
 	public void update() {
 		updateBeeImageIndex();
 		if(checkCollectStatus())
@@ -148,6 +159,7 @@ public class Bee {
 		arriveAtLocation();
 	}
 	
+	//1.벌의 상태 및 이미지 체크
 	private void updateBeeImageIndex() {
 		if(vx == 0 && vy == 0)
 			return;
@@ -162,6 +174,7 @@ public class Bee {
 		}
 	}
 
+	//1.벌의 상태 및 이미지 체크
 	private boolean checkCollectStatus() {
 		if(--captureDelay > 0) {
 			if(captureDelay % 20 == 0)
@@ -173,11 +186,13 @@ public class Bee {
 		return false;
 	}
 
+	//2.이동 스피드를 업데이트
 	private void updateSpeed() {
 		xPos += vx;
 		yPos += vy;
 	}
 	
+	//범위 체크
 	private boolean checkBoxScope(double x, double y) {
 		if((y - 3 < yPos) && (yPos < y + 3) &&   	
 		   (x - 3 < xPos) && (xPos < x + 3)) 
@@ -186,6 +201,7 @@ public class Bee {
 			return false;
 	}
 	
+	//3.이동상태 체크(Random, Normal)
 	private int checkDynamicMoveStatus() {
 		if(dynamicMoveCnt == 0) 
 			return NORMAL_MOVING;
@@ -199,6 +215,7 @@ public class Bee {
 		return RANDOM_MOVING;
 	}
 
+	//4.도착 처리(Flower, Bottle)
 	private void arriveAtLocation() {
 		if(checkBoxScope(offsetX, offsetY)) {
 			arriveBottle();
@@ -209,6 +226,7 @@ public class Bee {
 		    arriveFlower();
 	}
 
+	//Bottle 도착시 다리의 정보와 꿀의 상태를 갱신한다
 	private boolean arriveBottle() {
 		vx = 0.0;
 	    vy = 0.0;
@@ -226,6 +244,7 @@ public class Bee {
 		return true;
 	}
 
+	//Flower 도착시 다리 상태를 갱신하기 위해 callback 호출
 	private void arriveFlower() {
 		vx = 0.0;
 	    vy = 0.0;

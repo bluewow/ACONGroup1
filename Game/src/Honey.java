@@ -1,46 +1,65 @@
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 
 public class Honey {
-
 	private int w;
 	private int h;
 	private int x;
 	private int y;
 	private int sx;
+	private int endHoneyImage;
 	private int timer;
-	private int imageIndex;
-	private Image img;
+	private static Image img;
+	private static Toolkit tk;
+	private boolean isEmpty;
+	private boolean sxChecker;
 
-	public Honey(int x, int y) {
-
-		this.x = x;
-		this.y = y;
-		w = 15;
-		h = 15;
-
-		timer = 0;
-		imageIndex = 4;
-
-		sx = imageIndex * w;
-
+	static {
 		Toolkit tk = Toolkit.getDefaultToolkit();
-
 		img = tk.getImage("res/honeyIndex(15X15).png");
 	}
+
 	public Honey() {
 		this(45, 45);
 	}
 
-	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
-		int sx = imageIndex * w;
-		g.drawImage(img, x, y, x + w, y + h, sx, 0, sx + w, h, honeyBeeCanvas);
-		System.out.println(x);
+	public Honey(int x, int y) {
+		this.x = x;
+		this.y = y;
+		w = 15;
+		h = 15;
+		isEmpty = false;
+		timer = 0;
+		sx = 4 * w;
+		sxChecker = true;
+		endHoneyImage = 60;
+	}
+
+	public void update() {
+		if (isEmpty) {
+			timer++;
+			if (timer >= 60) {
+				sx += w;
+				if (sxChecker) {
+					sx = 0;
+					sxChecker = false;
+				}
+				timer = 0; //
+				if (sx == endHoneyImage) {
+					isEmpty = false;
+					sxChecker = true;
+				}
+			}
+		}
 
 	}
-	
+
+	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
+
+		g.drawImage(img, x, y, x + w, y + h, sx, 0, sx + w, h, honeyBeeCanvas);
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -57,35 +76,19 @@ public class Honey {
 		this.y = y;
 	}
 
-	public void update() {
-		timer++;
-		if (timer >= 300 /* 60*5초 */) {
-			sx += w;
-			if (sx == 75) {
-				sx = 0;
-			}
-			timer = 0;
-		}
-
-	}
-
-	public void onHoney(Point[] point, Honey[][] honeies,int i,int j) {
+	public void onHoney(Point[] point) {
 		for (int z = 0; z < point.length; z++) {
-//			point[z].honey = false;
-			if     ((point[z].x >= (x - 7.5)) && 
-					(point[z].x < (x + 7.5)) && 
-					(point[z].y >= (y - 7.5)) && 
-					(point[z].y < (y + 7.5))) 
-			{
-				point[z].honey = true;
-				honeyEmpty(honeies,i,j);
-			}    
+			if ((point[z].x > (x - 8)) && 
+					(point[z].x < (x + 8)) && 
+					(point[z].y > (y - 8)) && 
+					(point[z].y < (y + 8))) {
+				if (isEmpty)
+					isEmpty = false;
+				else
+					point[z].honey = true;
+				    isEmpty = true;
+			}
 		}
-	}
-
-	private Honey honeyEmpty(Honey[][] honeies,int i,int j) {
-		System.out.println("실행");
-		return honeies[i][j] = null;
 	}
 
 }

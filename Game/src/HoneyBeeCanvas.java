@@ -18,6 +18,8 @@ public class HoneyBeeCanvas extends Canvas {
 	private Butterfly butterfly;
 	private Flower flower;
 	private Pause pause;
+	private Victory victory;
+	private GameOver gameOver;
 	public static Bar[] bar;
 	public static int spaceHitCnt;
 	private int xBarBee;
@@ -39,6 +41,8 @@ public class HoneyBeeCanvas extends Canvas {
 		bar[0] = new Bar(150, 700, true, true);
 		bar[1] = new Bar(70, 330, false, false);
 		pause = new Pause();
+		victory = new Victory();
+		gameOver = new GameOver();
 		butterfly = new Butterfly();
 		xBeeStartPos = bottle.beePosX(xBeeStartPos);
 		yBeeStartPos = bottle.beePosY(yBeeStartPos);
@@ -135,6 +139,20 @@ public class HoneyBeeCanvas extends Canvas {
 		// 일시정지시 나타나는 패널
 		pause.draw(g2, this);
 		
+		// 100점 달성 시 나타나는 패널
+		if (score.getGetScore()==100) {
+			victory.draw(g2,this);
+			stop();
+			repaint();
+		}
+		
+		// 시간 초과시 나타나는 패널
+		if (timeBee.getX() == 50) {
+			gameOver.draw(g2, this);
+			stop();
+			repaint();
+		}
+		
 		g.drawImage(bufImage, 0, 0, this);
 	}
 
@@ -153,8 +171,6 @@ public class HoneyBeeCanvas extends Canvas {
 						timeBee.update();
 						bee.update();
 						score.update(bottle);
-
-						if (timeBee.getX() == 50) end();
 
 						for (Bar b : bar) b.update();
 
@@ -185,8 +201,5 @@ public class HoneyBeeCanvas extends Canvas {
 		GameFrame.getInstance().honeyBeeReChange();		
 	}
 
-	public void end() {
-		GameFrame.getInstance().endChange();
-	}
 
 }
