@@ -54,13 +54,13 @@ public class HoneyBeeCanvas extends Canvas {
 
 		running = false;
 
-		bee.addBeeListener(new Bee.BeeListener() {
-
+		bee.addBeeListener(new ArriveListener() {
 			@Override
 			public void arrivedInFlower(Point[] leg) {
 				leg = flower.putHoney(leg);
 				bee.catchHoney(leg);
 				bee.move(xBeeStartPos, yBeeStartPos);
+
 			}
 
 			@Override

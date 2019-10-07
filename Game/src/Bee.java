@@ -55,7 +55,7 @@ public class Bee {
 	private static final int RANDOM_MOVING = 0;
 	private Leg leg;
 	private Random random = new Random();
-	private BeeListener listener;
+	private ArriveListener listener;
 	private Image img;
 	private int[] xArrayLeg = { 56, 65, 98, 111, 142, 154 };
 	private int[] yArrayLeg = { 128, 129, 132, 130, 121, 115 };
@@ -77,11 +77,7 @@ public class Bee {
 	}
 
 	//callback to HoneyBeeCanvas
-	public interface BeeListener {
-		void arrivedInFlower(Point[] honey);
-		void arrivedInBottle(int honey);
-	}
-	public void addBeeListener(BeeListener listener) {
+	public void addBeeListener(ArriveListener listener) {
 		this.listener = listener;
 	}
 	
