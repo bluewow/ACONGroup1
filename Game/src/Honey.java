@@ -37,22 +37,22 @@ public class Honey {
 		this(45, 45);
 	}
 
-	public Point[] onHoney(Point[] point) {
-		for (int z = 0; z < 6; z++) {
-			if ((point[z].x > (x - 8)) &&
-					(point[z].x < (x + 8)) && 
-					(point[z].y > (y - 8)) && 
-					(point[z].y < (y + 8))) {
-				point[z].honey = true;
-//			System.out.println(x + "," + y);
-//			System.out.println(z);
-//				System.out.println(point[z].honey);
-			}
-			System.out.println(point[z].honey);
-		}
-
-		return point;
-	}
+//	public Point[] onHoney(Point[] point) {
+//		for (int z = 0; z < 6; z++) {
+//			if ((point[z].x > (x - 8)) &&
+//					(point[z].x < (x + 8)) && 
+//					(point[z].y > (y - 8)) && 
+//					(point[z].y < (y + 8))) {
+//				point[z].honey = true;
+////			System.out.println(x + "," + y);
+////			System.out.println(z);
+////				System.out.println(point[z].honey);
+//			}
+//			System.out.println(point[z].honey);
+//		}
+//
+//		return point;
+//	}
 
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
 

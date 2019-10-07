@@ -55,6 +55,7 @@ public class HoneyBeeCanvas extends Canvas {
 //			    System.out.println(leg[0].honey);
 				bee.catchHoney(leg);
 				bee.sendToBottle();
+				System.out.println(leg[0].honey);
 			}
 		}); 
 		
