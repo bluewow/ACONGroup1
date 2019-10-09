@@ -4,7 +4,7 @@ public class GameFrame extends Frame {
 	private static GameFrame frame;
 	private IntroCanvas introCanvas;
 	private HoneyBeeCanvas honeyBeeCanvas;
-
+	
 	public static GameFrame getInstance() {
 		if (frame == null)
 			frame = new GameFrame();

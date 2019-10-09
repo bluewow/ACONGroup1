@@ -1,7 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class Pause {
+	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	private static Image pauseImg = tk.getImage("res/PauseBtn(40X40).png");
+	private static Image btnImg = tk.getImage("res/PauseBtnTemplet(585X130).png");
+	private static Color color = new Color(0f, 0f, 0f, 0.5f);
 	private int x;				// 일시정지 버튼 위치
 	private int y;
 	private int width;			// 일시정지 버튼 크기
@@ -9,9 +15,9 @@ public class Pause {
 	private int winWidth;		// 윈도우 창 크기
 	private int winHeight;
 	private boolean pauseMode; 	// 일시정지 상태인지 아닌지
-	private static Color color = new Color(0f, 0f, 0f, 0.5f);
-	private boolean[] buttons;	// 계속하기, 그만하기, 다시하기 버튼
-
+	private boolean stop;		// 타이틀로 돌아기기
+	private boolean replay;		// 다시하기
+	
 	public Pause() {
 		this(720, 20);
 	}
@@ -22,7 +28,8 @@ public class Pause {
 		width = 40;
 		height = 40;
 		pauseMode = false;
-		buttons = new boolean [2];
+		stop = false;
+		replay = false;
 	}
 
 	public void btnPauseClicked(int mx, int my) {
@@ -35,36 +42,80 @@ public class Pause {
 	public void clickButton(int mx, int my) {
 		// 일시정지 상태일 때, 3개의 버튼 활성화
 		if(pauseMode) {
-			// 계속하기 버튼을 누를 때
-			if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 350 - 75 /2 && my <= 350 + 75 / 2)
+			// 이어하기 버튼을 누를 때
+			if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
+					&& my >= 350 - 75 /2 && my <= 350 + 75 / 2)
 				pauseMode = false;
-			// 그만하기 버튼을 누를 때, 타이틀로 돌아간다.
-			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 450 - 75 /2 && my <= 450 + 75 / 2)
-				buttons[0] = true;
-			// 다시하기 버튼을 누를 때, 타이틀로 돌아가지않고 게임 다시
-			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 550 - 75 /2 && my <= 550 + 75 / 2)
-				buttons[1] = true;
+			// 새로하기 버튼을 누를 때, 타이틀로 돌아가지않고 게임 새로 시작
+			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
+					&& my >= 450 - 75 /2 && my <= 450 + 75 / 2)
+				replay = true;
+			// 타이틀로 버튼을 누를 때, 타이틀로 돌아가기
+			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
+					&& my >= 550 - 75 /2 && my <= 550 + 75 / 2)
+				stop = true;
 		}
 	}
 
 	public void draw(Graphics g2, HoneyBeeCanvas honeyBeeCanvas) {
+		// Canvas 크기 구하기
 		winWidth = honeyBeeCanvas.getWidth();
 		winHeight = honeyBeeCanvas.getWidth();
 		
+		// 마우스의 위치 구하기
+		int mx = honeyBeeCanvas.getMouseX();
+		int my = honeyBeeCanvas.getMouseY();
+		
 		// 일시정지 버튼 그리기
-		g2.drawRect(x, y, width, height);
+		g2.drawImage(pauseImg, x, y, honeyBeeCanvas);
 
 		if (pauseMode) {
 			// 화면 어두워지기
 			g2.setColor(color);
 			g2.fillRect(0, 0, winWidth, winHeight);
 			
-			g2.setColor(new Color(255, 255, 255));
+			// 버튼 1개의 이미지 크기
+			int imgW = btnImg.getWidth(honeyBeeCanvas) / 3;
+			int imgH = btnImg.getHeight(honeyBeeCanvas) / 2;
 			
-			// 계속하기, 그만하기, 다시하기 버튼
-			g2.drawRect(winWidth / 2 - 100, 350 - 75 / 2, 200, 75);
-			g2.drawRect(winWidth / 2 - 100, 450 - 75 / 2, 200, 75);
-			g2.drawRect(winWidth / 2 - 100, 550 - 75 / 2, 200, 75);
+			// 이어하기
+			if (mx >=  winWidth / 2 - imgW / 2 && mx <=  winWidth / 2 + imgW / 2 
+					&& my >= 350 - imgH / 2 && my <= 350 + imgH / 2)
+				g2.drawImage(btnImg, 
+						winWidth / 2 - imgW / 2, 350 - imgH / 2,
+						winWidth / 2 + imgW / 2, 350 + imgH / 2,
+						0, imgH, imgW, imgH * 2, honeyBeeCanvas);
+			else
+				g2.drawImage(btnImg, 
+						winWidth / 2 - imgW / 2, 350 - imgH / 2,
+						winWidth / 2 + imgW / 2, 350 + imgH / 2,
+					0, 0, imgW, imgH, honeyBeeCanvas);
+			
+			// 새로하기
+			if (mx >=  winWidth / 2 - imgW / 2 && mx <=  winWidth / 2 + imgW / 2 
+					&& my >= 450 - imgH / 2 && my <= 450 + imgH / 2)
+				g2.drawImage(btnImg,
+						winWidth / 2 - imgW / 2, 450 - imgH / 2,
+						winWidth / 2 + imgW / 2, 450 + imgH / 2,
+						imgW, imgH, imgW * 2, imgH * 2, honeyBeeCanvas);
+			else
+				g2.drawImage(btnImg,
+						winWidth / 2 - imgW / 2, 450 - imgH / 2,
+						winWidth / 2 + imgW / 2, 450 + imgH / 2,
+						imgW, 0, imgW * 2, imgH, honeyBeeCanvas);
+			
+			// 타이틀로
+			if (mx >=  winWidth / 2 - imgW / 2 && mx <=  winWidth / 2 + imgW / 2 
+					&& my >= 550 - imgH / 2 && my <= 550 + imgH / 2)
+				g2.drawImage(btnImg, 
+						winWidth / 2 - imgW / 2, 550 - imgH / 2,
+						winWidth / 2 + imgW / 2, 550 + imgH / 2,
+						imgW * 2, imgH, imgW * 3, imgH * 2, honeyBeeCanvas);
+			else
+				g2.drawImage(btnImg, 
+						winWidth / 2 - imgW / 2, 550 - imgH / 2,
+						winWidth / 2 + imgW / 2, 550 + imgH / 2,
+						imgW * 2, 0, imgW * 3, imgH, honeyBeeCanvas);
 		}
 	}
 
@@ -73,10 +124,10 @@ public class Pause {
 	}
 
 	public boolean getStopGame() {
-		return buttons[0];
+		return stop;
 	}
 
 	public boolean getReplayGame() {
-		return buttons[1];
+		return replay;
 	}
 }
