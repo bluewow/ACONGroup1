@@ -6,40 +6,36 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class IntroCanvas extends Canvas {
+	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	private Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
+	private Image imgBefore = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
+	private Image imgAfter = tk.getImage("res/IntroAfterBtnTemplet(255X85).png");
+	
+	private static int btnX = (800-255)/2;
+	private static int btnY = 400;
+	private static int btnW = 255;
+	private static int btnH = 85;
+	private static int btnHGap = 100;
+	private static int titleX = 50;
+	private static int titleY = 100;
+	private static int titleW = 690;
+	private static int titleH = 200;
+	private static int sX = 0;
+	private static int sY = 0;
 
-	private int x;
-	private int y;
-	private int sx;
-	private int sy;
-	private int w;
-	private int h;
-	private int hGap;
 	private int getX;
 	private int getY;
 
-	private Image imgBefore;
-	private Image imgAfter;
 
 	public IntroCanvas() {
-		x = (800-255)/2;
-		y = 400;
-		sx = 0;
-		sy = 0;
-		w = 255;
-		h = 85;
-		hGap = 100;
-		
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		imgBefore = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
-		imgAfter = tk.getImage("res/IntroAfterBtnTemplet(255X85).png");
-
+	
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y && e.getY() <= y + h)
+				if (e.getX() >= btnX && e.getX() <= btnX + btnW && e.getY() >= btnY && e.getY() <= btnY + btnH)
 				{	BgMusic.Sound("res/BtSelect.wav", "Play");
 					GameFrame.getInstance().honeyBeeChange();}
-				else if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y + 200 && e.getY() <= y + 200 + h)
+				else if (e.getX() >= btnX && e.getX() <= btnX + btnW && e.getY() >= btnY + 200 && e.getY() <= btnY + 200 + btnH)
 				{	BgMusic.Sound("res/BtSelect.wav", "Play");
 				System.exit(0);
 				}
@@ -50,32 +46,32 @@ public class IntroCanvas extends Canvas {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				getX = e.getX();
-				getY = e.getY();
-				if (getX == x && getY >= y && getY <= y + h)
+				getY = e.getY();				
+				if (getX == btnX && getY >= btnY && getY <= btnY + btnH)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == x+w && getY >= y && getY <= y + h)
+				if (getX == btnX+btnW && getY >= btnY && getY <= btnY + btnH)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y && getX >= x && getX <= x + w)
+				if (getY == btnY && getX >= btnX && getX <= btnX + btnW)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y+h && getX >= x && getX <= x + w)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				
-				if (getX == x && getY >= y+hGap && getY <= y + h + hGap)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == x+w && getY >= y+hGap && getY <= y + h + hGap)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y + hGap && getX >= x && getX <= x + w)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y+h + hGap && getX >= x && getX <= x + w)
+				if (getY == btnY+btnH && getX >= btnX && getX <= btnX + btnW)
 					BgMusic.Sound("res/BtOn.wav", "Play");
 				
-				if (getX == x && getY >= y+hGap*2 && getY <= y + h + hGap*2)
+				if (getX == btnX && getY >= btnY+btnHGap && getY <= btnY + btnH + btnHGap)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == x+w && getY >= y+hGap*2 && getY <= y + h + hGap*2)
+				if (getX == btnX+btnW && getY >= btnY+btnHGap && getY <= btnY + btnH + btnHGap)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y + hGap*2 && getX >= x && getX <= x + w)
+				if (getY == btnY + btnHGap && getX >= btnX && getX <= btnX + btnW)
 					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == y+h + hGap*2 && getX >= x && getX <= x + w)
+				if (getY == btnY+btnH + btnHGap && getX >= btnX && getX <= btnX + btnW)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				
+				if (getX == btnX && getY >= btnY+btnHGap*2 && getY <= btnY + btnH + btnHGap*2)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getX == btnX+btnW && getY >= btnY+btnHGap*2 && getY <= btnY + btnH + btnHGap*2)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == btnY + btnHGap*2 && getX >= btnX && getX <= btnX + btnW)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == btnY+btnH + btnHGap*2 && getX >= btnX && getX <= btnX + btnW)
 					BgMusic.Sound("res/BtOn.wav", "Play");
 			}
 		});
@@ -88,18 +84,22 @@ public class IntroCanvas extends Canvas {
 	
 	@Override
 	public void paint(Graphics g) {
-		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
-			g.drawImage(imgAfter, x, y,x+w,y+h,sx,sy,w,h,this);
+		// 타이틀 그리기
+		g.drawImage(imgTitle, titleX, titleY,titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
+		
+		// 버튼 그리기 (마우스 갖다 댔을 때 이미지 변화 포함)
+		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH)
+			g.drawImage(imgAfter, btnX, btnY,btnX+btnW,btnY+btnH,sX,sY,btnW,btnH,this);
 		else 
-			g.drawImage(imgBefore, x, y, x + w, y + h, sx, sy, w, h, this);
-		if (getX >= x && getX <= x + w && getY >= y + hGap && getY <= y + h + hGap)
-			g.drawImage(imgAfter, x, y + hGap, x + w, y + h + hGap, sx + w, sy, sx + w * 2, h, this);
+			g.drawImage(imgBefore, btnX, btnY, btnX + btnW, btnY + btnH, sX, sY, btnW, btnH, this);
+		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY + btnHGap && getY <= btnY + btnH + btnHGap)
+			g.drawImage(imgAfter, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
 		else
-			g.drawImage(imgBefore, x, y + hGap, x + w, y + h + hGap, sx + w, sy, sx + w * 2, h, this);
-		if (getX >= x && getX <= x + w && getY >= y + hGap * 2 && getY <= y + h + hGap * 2)
-			g.drawImage(imgAfter, x, y + hGap * 2, x + w, y + h + hGap * 2, sx + w * 2, sy, sx + w * 3, h, this);
+			g.drawImage(imgBefore, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
+		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY + btnHGap * 2 && getY <= btnY + btnH + btnHGap * 2)
+			g.drawImage(imgAfter, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
 		else
-			g.drawImage(imgBefore, x, y + hGap * 2, x + w, y + h + hGap * 2, sx + w * 2, sy, sx + w * 3, h, this);
+			g.drawImage(imgBefore, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
 		
 		repaint();
 	}
