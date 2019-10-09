@@ -51,6 +51,32 @@ public class IntroCanvas extends Canvas {
 			public void mouseMoved(MouseEvent e) {
 				getX = e.getX();
 				getY = e.getY();
+				if (getX == x && getY >= y && getY <= y + h)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getX == x+w && getY >= y && getY <= y + h)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y+h && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				
+				if (getX == x && getY >= y+hGap && getY <= y + h + hGap)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getX == x+w && getY >= y+hGap && getY <= y + h + hGap)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y + hGap && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y+h + hGap && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				
+				if (getX == x && getY >= y+hGap*2 && getY <= y + h + hGap*2)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getX == x+w && getY >= y+hGap*2 && getY <= y + h + hGap*2)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y + hGap*2 && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
+				if (getY == y+h + hGap*2 && getX >= x && getX <= x + w)
+					BgMusic.Sound("res/BtOn.wav", "Play");
 			}
 		});
 	}
