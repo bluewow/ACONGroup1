@@ -4,6 +4,11 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 public class Victory {
+	private static Color color = new Color(1f, 1f, 1f, 0.3f);
+	private static Toolkit tk = Toolkit.getDefaultToolkit();;
+	private Image img;
+	private Image font;
+	private Rank rank;
 	private int x;
 	private int y;
 	private int w;
@@ -18,27 +23,21 @@ public class Victory {
 	private boolean stopButton;
 	private boolean viewButton;
 
-	private static Color color = new Color(1f, 1f, 1f, 0.3f);
-
-	private Image img;
-
 	public Victory() {
+		img = tk.getImage("res/VictoryBtnTemplet(195X65).png");
+		font = tk.getImage("res/Font.png");
+		rank = new Rank();
+		
 		x = 145;
-		y = 400;
+		y = 600;
 		w = 195;
 		h = 65;
 		sx = 0;
 		sy = 0;
+		
 		victoryMode = false;
 		stopButton = false;
 		viewButton = false;
-
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/VictoryBtnTemplet(195X65).png");
-	}
-
-	public boolean getVictoryMode() {
-		return victoryMode;
 	}
 
 	public void draw(Graphics g, HoneyBeeCanvas canvas) {
@@ -54,6 +53,22 @@ public class Victory {
 		g.setColor(color);
 		g.fillRect(0, 0, winWidth, winHeight);
 
+		if(!viewButton) {
+			// 이름 텍스트 박스
+			g.setColor(Color.white);
+			g.fillRect(winWidth / 2 - 300 / 2, 400, 300, 50);
+		
+			g.setColor(Color.black);
+			g.drawRect(winWidth / 2 - 300 / 2, 400, 300, 50);
+		} else {
+			g.setColor(Color.white);
+			g.fillRect(winWidth / 2 - 500 / 2, 150, 500, 400);
+			g.setColor(Color.black);
+			g.drawRect(winWidth / 2 - 500 / 2, 150, 500, 400);
+			
+			
+		}
+		
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
 		// 다시하기
 		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
@@ -62,15 +77,24 @@ public class Victory {
 			g.drawImage(img, x, y, x + w, y + h, sx, sy, sx + w, sy + h, canvas);
 		// 타이틀로
 		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
-			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h, sx + w, sy + h, sx + w * 2, sy + h * 2, canvas);
+			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h,
+					sx + w, sy + h, sx + w * 2, sy + h * 2, canvas);
 		else
-			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h, sx + w, sy, sx + w * 2, sy + h, canvas);
+			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h,
+					sx + w, sy, sx + w * 2, sy + h, canvas);
+		
+	}
+
+	public boolean getVictoryMode() {
+		return victoryMode;
 	}
 
 	public void clickButton(int getX, int getY) {
 		// 다시하기
-		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
+		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h) {
 			viewButton = true;
+			rank.showRank();
+		}
 		// 타이틀로
 		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
 			stopButton = true;
@@ -83,5 +107,4 @@ public class Victory {
 	public boolean getStopButton() {
 		return stopButton;
 	}
-
 }
