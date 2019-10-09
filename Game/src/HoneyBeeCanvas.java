@@ -67,6 +67,7 @@ public class HoneyBeeCanvas extends Canvas {
 			public void arrivedInBottle(int honeyNum) {
 				System.out.println("toBottle : " + honeyNum);
 				bottle.getHoney(honeyNum);
+				BgmBeeFly.Stop();
 			}
 		});
 		// 스페이스키가 눌렸을 때 이벤트 발생
@@ -80,13 +81,15 @@ public class HoneyBeeCanvas extends Canvas {
 							bar[0].setActivation(false);
 							bar[1].setActivation(true);
 							xBarBee = bar[0].getPos();
+							BgMusic.Sound("res/BtBar.wav", "Play");
 							spaceHitCnt++;
 						} else if (spaceHitCnt == 1) {
 							bar[1].setActivation(false);
 							yBarBee = bar[1].getPos();
+							BgMusic.Sound("res/BtBar.wav", "Play");
 							spaceHitCnt++;
 							bee.move(xBarBee, yBarBee);
-							BgMusic.Sound("res/BeeFly.wav", "Play");
+							BgmBeeFly.Play();
 						} else
 							spaceHitCnt++;
 					}
@@ -195,7 +198,7 @@ public class HoneyBeeCanvas extends Canvas {
 	public void start() {
 		running = true;
 
-		BgMusic.Sound("res/MainBgm.wav", "Loop");
+		BgmMain.Play("Loop");
 
 		new Thread(() -> {
 			while (running) {
@@ -230,12 +233,12 @@ public class HoneyBeeCanvas extends Canvas {
 	}
 
 	public void stopGame() {
-		BgMusic.Sound("res/MainBgm.wav", "Stop");
+		BgmMain.Stop();
 		GameFrame.getInstance().introChange();
 	}
 
 	public void replayGame() {
-		BgMusic.Sound("res/MainBgm.wav", "Stop");
+		BgmMain.Stop();
 		GameFrame.getInstance().honeyBeeReChange();
 	}
 

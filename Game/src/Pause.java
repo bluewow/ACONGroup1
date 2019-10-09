@@ -37,13 +37,14 @@ public class Pause {
 		if(pauseMode) {
 			// 계속하기 버튼을 누를 때
 			if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 350 - 75 /2 && my <= 350 + 75 / 2)
-				pauseMode = false;
+			{	BgMusic.Sound("res/BtSelect.wav", "Play");pauseMode = false;}
 			// 그만하기 버튼을 누를 때, 타이틀로 돌아간다.
 			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 450 - 75 /2 && my <= 450 + 75 / 2)
-				buttons[0] = true;
+			{	BgMusic.Sound("res/BtSelect.wav", "Play");buttons[0] = true;}
 			// 다시하기 버튼을 누를 때, 타이틀로 돌아가지않고 게임 다시
 			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 && my >= 550 - 75 /2 && my <= 550 + 75 / 2)
-				buttons[1] = true;
+			{	BgMusic.Sound("res/BtSelect.wav", "Play");buttons[1] = true;
+				}
 		}
 	}
 

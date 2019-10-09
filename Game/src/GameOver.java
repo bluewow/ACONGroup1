@@ -64,7 +64,7 @@ public class GameOver {
 
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
 		// 다시하기
-		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
+		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h) 
 			g.drawImage(img, x, y, x + w, y + h, sx, sy + h, sx + w, sy + h * 2, canvas);
 		else
 			g.drawImage(img, x, y, x + w, y + h, sx, sy, sx + w, sy + h, canvas);
@@ -78,10 +78,12 @@ public class GameOver {
 	public void clickButton(int getX, int getY) {
 		// 다시하기
 		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
-			replayButton = true;
+		{	BgMusic.Sound("res/BtSelect.wav", "Play");
+			replayButton = true;}
 		// 타이틀로
 		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
-			stopButton = true;
+		{	BgMusic.Sound("res/BtSelect.wav", "Play");
+			stopButton = true;}
 	}
 
 	public boolean getReplayButton() {

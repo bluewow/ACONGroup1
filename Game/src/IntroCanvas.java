@@ -37,9 +37,12 @@ public class IntroCanvas extends Canvas {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y && e.getY() <= y + h)
-					GameFrame.getInstance().honeyBeeChange();
+				{	BgMusic.Sound("res/BtSelect.wav", "Play");
+					GameFrame.getInstance().honeyBeeChange();}
 				else if (e.getX() >= x && e.getX() <= x + w && e.getY() >= y + 200 && e.getY() <= y + 200 + h)
-					System.exit(0);
+				{	BgMusic.Sound("res/BtSelect.wav", "Play");
+				System.exit(0);
+				}
 			}
 		});
 		
