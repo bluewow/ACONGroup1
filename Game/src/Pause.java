@@ -14,6 +14,8 @@ public class Pause {
 	private int height;
 	private int winWidth;		// 윈도우 창 크기
 	private int winHeight;
+	private int mx;
+	private int my;
 	private boolean pauseMode; 	// 일시정지 상태인지 아닌지
 	private boolean stop;		// 타이틀로 돌아기기
 	private boolean replay;		// 다시하기
@@ -39,7 +41,7 @@ public class Pause {
 		}
 	}
 	
-	public void clickButton(int mx, int my) {
+	public void clickButton() {
 		// 일시정지 상태일 때, 3개의 버튼 활성화
 		if(pauseMode) {
 			// 이어하기 버튼을 누를 때
@@ -63,8 +65,8 @@ public class Pause {
 		winHeight = honeyBeeCanvas.getWidth();
 		
 		// 마우스의 위치 구하기
-		int mx = honeyBeeCanvas.getMouseX();
-		int my = honeyBeeCanvas.getMouseY();
+		mx = honeyBeeCanvas.getMouseX();
+		my = honeyBeeCanvas.getMouseY();
 		
 		// 일시정지 버튼 그리기
 		g2.drawImage(pauseImg, x, y, honeyBeeCanvas);

@@ -19,11 +19,9 @@ public class BgMusic {
 				bgClip.open(ais);
 				bgClip.start();
 				bgClip.loop(-1);
-				System.out.println(bgClip.hashCode());
 			} else if (Options == "Stop") {
 				bgClip.stop();
 				bgClip.close();
-				System.out.println(clip.hashCode());
 			} else if (Options == "Play") {
 				clip = AudioSystem.getClip();
 				clip.open(ais);
