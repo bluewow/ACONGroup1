@@ -39,7 +39,7 @@ public class Honey {
 	public void update() {
 		if (isEmpty) {
 			timer++;
-			if (timer >= 60) {
+			if (timer >= 120) {
 				sx += w;
 				if (sxChecker) {
 					sx = 0;
