@@ -46,16 +46,22 @@ public class Pause {
 		if(pauseMode) {
 			// 이어하기 버튼을 누를 때
 			if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
-					&& my >= 350 - 75 /2 && my <= 350 + 75 / 2)
+					&& my >= 350 - 75 /2 && my <= 350 + 75 / 2) {
 				pauseMode = false;
+				BgMusic.Sound("res/BtSelect.wav", "Play");
+			}
 			// 새로하기 버튼을 누를 때, 타이틀로 돌아가지않고 게임 새로 시작
 			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
-					&& my >= 450 - 75 /2 && my <= 450 + 75 / 2)
+					&& my >= 450 - 75 /2 && my <= 450 + 75 / 2) {
 				replay = true;
+				BgMusic.Sound("res/BtSelect.wav", "Play");
+			}
 			// 타이틀로 버튼을 누를 때, 타이틀로 돌아가기
 			else if (mx >= winWidth / 2 - 100 && mx <= winWidth / 2 + 100 
-					&& my >= 550 - 75 /2 && my <= 550 + 75 / 2)
+					&& my >= 550 - 75 /2 && my <= 550 + 75 / 2) {
 				stop = true;
+				BgMusic.Sound("res/BtSelect.wav", "Play");
+			}
 		}
 	}
 

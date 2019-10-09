@@ -64,6 +64,7 @@ public class HoneyBeeCanvas extends Canvas {
 				bottle.getHoney(honeyNum);
 				barX.setActivation(true);
 				spaceHitCnt = 0;
+				BgmBeeFly.Stop();
 			}
 		});
 		
@@ -78,11 +79,13 @@ public class HoneyBeeCanvas extends Canvas {
 							barX.setActivation(false);
 							barY.setActivation(true);
 							spaceHitCnt++;
+							BgMusic.Sound("res/BtBar.wav", "Play");
 						} else if (spaceHitCnt == 1) {
 							barY.setActivation(false);
 							spaceHitCnt++;
 							bee.move(barX.getPos(), barY.getPos());
-							BgMusic.Sound("res/BeeFly.wav", "Play");
+							BgMusic.Sound("res/BtBar.wav", "Play");
+							BgmBeeFly.Play();
 						} else
 							spaceHitCnt++;
 					}
@@ -193,7 +196,7 @@ public class HoneyBeeCanvas extends Canvas {
 	public void start() {
 		running = true;
 
-		BgMusic.Sound("res/MainBgm.wav", "Loop");
+		BgmMain.Play("Loop");
 
 		new Thread(() -> {
 			while (running) {
@@ -227,12 +230,12 @@ public class HoneyBeeCanvas extends Canvas {
 	}
 
 	public void stopGame() {
-		BgMusic.Sound("res/MainBgm.wav", "Stop");
+		BgmMain.Stop();
 		GameFrame.getInstance().introChange();
 	}
 
 	public void replayGame() {
-		BgMusic.Sound("res/MainBgm.wav", "Stop");
+		BgmMain.Stop();
 		GameFrame.getInstance().honeyBeeReChange();
 	}
 }
