@@ -177,7 +177,7 @@ public class HoneyBeeCanvas extends Canvas {
 		pause.draw(g2, this);
 
 		// 100점 달성 시 나타나는 패널
-		if (score.getGetScore() >= 0) {
+		if (score.getGetScore() >= 100) {
 			victory.draw(g2, this);
 			stop();
 			repaint();

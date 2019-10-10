@@ -7,7 +7,6 @@ public class Victory {
 	private static Color color = new Color(1f, 1f, 1f, 0.3f);
 	private static Toolkit tk = Toolkit.getDefaultToolkit();;
 	private Image img;
-	private Image font;
 	private Rank rank;
 	private int x;
 	private int y;
@@ -25,7 +24,6 @@ public class Victory {
 	
 	public Victory() {
 		img = tk.getImage("res/VictoryBtnTemplet(195X65).png");
-		font = tk.getImage("res/Font.png");
 		rank = new Rank();
 		
 		x = 145;
@@ -65,11 +63,9 @@ public class Victory {
 			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
 			g.setColor(Color.black);
 			g.drawRect(winWidth / 2 - 600 / 2, 150, 600, 400);
-			
-			// 이름, 점수, 시간 출력
-			drawText(winWidth / 2 - 600 / 2, 150, "Name", g, canvas);
-			drawText(winWidth / 2 - 600 / 2 + 250, 150, "Score", g, canvas);
-			drawText(winWidth / 2 - 600 / 2 + 480, 150, "Time", g, canvas);
+
+			// rank 출력
+			rank.drawRank(g, canvas);
 		}
 		
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
@@ -95,8 +91,8 @@ public class Victory {
 	public void clickButton(int getX, int getY) {
 		// 다시하기
 		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h) {
+			rank.bringRank();
 			viewButton = true;
-			rank.showRank();
 		}
 		// 타이틀로
 		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
@@ -109,31 +105,5 @@ public class Victory {
 
 	public boolean getStopButton() {
 		return stopButton;
-	}
-	
-	private void drawText(int tx, int ty, String text, Graphics g, HoneyBeeCanvas canvas) {
-		int charW = font.getWidth(canvas) / 26;
-		int charH = font.getHeight(canvas) / 3;
-		
-		for(int i = 0; i < text.length(); i++) {
-			int index;
-			char[] ch = text.toCharArray();
-			index = ch[i];
-			
-			if(index >= 48 && index <= 57) {
-				index += 4;
-			} else if(index >= 65 && index <= 90) {
-				index -= 65;					
-			}
-			else if(index >= 97 && index <= 122) {
-				index -= 71;
-			}
-
-			g.drawImage(font, 
-					tx + i * charW, ty,
-					tx + charW + i * charW, ty + charH,
-					charW * (index % 26), charH * (index / 26),
-					charW + charW * (index % 26), charH + charH * (index / 26), canvas);
-		}
 	}
 }
