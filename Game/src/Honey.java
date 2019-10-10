@@ -14,7 +14,8 @@ public class Honey {
 	private static Toolkit tk;
 	private boolean isEmpty;
 	private boolean sxChecker;
-
+	private boolean imageCheck;
+	
 	static {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/honeyIndex(15X15).png");
@@ -23,7 +24,6 @@ public class Honey {
 	public Honey() {
 		this(45, 45);
 	}
-
 	public Honey(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -33,27 +33,39 @@ public class Honey {
 		timer = 0;
 		sx = 4 * w;
 		sxChecker = true;
-		endHoneyImage = 60;
+		endHoneyImage=60;
+		imageCheck = true;
+		
 	}
-
-	public void update() {
+	
+	public void update() { 
 		if (isEmpty) {
-			timer++;
-			if (timer >= 120) {
-				sx += w;
+			
+			if (imageCheck) {
+			sx = endHoneyImage +15;
+			imageCheck = false;
+			}
+			timer++; 
+			
+			if (timer >= 120 ) {
+				sx += w; 
+				
 				if (sxChecker) {
 					sx = 0;
-					sxChecker = false;
+					sxChecker= false;
 				}
-				timer = 0; //
-				if (sx == endHoneyImage) {
-					isEmpty = false;
+				
+				timer = 0;
+				
+				if (sx == endHoneyImage) { 
+					isEmpty = false; 
 					sxChecker = true;
 				}
 			}
 		}
 
 	}
+
 
 	public void draw(Graphics g, HoneyBeeCanvas honeyBeeCanvas) {
 
@@ -76,19 +88,18 @@ public class Honey {
 		this.y = y;
 	}
 
+	
+
 	public void onHoney(Point[] point) {
 		for (int z = 0; z < point.length; z++) {
-			if ((point[z].x > (x - 8)) && 
-					(point[z].x < (x + 8)) && 
-					(point[z].y > (y - 8)) && 
-					(point[z].y < (y + 8))) {
-				if (isEmpty)
-					isEmpty = false;
-				else
-					point[z].honey = true;
-				    isEmpty = true;
+			if ((point[z].x > (x - 8)) && (point[z].x < (x + 8)) && (point[z].y > (y - 8)) && (point[z].y < (y + 8))) {
+				point[z].honey = true;
+				isEmpty = true;
 			}
 		}
 	}
+
+	
+
 
 }
