@@ -11,13 +11,22 @@ import java.awt.event.MouseEvent;
 //  --> 캔버스의 x,y 위치 받아오기
 //  -->
 public class GameOver {
-	private int x;
-	private int y;
-	private int w;
-	
-	private int h;
-	private int sx;
-	private int sy;
+	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	private static Image imgBtn = tk.getImage("res/GameOverBtnTemplet(195X65).png");
+	private static Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
+	private static int btnX = 145;
+	private static int btnY = 400;
+	private static int btnW = 195;
+	private static int btnH = 65;
+	private static int btnSX = 0;
+	private static int btnSY = 0;
+	private static int titleX = 50;
+	private static int titleY = 200;
+	private static int titleW = 690;
+	private static int titleH = 200;
+	private static int titleSX = titleW * 2;
+	private static int titleSY = titleH;
+
 	private int winWidth;
 	private int winHeight;
 	private int getX;
@@ -28,21 +37,10 @@ public class GameOver {
 
 	private static Color color = new Color(1f, 1f, 1f, 0.3f);
 
-	private Image img;
-
 	public GameOver() {
-		x = 145;
-		y = 400;
-		w = 195;
-		h = 65;
-		sx = 0;
-		sy = 0;
 		gameOverMode = false;
 		stopButton = false;
 		replayButton = false;
-
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		img = tk.getImage("res/GameOverBtnTemplet(195X65).png");
 	}
 
 	public boolean getgameOverMode() {
@@ -62,28 +60,37 @@ public class GameOver {
 		g.setColor(color);
 		g.fillRect(0, 0, winWidth, winHeight);
 
+		// 타이틀 그리기
+		g.drawImage(imgTitle, titleX, titleY, titleW, titleH, titleSX, titleSY, titleSX + titleW, titleSY + titleH,
+				canvas);
+
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
 		// 다시하기
-		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h) 
-			g.drawImage(img, x, y, x + w, y + h, sx, sy + h, sx + w, sy + h * 2, canvas);
+		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH)
+			g.drawImage(imgBtn, btnX, btnY, btnX + btnW, btnY + btnH, btnSX, btnSY + btnH, btnSX + btnW,
+					btnSY + btnH * 2, canvas);
 		else
-			g.drawImage(img, x, y, x + w, y + h, sx, sy, sx + w, sy + h, canvas);
+			g.drawImage(imgBtn, btnX, btnY, btnX + btnW, btnY + btnH, btnSX, btnSY, btnSX + btnW, btnSY + btnH, canvas);
 		// 타이틀로
-		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
-			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h, sx + w, sy + h, sx + w * 2, sy + h * 2, canvas);
+		if (getX >= btnX + btnW + 90 && getX <= btnX + btnW * 2 + 90 && getY >= btnY && getY <= btnY + btnH)
+			g.drawImage(imgBtn, btnX + btnW + 90, btnY, btnX + btnW * 2 + 90, btnY + btnH, btnSX + btnW, btnSY + btnH,
+					btnSX + btnW * 2, btnSY + btnH * 2, canvas);
 		else
-			g.drawImage(img, x + w + 90, y, x + w * 2 + 90, y + h, sx + w, sy, sx + w * 2, sy + h, canvas);
+			g.drawImage(imgBtn, btnX + btnW + 90, btnY, btnX + btnW * 2 + 90, btnY + btnH, btnSX + btnW, btnSY,
+					btnSX + btnW * 2, btnSY + btnH, canvas);
 	}
 
 	public void clickButton(int getX, int getY) {
 		// 다시하기
-		if (getX >= x && getX <= x + w && getY >= y && getY <= y + h)
-		{	BgMusic.Sound("res/BtSelect.wav", "Play");
-			replayButton = true;}
+		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH) {
+			BgMusic.Sound("res/BtSelect.wav", "Play");
+			replayButton = true;
+		}
 		// 타이틀로
-		if (getX >= x + w + 90 && getX <= x + w * 2 + 90 && getY >= y && getY <= y + h)
-		{	BgMusic.Sound("res/BtSelect.wav", "Play");
-			stopButton = true;}
+		if (getX >= btnX + btnW + 90 && getX <= btnX + btnW * 2 + 90 && getY >= btnY && getY <= btnY + btnH) {
+			BgMusic.Sound("res/BtSelect.wav", "Play");
+			stopButton = true;
+		}
 	}
 
 	public boolean getReplayButton() {

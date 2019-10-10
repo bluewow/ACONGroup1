@@ -7,6 +7,7 @@ public class Pause {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image pauseImg = tk.getImage("res/PauseBtn(40X40).png");
 	private static Image btnImg = tk.getImage("res/PauseBtnTemplet(585X130).png");
+	private static Image pauseTitle = tk.getImage("res/TitleTemplet(690X200).png");
 	private static Color color = new Color(0f, 0f, 0f, 0.5f);
 	private int x;				// 일시정지 버튼 위치
 	private int y;
@@ -81,6 +82,7 @@ public class Pause {
 			// 화면 어두워지기
 			g2.setColor(color);
 			g2.fillRect(0, 0, winWidth, winHeight);
+			g2.drawImage(pauseTitle,50,400,200+690,400+200,honeyBeeCanvas);
 			
 			// 버튼 1개의 이미지 크기
 			int imgW = btnImg.getWidth(honeyBeeCanvas) / 3;
