@@ -4,8 +4,7 @@ public class GameFrame extends Frame {
 	private static GameFrame frame;
 	private IntroCanvas introCanvas;
 	private HoneyBeeCanvas honeyBeeCanvas;
-	private EndCanvas endCanvas;
-
+	
 	public static GameFrame getInstance() {
 		if (frame == null)
 			frame = new GameFrame();
@@ -16,8 +15,6 @@ public class GameFrame extends Frame {
 		setSize(800, 800);
 
 		introCanvas = new IntroCanvas();
-		endCanvas = new EndCanvas();
-
 		add(introCanvas);
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
@@ -35,8 +32,9 @@ public class GameFrame extends Frame {
 			remove(honeyBeeCanvas);
 			honeyBeeCanvas.stop();
 			honeyBeeCanvas = null;
-		} else if (endCanvas.isValid())
-			remove(endCanvas);
+		}
+//		} else if (endCanvas.isValid())
+//			remove(endCanvas);
 
 		introCanvas.setFocusable(true);
 		introCanvas.requestFocus();
@@ -67,14 +65,14 @@ public class GameFrame extends Frame {
 		honeyBeeChange();
 	}
 
-	public void endChange() {
-		add(endCanvas);
-		remove(honeyBeeCanvas);
-
-		endCanvas.setFocusable(true);
-		endCanvas.requestFocus();
-		honeyBeeCanvas.stop();
-		revalidate();
-	}
+//	public void endChange() {
+//		add(endCanvas);
+//		remove(honeyBeeCanvas);
+//
+//		endCanvas.setFocusable(true);
+//		endCanvas.requestFocus();
+//		honeyBeeCanvas.stop();
+//		revalidate();
+//	}
 
 }

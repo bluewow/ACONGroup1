@@ -1,4 +1,3 @@
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -43,10 +42,10 @@ public class Honey {
 		if (isEmpty) {
 			
 			if (imageCheck) {
-				sx = endHoneyImage +15;
-				imageCheck = false;
-				}
-				timer++;
+			sx = endHoneyImage +15;
+			imageCheck = false;
+			}
+			timer++; 
 			
 			if (timer >= 120 ) {
 				sx += w; 

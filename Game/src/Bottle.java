@@ -62,8 +62,6 @@ public class Bottle {
 			//여기에 victory canvas를 call?
 		break;
 		}
-		HoneyBeeCanvas.bar[0].setActivation(true);
-		HoneyBeeCanvas.spaceHitCnt = 0;
 		return honeySum;
 	}
 	
