@@ -84,28 +84,32 @@ public class IntroCanvas extends Canvas {
 	}
 	
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g) {		
+		Image bufImage = createImage(this.getWidth(), this.getHeight());
+		Graphics g2 = bufImage.getGraphics();
 		// 배경 그리기
-		g.drawImage(imgBack, 0, 0, this);
+		g2.drawImage(imgBack, 0, 0, this);
 		
 		// 타이틀 그리기
-		g.drawImage(imgTitle, titleX, titleY, titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
+		g2.drawImage(imgTitle, titleX, titleY, titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
 		
 		// 버튼 그리기 (마우스 갖다 댔을 때 이미지 변화 포함)
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH)
-			g.drawImage(imgAfter, btnX, btnY,btnX+btnW,btnY+btnH,sX,sY,btnW,btnH,this);
+			g2.drawImage(imgAfter, btnX, btnY,btnX+btnW,btnY+btnH,sX,sY,btnW,btnH,this);
 		else 
-			g.drawImage(imgBefore, btnX, btnY, btnX + btnW, btnY + btnH, sX, sY, btnW, btnH, this);
+			g2.drawImage(imgBefore, btnX, btnY, btnX + btnW, btnY + btnH, sX, sY, btnW, btnH, this);
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY + btnHGap && getY <= btnY + btnH + btnHGap)
-			g.drawImage(imgAfter, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
+			g2.drawImage(imgAfter, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
 		else
-			g.drawImage(imgBefore, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
+			g2.drawImage(imgBefore, btnX, btnY + btnHGap, btnX + btnW, btnY + btnH + btnHGap, sX + btnW, sY, sX + btnW * 2, btnH, this);
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY + btnHGap * 2 && getY <= btnY + btnH + btnHGap * 2)
-			g.drawImage(imgAfter, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
+			g2.drawImage(imgAfter, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
 		else
-			g.drawImage(imgBefore, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
+			g2.drawImage(imgBefore, btnX, btnY + btnHGap * 2, btnX + btnW, btnY + btnH + btnHGap * 2, sX + btnW * 2, sY, sX + btnW * 3, btnH, this);
 		
 		repaint();
+		
+		g.drawImage(bufImage, 0, 0, this);
 	}
 
 }
