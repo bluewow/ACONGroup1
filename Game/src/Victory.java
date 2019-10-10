@@ -22,7 +22,7 @@ public class Victory {
 	private boolean victoryMode;
 	private boolean stopButton;
 	private boolean viewButton;
-
+	
 	public Victory() {
 		img = tk.getImage("res/VictoryBtnTemplet(195X65).png");
 		font = tk.getImage("res/Font.png");
@@ -62,11 +62,14 @@ public class Victory {
 			g.drawRect(winWidth / 2 - 300 / 2, 400, 300, 50);
 		} else {
 			g.setColor(Color.white);
-			g.fillRect(winWidth / 2 - 500 / 2, 150, 500, 400);
+			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
 			g.setColor(Color.black);
-			g.drawRect(winWidth / 2 - 500 / 2, 150, 500, 400);
+			g.drawRect(winWidth / 2 - 600 / 2, 150, 600, 400);
 			
-			
+			// 이름, 점수, 시간 출력
+			drawText(winWidth / 2 - 600 / 2, 150, "Name", g, canvas);
+			drawText(winWidth / 2 - 600 / 2 + 250, 150, "Score", g, canvas);
+			drawText(winWidth / 2 - 600 / 2 + 480, 150, "Time", g, canvas);
 		}
 		
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
@@ -106,5 +109,31 @@ public class Victory {
 
 	public boolean getStopButton() {
 		return stopButton;
+	}
+	
+	private void drawText(int tx, int ty, String text, Graphics g, HoneyBeeCanvas canvas) {
+		int charW = font.getWidth(canvas) / 26;
+		int charH = font.getHeight(canvas) / 3;
+		
+		for(int i = 0; i < text.length(); i++) {
+			int index;
+			char[] ch = text.toCharArray();
+			index = ch[i];
+			
+			if(index >= 48 && index <= 57) {
+				index += 4;
+			} else if(index >= 65 && index <= 90) {
+				index -= 65;					
+			}
+			else if(index >= 97 && index <= 122) {
+				index -= 71;
+			}
+
+			g.drawImage(font, 
+					tx + i * charW, ty,
+					tx + charW + i * charW, ty + charH,
+					charW * (index % 26), charH * (index / 26),
+					charW + charW * (index % 26), charH + charH * (index / 26), canvas);
+		}
 	}
 }
