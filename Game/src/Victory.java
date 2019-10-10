@@ -19,7 +19,7 @@ public class Victory {
 	private static int btnSX = 0;
 	private static int btnSY = 0;
 	private static int titleX = 50;
-	private static int titleY = 100;
+	private static int titleY = 150;
 	private static int titleW = 690;
 	private static int titleH = 200;
 	private static int titleSX = titleW*1;
@@ -61,7 +61,7 @@ public class Victory {
 		g.fillRect(0, 0, winWidth, winHeight);
 
 		// 타이틀 그리기
-		g.drawImage(imgTitle, titleX, titleY, titleW, titleH, titleSX, titleSY, titleSX+titleW, titleSY+titleH, canvas);
+		g.drawImage(imgTitle, titleX, titleY, titleX+titleW, titleY+titleH, titleSX, titleSY, titleSX+titleW, titleSY+titleH, canvas);
 		
 		if(!viewButton) {
 			// 이름 텍스트 박스
@@ -70,7 +70,7 @@ public class Victory {
 			
 			// 닉네임을 입력하세요
 			if (!viewMent) {
-				g.drawImage(ment,200,407,200+270,407+40,0, 0, 270, 40 , canvas);				
+				g.drawImage(ment,150,413,150+270,413+30,0, 10, 270, 40 , canvas);				
 			}
 			rank.drawName(g, canvas);
 			
