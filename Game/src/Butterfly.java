@@ -10,6 +10,7 @@ public class Butterfly {
    private double dy;// 가야할위치
    private double vx;
    private double vy;// 방향속도
+   private int timeCount;
 
    private double w;
    private double h;// 이미지 크기
@@ -34,7 +35,7 @@ public class Butterfly {
       img = tk.getImage("res/butterfly.png");
    }
 
-   public void update() {
+   public boolean update(Point point) {
       if (imageDelay++ % 120 == 0) {
          imageDelay = 0;
          imgIndex = (imgIndex == 1) ? 0 : 1;
@@ -42,6 +43,8 @@ public class Butterfly {
 
       x += vx;
       y += vy;
+      point.x = (int)(x+w/2);
+      point.y = (int)(y+h/2);
 
       if (((dy - 2 < y) && (y < dy + 2)) || ((dx - 2 < x) && (x < dx + 2))) {
          vy = 0;
@@ -49,6 +52,13 @@ public class Butterfly {
 
          move();
       }
+      timeCount++;
+      if(timeCount>100){
+         timeCount=0;
+         return true;
+      }
+      
+      return false;
 
    }
 
@@ -59,21 +69,19 @@ public class Butterfly {
       int h = (int) this.h;
 
       g2.drawImage(img, x, y, x + w, y + h, w * imgIndex, 0, (w * imgIndex) + w, 96, honeyBeeCanvas);
-
+      g2.drawRect((int)(x+w/2), (int)(y+h/2), 5, 5);
    }
 
    public void move() {
       Random random = new Random();
       dx = random.nextInt(280) + 110;
       dy = random.nextInt(200) + 330;
-//      System.out.println(dx);
 
       double w = dx - x;
       double h = dy - y;
       double d = (double) Math.sqrt(w * w + h * h);
-      vx = (w / d) * 3;
-//      System.out.println("vx:" + vx);
-      vy = (h / d) * 3;
+      vx = (w / d) * 2;
+      vy = (h / d) * 2;
 
    }
 

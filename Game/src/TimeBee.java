@@ -1,5 +1,4 @@
 
-
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -11,6 +10,7 @@ public class TimeBee {
 	private int h;
 	private Image img;
 	private int sc;
+	private int timer;
 	
 	public TimeBee() {
 		x = 490;
@@ -19,27 +19,29 @@ public class TimeBee {
 		h = 27;
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		img = tk.getImage("res/timerBee.png");
-		sc = (int)System.currentTimeMillis();
-		
+		sc = (int) System.currentTimeMillis();
+		timer = 0;
 	}
 
 	public int getX() {
 		return x;
 	}
+
 	public void draw(Graphics g, HoneyBeeCanvas canvas) {
-		g.drawImage(img, x,y,w,h,canvas);
-		
+		g.drawImage(img, x, y, w, h, canvas);
 	}
 
 	public void update() {
-//		System.out.println(((int)System.currentTimeMillis()-sc)/1000);
-		x = 470- (((int)System.currentTimeMillis()-sc)/1000)*7;
-		if(((int)System.currentTimeMillis()-sc)/1000>=60)
-			x = 50;
-		
-		
-		
+		timer = (((int) System.currentTimeMillis() - sc) / 1000);
+		if(timer <= 60) {
+			x = 470 - timer * 7;
+			
+			if(timer == 60)
+				x = 50;
+		}
 	}
-	
 
+	public int getTime() {
+		return timer;
+	}
 }
