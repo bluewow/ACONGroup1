@@ -53,10 +53,20 @@ public class Rank {
 		drawText(winWidth / 2 - 600 / 2 + 250, 150, "Score", g, canvas);
 		drawText(winWidth / 2 - 600 / 2 + 480, 150, "Time", g, canvas);
 		
-//		for(int i = 0; i < name.length; i++) {
-//			System.out.printf("name[%d] : %s\n", i, name[i]);
-//			drawText(winWidth / 2 - 600 / 2, 200 + i * 50, name[i], g, canvas);
-//		}
+		for(int i = 0; i < name.length; i++) {
+			if(name[i] != null)
+				drawText(winWidth / 2 - 600 / 2, 200 + i * 50, name[i], g, canvas);
+		}
+
+		for(int i = 0; i < name.length; i++) {
+			if(name[i] != null)
+				drawText(winWidth / 2 - 600 / 2 + 250, 200 + i * 50, score[i], g, canvas);
+		}
+		
+		for(int i = 0; i < name.length; i++) {
+			if(name[i] != null)
+				drawText(winWidth / 2 - 600 / 2 + 480, 200 + i * 50, time[i], g, canvas);
+		}
 	}
 	
 	public void bringRank() {
