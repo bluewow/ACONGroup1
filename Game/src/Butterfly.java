@@ -41,10 +41,9 @@ public class Butterfly {
          imgIndex = (imgIndex == 1) ? 0 : 1;
       }
 
+    
       x += vx;
       y += vy;
-      point.x = (int)(x+w/2);
-      point.y = (int)(y+h/2);
 
       if (((dy - 2 < y) && (y < dy + 2)) || ((dx - 2 < x) && (x < dx + 2))) {
          vy = 0;
@@ -52,9 +51,12 @@ public class Butterfly {
 
          move();
       }
+
       timeCount++;
-      if(timeCount>100){
+      if(timeCount>150){
          timeCount=0;
+         point.x = (int)(x+w/2);
+         point.y = (int)(y+h/2);
          return true;
       }
       
@@ -69,7 +71,6 @@ public class Butterfly {
       int h = (int) this.h;
 
       g2.drawImage(img, x, y, x + w, y + h, w * imgIndex, 0, (w * imgIndex) + w, 96, honeyBeeCanvas);
-      g2.drawRect((int)(x+w/2), (int)(y+h/2), 5, 5);
    }
 
    public void move() {
