@@ -80,7 +80,7 @@ public class Rank {
 		int winWidth = canvas.getWidth();
 		int winHeight = canvas.getHeight();
 		
-		int x = winWidth / 2 - 300 / 2 - 35;
+		int x = winWidth / 2 - 400 / 2 - 35;
 		int y = 415;
 		drawText(x, y, inputName, g, canvas);
 	}

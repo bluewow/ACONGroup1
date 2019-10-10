@@ -15,7 +15,7 @@ public class GameOver {
 	private static Image imgBtn = tk.getImage("res/GameOverBtnTemplet(195X65).png");
 	private static Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
 	private static int btnX = 145;
-	private static int btnY = 400;
+	private static int btnY = 420;
 	private static int btnW = 195;
 	private static int btnH = 65;
 	private static int btnSX = 0;
@@ -25,7 +25,7 @@ public class GameOver {
 	private static int titleW = 690;
 	private static int titleH = 200;
 	private static int titleSX = titleW * 2;
-	private static int titleSY = titleH;
+	private static int titleSY = 0;
 
 	private int winWidth;
 	private int winHeight;
@@ -61,7 +61,7 @@ public class GameOver {
 		g.fillRect(0, 0, winWidth, winHeight);
 
 		// 타이틀 그리기
-		g.drawImage(imgTitle, titleX, titleY, titleW, titleH, titleSX, titleSY, titleSX + titleW, titleSY + titleH,
+		g.drawImage(imgTitle, titleX, titleY, titleX+titleW, titleY+titleH, titleSX, titleSY, titleSX + titleW, titleSY + titleH,
 				canvas);
 
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
