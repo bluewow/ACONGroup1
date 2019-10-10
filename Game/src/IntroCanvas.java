@@ -91,7 +91,7 @@ public class IntroCanvas extends Canvas {
 		g2.drawImage(imgBack, 0, 0, this);
 		
 		// 타이틀 그리기
-		g2.drawImage(imgTitle, titleX, titleY, titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
+		g2.drawImage(imgTitle, titleX, titleY, titleX+titleW,titleY+titleH,sX,sY,sX+titleW,sY+titleH, this);
 		
 		// 버튼 그리기 (마우스 갖다 댔을 때 이미지 변화 포함)
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH)

@@ -82,7 +82,7 @@ public class Pause {
 			// 화면 어두워지기
 			g2.setColor(color);
 			g2.fillRect(0, 0, winWidth, winHeight);
-			g2.drawImage(pauseTitle,50,400,200+690,400+200,honeyBeeCanvas);
+			g2.drawImage(pauseTitle,50,100,50+690,100+200,690*3,0,690*4,200,honeyBeeCanvas);
 			
 			// 버튼 1개의 이미지 크기
 			int imgW = btnImg.getWidth(honeyBeeCanvas) / 3;
