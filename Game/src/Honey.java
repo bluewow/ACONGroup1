@@ -15,6 +15,7 @@ public class Honey {
 	private static Toolkit tk;
 	private boolean isEmpty;
 	private boolean sxChecker;
+	private boolean imageCheck;
 	
 	static {
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -34,18 +35,29 @@ public class Honey {
 		sx = 4 * w;
 		sxChecker = true;
 		endHoneyImage=60;
+		imageCheck = true;
+		
 	}
 	
 	public void update() { 
-		if (isEmpty) { 
-			timer++; 
-			if (timer >= 60 ) {
+		if (isEmpty) {
+			
+			if (imageCheck) {
+				sx = endHoneyImage +15;
+				imageCheck = false;
+				}
+				timer++;
+			
+			if (timer >= 120 ) {
 				sx += w; 
+				
 				if (sxChecker) {
 					sx = 0;
 					sxChecker= false;
 				}
-				timer = 0; // 
+				
+				timer = 0;
+				
 				if (sx == endHoneyImage) { 
 					isEmpty = false; 
 					sxChecker = true;
