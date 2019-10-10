@@ -29,7 +29,7 @@ public class IntroCanvas extends Canvas {
 
 
 	public IntroCanvas() {
-	
+		BgMusic.Sound("res/Title.wav", "Play");
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
