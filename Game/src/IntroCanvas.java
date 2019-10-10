@@ -37,9 +37,7 @@ public class IntroCanvas extends Canvas {
 				{	BgMusic.Sound("res/BtSelect.wav", "Play");
 					GameFrame.getInstance().honeyBeeChange();}
 				else if (e.getX() >= btnX && e.getX() <= btnX + btnW && e.getY() >= btnY + 200 && e.getY() <= btnY + 200 + btnH)
-				{	BgMusic.Sound("res/BtSelect.wav", "Play");
 				System.exit(0);
-				}
 			}
 		});
 		
@@ -47,33 +45,7 @@ public class IntroCanvas extends Canvas {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				getX = e.getX();
-				getY = e.getY();				
-				if (getX == btnX && getY >= btnY && getY <= btnY + btnH)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == btnX+btnW && getY >= btnY && getY <= btnY + btnH)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY+btnH && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				
-				if (getX == btnX && getY >= btnY+btnHGap && getY <= btnY + btnH + btnHGap)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == btnX+btnW && getY >= btnY+btnHGap && getY <= btnY + btnH + btnHGap)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY + btnHGap && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY+btnH + btnHGap && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				
-				if (getX == btnX && getY >= btnY+btnHGap*2 && getY <= btnY + btnH + btnHGap*2)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getX == btnX+btnW && getY >= btnY+btnHGap*2 && getY <= btnY + btnH + btnHGap*2)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY + btnHGap*2 && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
-				if (getY == btnY+btnH + btnHGap*2 && getX >= btnX && getX <= btnX + btnW)
-					BgMusic.Sound("res/BtOn.wav", "Play");
+				getY = e.getY();
 			}
 		});
 	}
