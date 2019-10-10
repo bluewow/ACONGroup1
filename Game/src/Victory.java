@@ -8,6 +8,7 @@ public class Victory {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image imgBtn = tk.getImage("res/VictoryBtnTemplet(195X65).png");
 	private static Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
+	private static Image imgRank = tk.getImage("res/InputTemplet(500X100).png");	
 	private Rank rank;
 	private static int btnX = 145;
 	private static int btnY = 600;
@@ -55,11 +56,19 @@ public class Victory {
 		
 		if(!viewButton) {
 			// 이름 텍스트 박스
-			g.setColor(Color.white);
-			g.fillRect(winWidth / 2 - 300 / 2, 400, 300, 50);
-		
-			g.setColor(Color.black);
-			g.drawRect(winWidth / 2 - 300 / 2, 400, 300, 50);
+			g.drawImage(imgRank, winWidth / 2 - 300 / 2 - 50, 400, winWidth / 2 - 300 / 2 + 300 - 50, 400 + 50, 
+					0, 0, 300, 50, canvas);
+			
+			rank.drawName(g, canvas);
+			
+			// 이름 입력 버튼
+			if (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 100 - 50
+					&& getY >= 400 && getY <= 400 + 50)
+				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 100 - 50, 400 + 50, 
+						400, 0, 500, 50, canvas);
+			else
+				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 100 - 50, 400 + 50, 
+						300, 0, 400, 50, canvas);
 		} else {
 			g.setColor(Color.white);
 			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
@@ -99,6 +108,11 @@ public class Victory {
 		// 타이틀로
 		if (getX >= btnX + btnW + 90 && getX <= btnX + btnW * 2 + 90 && getY >= btnY && getY <= btnY + btnH)
 			stopButton = true;
+		
+		// 랭킹입력
+		if  (getX >= winWidth / 2 + 300 / 2 + 20 && getX <= winWidth / 2 + 300 / 2 + 20 + 100 
+				&& getY >= 400 && getY <= 400 + 50)
+			System.out.println("ddd");
 	}
 
 	public boolean getViewButton() {
@@ -107,5 +121,9 @@ public class Victory {
 
 	public boolean getStopButton() {
 		return stopButton;
+	}
+	
+	public void inputName(int backInput, char input) {
+		rank.setInputName(backInput, input);
 	}
 }

@@ -32,7 +32,7 @@ public class Rank {
 		name = new String[5];
 		score = new String[5];
 		time = new String[5];
-		
+		inputName = "";
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			connection = DriverManager.getConnection(url, "ACORN","newlec"); 
@@ -49,24 +49,39 @@ public class Rank {
 		int winHeight = canvas.getHeight();
 		
 		// 이름, 점수, 시간 출력
-		drawText(winWidth / 2 - 600 / 2, 150, "Name", g, canvas);
-		drawText(winWidth / 2 - 600 / 2 + 250, 150, "Score", g, canvas);
-		drawText(winWidth / 2 - 600 / 2 + 480, 150, "Time", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 10, 150, "Rank", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 200, 150, "Name", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 420, 150, "Score", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 520, 150, "Time", g, canvas);
+				
+		for(int i = 0; i < name.length; i++) {
+			if(name[i] != null)
+				drawText(winWidth / 2 - 600 / 2 + 30, 200 + i * 50, Integer.toString(i + 1), g, canvas);
+		}
 		
 		for(int i = 0; i < name.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2, 200 + i * 50, name[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 100, 200 + i * 50, name[i], g, canvas);
 		}
 
-		for(int i = 0; i < name.length; i++) {
+		for(int i = 0; i < score.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 250, 200 + i * 50, score[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 435, 200 + i * 50, score[i], g, canvas);
 		}
 		
-		for(int i = 0; i < name.length; i++) {
+		for(int i = 0; i < time.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 480, 200 + i * 50, time[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 535, 200 + i * 50, time[i], g, canvas);
 		}
+	}
+	
+	public void drawName(Graphics g, HoneyBeeCanvas canvas) {
+		int winWidth = canvas.getWidth();
+		int winHeight = canvas.getHeight();
+		
+		int x = winWidth / 2 - 300 / 2 - 35;
+		int y = 415;
+		drawText(x, y, inputName, g, canvas);
 	}
 	
 	public void bringRank() {
@@ -116,10 +131,20 @@ public class Rank {
 			}
 
 			g.drawImage(img, 
-					tx + i * charW, ty,
-					tx + charW + i * charW, ty + charH,
+					tx + i * (charW * 1/2), ty,
+					tx + charW * 1 / 2+ i * (charW* 1/2), ty + (charH * 1 / 2),
 					charW * (index % 26), charH * (index / 26),
 					charW + charW * (index % 26), charH + charH * (index / 26), canvas);
+		}
+		
+	}
+	public void setInputName(int backInput, char input) {
+		// 백스페이스
+		if(backInput == 8 && inputName.length() != 0)
+			inputName = inputName.substring(0, inputName.length() - 1);
+		else {
+			if(inputName.length()<=15)
+				inputName += input;
 		}
 	}
 }
