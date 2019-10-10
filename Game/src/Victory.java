@@ -9,6 +9,7 @@ public class Victory {
 	private static Image imgBtn = tk.getImage("res/VictoryBtnTemplet(195X65).png");
 	private static Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
 	private static Image imgRank = tk.getImage("res/InputTemplet(500X100).png");	
+	private static Image imgRankBack = tk.getImage("res/RankBack(620X430).png");	
 	private Rank rank;
 	private static int btnX = 145;
 	private static int btnY = 600;
@@ -70,11 +71,12 @@ public class Victory {
 				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 100 - 50, 400 + 50, 
 						300, 0, 400, 50, canvas);
 		} else {
-			g.setColor(Color.white);
-			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
-			g.setColor(Color.black);
-			g.drawRect(winWidth / 2 - 600 / 2, 150, 600, 400);
-
+//			g.setColor(Color.white);
+//			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
+//			g.setColor(Color.black);
+//			g.drawRect(winWidth / 2 - 600 / 2, 150, 600, 400);
+			g.drawImage(imgRankBack, winWidth / 2 - 630 / 2, 150, 
+					winWidth / 2 + 630 / 2, 150 + 430, 0, 0, 620, 430, canvas);
 			// rank 출력
 			rank.drawRank(g, canvas);
 		}
