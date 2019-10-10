@@ -49,29 +49,30 @@ public class Rank {
 		int winHeight = canvas.getHeight();
 		
 		// 이름, 점수, 시간 출력
-		drawText(winWidth / 2 - 600 / 2 + 10, 150, "Rank", g, canvas);
-		drawText(winWidth / 2 - 600 / 2 + 200, 150, "Name", g, canvas);
-		drawText(winWidth / 2 - 600 / 2 + 420, 150, "Score", g, canvas);
-		drawText(winWidth / 2 - 600 / 2 + 520, 150, "Time", g, canvas);
-				
-		for(int i = 0; i < name.length; i++) {
-			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 30, 200 + i * 50, Integer.toString(i + 1), g, canvas);
-		}
+		drawText(winWidth / 2 - 600 / 2 + 2, 160, "Rank", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 220, 160, "Name", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 425, 160, "Score", g, canvas);
+		drawText(winWidth / 2 - 600 / 2 + 530, 160, "Time", g, canvas);
 		
+		// 랭킹
 		for(int i = 0; i < name.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 100, 200 + i * 50, name[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 15, 215 + i * 52, Integer.toString(i + 1), g, canvas);
 		}
-
+		// 이름
+		for(int i = 0; i < name.length; i++) {
+			if(name[i] != null)
+				drawText(winWidth / 2 - 600 / 2 + 90, 215 + i * 52, name[i], g, canvas);
+		}
+		// 점수
 		for(int i = 0; i < score.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 435, 200 + i * 50, score[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 440, 215 + i * 52, score[i], g, canvas);
 		}
-		
+		// 시간
 		for(int i = 0; i < time.length; i++) {
 			if(name[i] != null)
-				drawText(winWidth / 2 - 600 / 2 + 535, 200 + i * 50, time[i], g, canvas);
+				drawText(winWidth / 2 - 600 / 2 + 540, 215 + i * 52, time[i], g, canvas);
 		}
 	}
 	
@@ -142,7 +143,7 @@ public class Rank {
 		// 백스페이스
 		if(backInput == 8 && inputName.length() != 0)
 			inputName = inputName.substring(0, inputName.length() - 1);
-		else {
+		else if (backInput >= 65 && backInput <= 90 || backInput >= 48 && backInput <= 57) {
 			if(inputName.length()<=15)
 				inputName += input;
 		}
