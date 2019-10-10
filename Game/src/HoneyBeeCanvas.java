@@ -47,9 +47,9 @@ public class HoneyBeeCanvas extends Canvas {
 		yBeeStartPos = bottle.beePosY(yBeeStartPos);
 		bee = new Bee(xBeeStartPos, yBeeStartPos);
 		spaceHitCnt = 0;
-
 		running = false;
-
+	
+		
 		bee.addBeeListener(new ArriveListener() {
 			@Override
 			public void arrivedInFlower(Point[] leg) {
@@ -200,14 +200,18 @@ public class HoneyBeeCanvas extends Canvas {
 		running = true;
 
 		BgmMain.Play("Loop");
-
+		Point[] point = new Point[1];
+		point[0] = new Point();
+		
 		new Thread(() -> {
 			while (running) {
 				if (!pause.getPauseMode()) {
 					try {
 						bg.update();
 						flower.flowerUpdate();
-						butterfly.update();
+						if(butterfly.update(point[0])) {
+							flower.putHoney(point);
+						}
 						timeBee.update();
 						bee.update();
 						score.update(bottle);
