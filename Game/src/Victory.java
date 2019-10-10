@@ -10,6 +10,7 @@ public class Victory {
 	private static Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
 	private static Image imgRank = tk.getImage("res/InputTemplet(500X100).png");	
 	private static Image imgRankBack = tk.getImage("res/RankBack(620X430).png");	
+	private static Image ment = tk.getImage("res/mentNicname(270X40).png");	
 	private Rank rank;
 	private static int btnX = 145;
 	private static int btnY = 600;
@@ -31,6 +32,7 @@ public class Victory {
 	private boolean stopButton;
 	private boolean viewButton;
 	private boolean once;
+	private boolean viewMent;
 	
 	public Victory() {
 		rank = new Rank();
@@ -39,6 +41,7 @@ public class Victory {
 		stopButton = false;
 		viewButton = false;
 		once = true;
+		viewMent = false;
 	}
 	
 	public void update(int score, int time) {
@@ -65,18 +68,23 @@ public class Victory {
 		if(!viewButton) {
 			if(once) {
 				// 이름 텍스트 박스
-				g.drawImage(imgRank, winWidth / 2 - 300 / 2 - 50, 400, winWidth / 2 - 300 / 2 + 300 - 50, 400 + 50, 
+				g.drawImage(imgRank, winWidth / 2 - 400 / 2 - 50, 400, winWidth / 2 - 400 / 2 + 300 - 50, 400 + 50, 
 						0, 0, 300, 50, canvas);
 				
+				// 닉네임을 입력하세요
+				if (!viewMent)
+					g.drawImage(ment,200,407,200+270,407+40,0, 0, 270, 40 , canvas);
+				
+				// 랭킹 이름 
 				rank.drawName(g, canvas);
 				
 				// 이름 입력 버튼
-				if (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 50
+				if (getX >= winWidth / 2 + 370 / 2 - 50 && getX <= winWidth / 2 + 370 / 2 + 100 - 50
 						&& getY >= 400 && getY <= 400 + 50)
-					g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 50, 400 + 50, 
+					g.drawImage(imgRank, winWidth / 2 + 370 / 2 - 50, 400, winWidth / 2 + 370 / 2 + 100 - 50, 400 + 50, 
 							400, 0, 500, 50, canvas);
 				else
-					g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 50, 400 + 50, 
+					g.drawImage(imgRank, winWidth / 2 + 370 / 2 - 50, 400, winWidth / 2 + 370 / 2 + 100 - 50, 400 + 50, 
 							300, 0, 400, 50, canvas);
 			}
 		} else {
@@ -121,13 +129,15 @@ public class Victory {
 			stopButton = true;
 		
 		// 랭킹입력
-		if  (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 100 + 50 
+		if  (getX >= winWidth / 2 + 370 / 2 - 50 && getX <= winWidth / 2 + 370 / 2 + 100 - 50 
 				&& getY >= 400 && getY <= 400 + 50 && once) {
 			if (rank.getInputName().length() == 0)
 				return;
+		
 			rank.storeRank();
 			once = false;
 		}
+
 	}
 
 	public boolean getViewButton() {
@@ -140,5 +150,7 @@ public class Victory {
 	
 	public void inputName(int backInput, char input) {
 		rank.setInputName(backInput, input);
+		viewMent = true;
+		
 	}
 }
