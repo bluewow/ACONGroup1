@@ -213,7 +213,8 @@ public class HoneyBeeCanvas extends Canvas {
 						score.update(bottle);
 						barX.update();
 						barY.update();
-
+						victory.update(score.getGetScore(), timeBee.getTime());
+						
 						Thread.sleep(16);
 					} catch (InterruptedException e) {
 						e.printStackTrace();

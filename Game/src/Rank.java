@@ -13,7 +13,7 @@ public class Rank {
 	private static Image img = tk.getImage("res/Font.png");
 	private String url = "jdbc:oracle:thin:@192.168.0.3:1521/xepdb1";
 //	private String url = "jdbc:oracle:thin:@localhost:1521/orcl";
-	private String sql = "select * from HONEYBEE order by SCORE, TIME desc";
+	private String sql = "select * from HONEYBEE order by SCORE, TIME asc";
 	private String sql2 = "insert into HONEYBEE(NAME, SCORE, TIME) values(?, ?, ?)";
 	private Connection connection;
 	private Statement statement;
@@ -21,18 +21,21 @@ public class Rank {
 	private ResultSet resultSet;
 	
 	private String inputName;
-	private String inputScore;
-	private String inputTime;
+	private int inputScore;
+	private int inputTime;
 	
 	private String[] name;
 	private String[] score;
 	private String[] time;
+	private boolean once;
 	
 	public Rank() {
 		name = new String[5];
 		score = new String[5];
 		time = new String[5];
 		inputName = "";
+		once = true;
+		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
 			connection = DriverManager.getConnection(url, "ACORN","newlec"); 
@@ -94,7 +97,6 @@ public class Rank {
 				name[i] = resultSet.getString("NAME");
 				score[i] = resultSet.getString("SCORE");
 				time[i] = resultSet.getString("TIME");
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -102,14 +104,17 @@ public class Rank {
 	}
 	
 	public void storeRank() {
-		try {
-			pstatement = connection.prepareStatement(sql2);
-			pstatement.setString(1, inputName);
-			pstatement.setInt(2, Integer.parseInt(inputScore));
-			pstatement.setInt(3, Integer.parseInt(inputTime));
-			pstatement.executeUpdate(sql2);
-		} catch (SQLException e) {
-			e.printStackTrace();
+		if(once) {
+			try {
+				pstatement = connection.prepareStatement(sql2);
+				pstatement.setString(1, inputName);
+				pstatement.setInt(2, inputScore);
+				pstatement.setInt(3, inputTime);
+				pstatement.executeUpdate();
+				once = false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -147,5 +152,13 @@ public class Rank {
 			if(inputName.length()<=15)
 				inputName += input;
 		}
+	}
+	
+	public void setInputScore(int score) {
+		inputScore = score;
+	}
+
+	public void setInputTime(int time) {
+		inputTime = time;
 	}
 }

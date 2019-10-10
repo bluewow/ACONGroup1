@@ -38,6 +38,11 @@ public class Victory {
 		stopButton = false;
 		viewButton = false;
 	}
+	
+	public void update(int score, int time) {
+		rank.setInputScore(score);
+		rank.setInputTime(time);
+	}
 
 	public void draw(Graphics g, HoneyBeeCanvas canvas) {
 		victoryMode = true;
@@ -63,12 +68,12 @@ public class Victory {
 			rank.drawName(g, canvas);
 			
 			// 이름 입력 버튼
-			if (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 100 - 50
+			if (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 50
 					&& getY >= 400 && getY <= 400 + 50)
-				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 100 - 50, 400 + 50, 
+				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 50, 400 + 50, 
 						400, 0, 500, 50, canvas);
 			else
-				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 100 - 50, 400 + 50, 
+				g.drawImage(imgRank, winWidth / 2 + 300 / 2 - 50, 400, winWidth / 2 + 300 / 2 + 50, 400 + 50, 
 						300, 0, 400, 50, canvas);
 		} else {
 //			g.setColor(Color.white);
@@ -112,9 +117,10 @@ public class Victory {
 			stopButton = true;
 		
 		// 랭킹입력
-		if  (getX >= winWidth / 2 + 300 / 2 + 20 && getX <= winWidth / 2 + 300 / 2 + 20 + 100 
-				&& getY >= 400 && getY <= 400 + 50)
-			System.out.println("ddd");
+		if  (getX >= winWidth / 2 + 300 / 2 - 50 && getX <= winWidth / 2 + 300 / 2 + 100 + 50 
+				&& getY >= 400 && getY <= 400 + 50) {
+			rank.storeRank();
+		}
 	}
 
 	public boolean getViewButton() {
