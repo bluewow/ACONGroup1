@@ -7,19 +7,20 @@ import java.awt.event.MouseEvent;
 
 public class IntroCanvas extends Canvas {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
+	private Image imgBack = tk.getImage("res/introBack.png");
 	private Image imgTitle = tk.getImage("res/TitleTemplet(690X200).png");
 	private Image imgBefore = tk.getImage("res/IntroBeforeBtnTemplet(255X85).png");
 	private Image imgAfter = tk.getImage("res/IntroAfterBtnTemplet(255X85).png");
 	
+	private static int titleX = 50;
+	private static int titleY = 200;
+	private static int titleW = 690;
+	private static int titleH = 200;
 	private static int btnX = (800-255)/2;
 	private static int btnY = 400;
 	private static int btnW = 255;
 	private static int btnH = 85;
 	private static int btnHGap = 100;
-	private static int titleX = 50;
-	private static int titleY = 100;
-	private static int titleW = 690;
-	private static int titleH = 200;
 	private static int sX = 0;
 	private static int sY = 0;
 
@@ -84,8 +85,11 @@ public class IntroCanvas extends Canvas {
 	
 	@Override
 	public void paint(Graphics g) {
+		// 배경 그리기
+		g.drawImage(imgBack, 0, 0, this);
+		
 		// 타이틀 그리기
-		g.drawImage(imgTitle, titleX, titleY,titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
+		g.drawImage(imgTitle, titleX, titleY, titleW,titleH,sX,sY,sX+titleW,sY+titleH, this);
 		
 		// 버튼 그리기 (마우스 갖다 댔을 때 이미지 변화 포함)
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH)
