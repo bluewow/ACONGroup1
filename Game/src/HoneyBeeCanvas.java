@@ -169,10 +169,10 @@ public class HoneyBeeCanvas extends Canvas {
 
 		// 벌의 목적지를 빨간 점으로 표시
 		// 2번 스페이스바를 누를 때마다 나타난다. 시작 시 나타나지않는다.
-		if (spaceHitCnt == 2) {
-			g2.setColor(Color.RED);
-			g2.fillOval(barX.getPos() - 10 / 2, barY.getPos() - 10 / 2, 10, 10);
-		}
+//		if (spaceHitCnt == 2) {
+//			g2.setColor(Color.RED);
+//			g2.fillOval(barX.getPos() - 10 / 2, barY.getPos() - 10 / 2, 10, 10);
+//		}
 		
 		bee.draw(g2, this);
 
