@@ -26,7 +26,7 @@ public class IntroduceCanvas extends Canvas{
       
       if(introducemode) {      
            g2.setColor(color);
-            g2.drawImage(img,-10,-20,800,800,this);
+            g2.drawImage(img,0,0,800,800,0,0,815,843,this);
           }
       
       }

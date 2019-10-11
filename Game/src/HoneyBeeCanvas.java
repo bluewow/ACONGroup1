@@ -91,6 +91,7 @@ public class HoneyBeeCanvas extends Canvas {
 					}
 				}
 				
+				
 				if(victory.getVictoryMode() && !victory.getViewButton())
 					victory.inputName(e.getKeyCode(), e.getKeyChar());
 			}
