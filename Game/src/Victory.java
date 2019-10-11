@@ -87,16 +87,17 @@ public class Victory {
 				else
 					g.drawImage(imgRank, winWidth / 2 + 370 / 2 - 50, 400, winWidth / 2 + 370 / 2 + 100 - 50, 400 + 50, 
 							300, 0, 400, 50, canvas);
-			} else {
+			} 
+		}
+		else {
 //			g.setColor(Color.white);
 //			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);
 //			g.setColor(Color.black);
 //			g.drawRect(winWidth / 2 - 600 / 2, 150, 600, 400);
-				g.drawImage(imgRankBack, winWidth / 2 - 630 / 2, 150, 
-						winWidth / 2 + 630 / 2, 150 + 430, 0, 0, 620, 430, canvas);
-				// rank 출력
-				rank.drawRank(g, canvas);
-			}
+			g.drawImage(imgRankBack, winWidth / 2 - 630 / 2, 150, 
+					winWidth / 2 + 630 / 2, 150 + 430, 0, 0, 620, 430, canvas);
+			// rank 출력
+			rank.drawRank(g, canvas);
 		}
 		
 		// 마우스가 버튼 위에 올라올 때 이미지 변화
@@ -119,7 +120,7 @@ public class Victory {
 	}
 
 	public void clickButton(int getX, int getY) {
-		// 다시하기
+		// 랭킹보기
 		if (getX >= btnX && getX <= btnX + btnW && getY >= btnY && getY <= btnY + btnH) {
 			viewButton = true;
 			rank.bringRank();
