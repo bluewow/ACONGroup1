@@ -156,6 +156,10 @@ public class Rank {
 		}
 	}
 	
+	public String getInputName() {
+		return inputName;
+	}
+	
 	public void setInputScore(int score) {
 		inputScore = score;
 	}
