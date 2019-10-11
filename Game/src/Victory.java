@@ -74,6 +74,7 @@ public class Victory {
 				// 닉네임을 입력하세요
 				if (!viewMent) {
 					g.drawImage(ment,150,413,150+270,413+30,0, 10, 270, 40 , canvas);
+				}
 				
 				// 랭킹 이름 
 				rank.drawName(g, canvas);
@@ -86,7 +87,6 @@ public class Victory {
 				else
 					g.drawImage(imgRank, winWidth / 2 + 370 / 2 - 50, 400, winWidth / 2 + 370 / 2 + 100 - 50, 400 + 50, 
 							300, 0, 400, 50, canvas);
-			}
 		} else {
 //			g.setColor(Color.white);
 //			g.fillRect(winWidth / 2 - 600 / 2, 150, 600, 400);

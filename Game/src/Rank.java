@@ -146,6 +146,7 @@ public class Rank {
 		}
 		
 	}
+	
 	public void setInputName(int backInput, char input) {
 		// 백스페이스
 		if(backInput == 8 && inputName.length() != 0)
